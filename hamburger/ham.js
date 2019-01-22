@@ -29,9 +29,7 @@ Hamburger.prototype.addTopping = function (topping) {
     } else {
         alert("Error");
     }
-
     toppings.push(this.topping);
-    return toppings;
 };
 
 
@@ -43,7 +41,6 @@ Hamburger.prototype.calculatePrice = function () {
         })
     }
     alert(price);
-    return price;
 };
 
 Hamburger.prototype.calculateCalories = function () {
@@ -54,7 +51,6 @@ Hamburger.prototype.calculateCalories = function () {
         })
     }
     alert(calories);
-    return calories;
 };
 
 
