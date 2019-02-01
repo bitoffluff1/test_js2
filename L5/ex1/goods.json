@@ -1,0 +1,56 @@
+{
+  "goods": [
+    {
+      "id": 1,
+      "name": "Яблоко",
+      "price": 100,
+      "category": "fruits"
+    },
+    {
+      "id": 2,
+      "name": "Арбуз",
+      "price": 150,
+      "category": "fruits"
+    },
+    {
+      "id": 3,
+      "name": "Orange",
+      "price": 120,
+      "category": "fruits"
+    },
+    {
+      "id": 4,
+      "name": "Potato",
+      "price": 40,
+      "category": "vegetables"
+    },
+    {
+      "id": 5,
+      "name": "Tomato",
+      "price": 80,
+      "category": "vegetables"
+    },
+    {
+      "id": 6,
+      "name": "Cucumber",
+      "price": 110,
+      "category": "vegetables"
+    }
+  ],
+  "cart": [
+    {
+      "id": "1",
+      "name": "Яблоко",
+      "price": "100",
+      "category": "fruits",
+      "quantity": "1"
+    },
+    {
+      "id": "2",
+      "name": "Арбуз",
+      "price": "150",
+      "category": "fruits",
+      "quantity": "1"
+    }
+  ]
+}
