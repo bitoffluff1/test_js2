@@ -1,0 +1,183 @@
+@import "mixins"
+
+.row-header
+  margin-top: 90px
+
+.row
+  display: flex
+  border-bottom: 1px solid #eaeaea
+  padding-bottom: 20px
+
+.col
+  flex-grow: 1
+  flex-basis: 118px
+  display: flex
+  justify-content: center
+  align-items: center
+
+.col-1
+  flex-grow: 2
+  flex-basis: 550px
+
+.row-header__col
+  color: #222222
+  font-size: 13px
+  font-weight: 700
+  line-height: 20px
+  text-transform: uppercase
+
+.row_first
+  display: flex
+  justify-content: flex-start
+
+.row-header__last
+  display: flex
+  justify-content: flex-end
+
+.row-header__last_center
+  margin-right: 15px
+
+.col-1__product
+  margin-top: 22px
+  display: flex
+
+.col-1__text
+  margin-top: 13px
+  margin-left: 21px
+
+.shopping-cart-product-text
+  color: #222222
+  font-size: 13px
+  font-weight: 400
+  text-transform: uppercase
+  text-decoration: none
+  margin-bottom: 38px
+  display: block
+
+.shopping-cart-product-text-bottom
+  color: #6f6e6e
+  font-size: 13px
+  font-weight: 300
+
+.bold
+  color: #575757
+  font-weight: 400
+
+.input
+  width: 54px
+  border: 1px solid #eaeaea
+  background-color: #ffffff
+  text-align: center
+  height: 30px
+
+.shopping-cart-table-button
+  display: flex
+  justify-content: space-between
+  margin-top: 44px
+  margin-bottom: 63px
+
+.shopping-cart-forms
+  display: flex
+  justify-content: space-between
+
+.button-black
+  text-decoration: none
+  color: #4a4a4a
+  border: 1px solid #eaeaea
+  background-color: #ffffff
+  font-weight: 700
+  text-transform: uppercase
+  &:hover
+    box-shadow: 0 5px 8px #646464
+
+.shopping-cart-table-button_size
+  +size-button(50px, 39px, 14px)
+
+.shopping-cart-forms-text
+  color: #222222
+  font-size: 16px
+  font-weight: 700
+  text-transform: uppercase
+  margin-bottom: 22px
+
+.shopping-cart-forms-input
+  border: 1px solid #eaeaea
+  background-color: #ffffff
+  color: #4a4a4a
+  font-size: 13px
+  font-weight: 300
+  height: 45px
+  width: 355px
+  display: block
+  line-height: 45px
+  outline: none
+  margin-bottom: 20px
+  position: relative
+  padding-left: 18px
+  &:last-of-type
+    margin-bottom: 23px
+
+.shopping-cart-forms-input_width
+  width: 337px
+
+.shipping-address-link
+  margin-left: 18px
+  background-color: #ffffff
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.17)
+  z-index: 1
+  list-style-type: none
+  position: absolute
+  width: 355px
+
+.shopping-cart-forms-button_size
+  +size-button(35px, 15px, 11px)
+  padding-top: 12px
+  padding-bottom: 12px
+
+.shopping-cart-forms-p
+  margin-top: 6px
+  margin-bottom: 24px
+
+.proceed-to-checkout
+  background-color: #f5f3f3
+  padding: 40px
+  margin-bottom: 55px
+
+.proceed-to-checkout-text
+  border-bottom: 1px solid #eaeaea
+  display: flex
+  flex-direction: column
+  align-items: flex-end
+
+.proceed-to-checkout-text-top
+  color: #4a4a4a
+  font-size: 11px
+  font-weight: 400
+  text-transform: uppercase
+  margin-bottom: 14px
+
+.proceed-to-checkout-text-bottom
+  color: #222222
+  font-size: 16px
+  font-weight: 700
+  text-transform: uppercase
+  margin-bottom: 22px
+
+.button-pink
+  color: #ffffff
+  background-color: #f16d7f
+  text-decoration: none
+  display: block
+  &:hover
+    border: 1px solid #ef5b70
+    background-color: #ffffff
+    color: #ef5b70
+
+.proceed-to-checkout-button_size
+  font-weight: 700
+  text-transform: uppercase
+  margin-top: 17px
+  +size-button(50px, 42px, 16px)
+
+
+

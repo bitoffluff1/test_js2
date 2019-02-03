@@ -115,7 +115,7 @@ function sendRequst(url, callback) {
     }
 }
 
-sendRequst("http://localhost:3000/items" ,function (data) {
+sendRequst("http://localhost:3000/itemsMan" ,function (data) {
     data.forEach(function (item) {
 
         var p1 = new MenuItem("name-item", item.name, "p");

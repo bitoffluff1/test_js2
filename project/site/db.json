@@ -1,0 +1,108 @@
+{
+  "itemsFeatured": [
+    {
+      "image": "img/fetured-items1.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 1
+    },
+    {
+      "image": "img/fetured-items2.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 2
+    },
+    {
+      "image": "img/fetured-items3.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 3
+    },
+    {
+      "image": "img/fetured-items4.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 4
+    },
+    {
+      "image": "img/fetured-items5.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 5
+    },
+    {
+      "image": "img/fetured-items6.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 6
+    },
+    {
+      "image": "img/fetured-items7.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 7
+    },
+    {
+      "image": "img/fetured-items8.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 8
+    }
+  ],
+  "itemsMan": [
+    {
+      "image": "img/product-1.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 9
+    },
+    {
+      "image": "img/product-2.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 10
+    },
+    {
+      "image": "img/product-3.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 11
+    },
+    {
+      "image": "img/product-4.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 12
+    },
+    {
+      "image": "img/product-5.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 13
+    },
+    {
+      "image": "img/product-6.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 14
+    },
+    {
+      "image": "img/product-7.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 15
+    },
+    {
+      "image": "img/product-8.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 16
+    },
+    {
+      "image": "img/product-9.jpg",
+      "name": "Mango People T-shirt",
+      "price": "$52.00",
+      "id": 17
+    }
+  ]
+}

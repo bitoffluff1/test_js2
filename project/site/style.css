@@ -402,7 +402,7 @@ body {
   border-top: 1px solid #ececec;
   border-left: 1px solid #ececec; }
 
-.header-right:hover .cart-drop-box {
+.cart-box:hover .cart-drop-box {
   display: block; }
 
 .cart-product {
@@ -869,7 +869,7 @@ details[open] > .category {
 .advantages-1 {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 54px; }
+  margin-bottom: 30px; }
 
 .img-advantages-car {
   margin-right: 33px; }
@@ -1202,6 +1202,10 @@ details[open] > .category {
 
 .drop-menu {
   list-style-type: none; }
+
+.drop-menu_padding {
+  list-style-type: none;
+  padding-bottom: 15px; }
 
 .drop-link {
   color: #646464;
