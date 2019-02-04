@@ -5,7 +5,7 @@
 @import "shopping-cart"
 @import "checkout"
 @import "mixins"
-$pink:#f16d7f
+$pink: #f16d7f
 
 body
   font-family: 'Lato', sans-serif
@@ -26,6 +26,7 @@ body
   align-items: center
   margin-right: 37px
   transition: transform 0.2s
+
   &:hover
     transform: rotate(360deg)
 
@@ -235,7 +236,6 @@ body
   background-color: #ffffff
 
 
-
 .menu-link
   color: #222222
   font-size: 14px
@@ -272,7 +272,6 @@ body
   color: #222222
   font-weight: 700
   text-transform: uppercase
-
 
 
 .text-top-the-brand
@@ -755,11 +754,10 @@ details[open] > .category
 .text-button
   display: flex
   transition: transform 0.2s
-  &:hover
-    transform: scale(1.1,1.1) translateX(20px)
 
-.pink
-  color: #f16d7f
+  &:hover
+    transform: scale(1.1, 1.1) translateX(20px)
+
 
 
 .text-top-baner
@@ -900,6 +898,7 @@ details[open] > .category
   font-size: 14px
   font-weight: 700
   text-transform: uppercase
+
   &:hover
     color: $pink
 
@@ -976,7 +975,6 @@ details[open] > .category
   text-align: center
   display: block
   margin-right: 8px
-
 
 
 .icon:last-child
@@ -1104,17 +1102,11 @@ details[open] > .category
   margin-top: 58px
 
 
-.active
-  text-decoration: none
-  color: #f16d7f
-  font-size: 14px
-  font-weight: 700
-  text-transform: uppercase
+
 
 
 .breadcrumb-link
   line-height: 15px
-
 
 
 .category
@@ -1174,9 +1166,9 @@ details[open] > .category
   font-weight: 400
   line-height: 26px
   text-decoration: none
+
   &:hover
     color: $pink
-
 
 
 .trending-span
@@ -1435,6 +1427,7 @@ details[open] > .category
   justify-content: center
   margin-top: 28px
   width: 563px
+
   &:hover
     box-shadow: 0 5px 8px #646464
 
@@ -1479,4 +1472,31 @@ body
 .footer-bottom
   height: 100px
 
+.several-pages
+  border-radius: 3px
+  border: 1px solid #ebebeb
+  box-sizing: border-box
+  background-color: #ffffff
+  display: flex
 
+.page
+  color:  #c4c4c4
+  font-size: 16px
+  font-weight: 300
+  line-height: 44px
+  text-align: left
+  text-decoration: none
+  padding: 15px
+
+.page_none
+  list-style-type: none
+
+.active
+  text-decoration: none
+  color: #f16d7f
+  font-size: 14px
+  font-weight: 700
+  text-transform: uppercase
+
+.pink
+  color: $pink

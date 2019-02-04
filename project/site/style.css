@@ -974,9 +974,6 @@ details[open] > .category {
   .text-button:hover {
     transform: scale(1.1, 1.1) translateX(20px); }
 
-.pink {
-  color: #f16d7f; }
-
 .text-top-baner {
   color: #ffffff;
   font-size: 54px;
@@ -1269,13 +1266,6 @@ details[open] > .category {
   float: right;
   margin-right: 35px;
   margin-top: 58px; }
-
-.active {
-  text-decoration: none;
-  color: #f16d7f;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase; }
 
 .breadcrumb-link {
   line-height: 15px; }
@@ -1595,5 +1585,34 @@ body {
 
 .footer-bottom {
   height: 100px; }
+
+.several-pages {
+  border-radius: 3px;
+  border: 1px solid #ebebeb;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  display: flex; }
+
+.page {
+  color: #c4c4c4;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 44px;
+  text-align: left;
+  text-decoration: none;
+  padding: 15px; }
+
+.page_none {
+  list-style-type: none; }
+
+.active {
+  text-decoration: none;
+  color: #f16d7f;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase; }
+
+.pink {
+  color: #f16d7f; }
 
 /*# sourceMappingURL=style.css.map */

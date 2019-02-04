@@ -47,14 +47,14 @@ Menu.prototype.render = function () {
     return container;
 };
 
-function MenuItem(className, title, tagName) {
+function MenuItemProducts(className, title, tagName) {
     Container.call(this, className, tagName);
 
     this.title = title;
 }
 
-MenuItem.prototype = Object.create(Container.prototype);
-MenuItem.prototype.render = function () {
+MenuItemProducts.prototype = Object.create(Container.prototype);
+MenuItemProducts.prototype.render = function () {
     var container = Container.prototype.render.call(this);
 
     container.textContent = this.title;
@@ -115,11 +115,11 @@ function sendRequst(url, callback) {
     }
 }
 
-sendRequst("http://localhost:3000/itemsMan" ,function (data) {
+sendRequst("http://localhost:3000/items?category=featured" ,function (data) {
     data.forEach(function (item) {
 
-        var p1 = new MenuItem("name-item", item.name, "p");
-        var p2 = new MenuItem("pink-item", item.price, "p");
+        var p1 = new MenuItemProducts("name-item", item.name, "p");
+        var p2 = new MenuItemProducts("pink-item", item.price, "p");
         var div1 = new Submenu("item-text", [p1, p2], "div");
 
         var img1 = new MenuItemImg("", item.image, "fetured-items");
@@ -128,13 +128,12 @@ sendRequst("http://localhost:3000/itemsMan" ,function (data) {
         var div2 = new Submenu("fetured-item1", [a1], "div");
 
 
-        var img2 = new MenuItemImg("cart-white", "../img/cart-white.svg", "cart");
+        var img2 = new MenuItemImg("cart-white", "img/cart-white.svg", "cart");
         var a2 = new Submenu("add-to-card", [img2], "a", "Add to Cart", "#");
         var div3 = new Submenu("add", [a2], "div", "");
 
 
         var div = new Submenu("item", [div2, div3], "div");
-
 
         var $container = document.getElementsByClassName("fetured-items-box");
         $container[0].appendChild(div.render());
