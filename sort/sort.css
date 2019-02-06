@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 700px;
+    margin: 0 auto;
+}
+
+
+.arr {
+    border: 2px solid sandybrown;
+    display: flex;
+    margin-top: 100px;
+    padding: 20px;
+    justify-content: space-around;
+}
+
+.number_random {
+    border: 1px solid sandybrown;
+}
+
+.number_sort {
+    border: 1px solid darkolivegreen;
+}
+
+.number {
+    list-style-type: none;
+    padding: 10px;
+}
+
+.arr_random {
+    background-color: aliceblue;
+}
+
+.arr_sort {
+    background-color: cornsilk;
+}
+
+.red{
+    background-color: darkred;
+    color: white;
+    transition-property: background-color;
+    transition-duration: 3s;
+}
