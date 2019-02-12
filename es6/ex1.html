@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    "use strict";
+
+    function loop(times = 0, callback = null) {
+        if (typeof (callback) === "function") {
+            for (let i = 0; i < times; i++) {
+                callback();
+            }
+        }
+        console.log(a + b);
+    }
+
+    let a = 4;
+    let b = 3;
+    loop(4, function sum() {
+        a++;
+        return a + b
+    });
+    loop(4, 5);
+
+</script>
+</body>
+</html>

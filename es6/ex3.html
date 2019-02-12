@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    "use strict";
+
+    class Human {
+        constructor(name, age, dateOfBirth) {
+            typeof name === "string" ? this.name = name : console.log("Error");
+            typeof age === "number" ? this.age = age : console.log("Error");
+            typeof dateOfBirth === "string" ? this.dateOfBirth = dateOfBirth : console.log("Error");
+        }
+
+        displayInfo() {
+            return `${this.name} ${this.age} ${this.dateOfBirth}`;
+        }
+    }
+
+    class Employee extends Human {
+        constructor(name, age, dateOfBirth, salary, department) {
+            super(name, age, dateOfBirth);
+
+            typeof salary === "number" ? this.salary = salary : console.log("Error");
+            typeof department === "string" ? this.department = department : console.log("Error");
+        }
+
+        displayInfo() {
+            return super.displayInfo() + ` ${this.salary} ${this.department}`;
+        }
+    }
+
+    class Manager extends Employee {
+        constructor(name, age, dateOfBirth, salary, department) {
+            super(name, age, dateOfBirth, salary, department);
+            this.list = [];
+        }
+
+        addDeveloper(developer) {
+            this.list.push(developer);
+        }
+
+        deleteDeveloper(developer) {
+            this.list.splice(this.list.indexOf(developer), 1);
+        }
+    }
+
+    class Developer extends Employee {
+        constructor(name, age, dateOfBirth, salary, department, manager) {
+            super(name, age, dateOfBirth, salary, department);
+            this.manager = manager;
+        }
+
+        changeManager(manager) {
+            this.manager = manager;
+        }
+    }
+
+
+    let human = new Human("Михаил", 28, "15.10.1991");
+    let employee = new Employee("Николай", 31, "22.11.1988", 40, "frontend");
+    console.log(human.displayInfo());
+    console.log(employee.displayInfo());
+
+    let manager1 = new Manager("Александр", 35, "22.11.1984", 50, "frontend");
+    let manager2 = new Manager("Алексей", 30, "22.11.1989", 55, "backend");
+
+    let developer1 = new Developer("Антон", 32, "22.11.1987", 40, "frontend", manager2);
+    let developer2 = new Developer("Константин", 38, "22.11.1981", 44, "frontend", manager2);
+
+
+    manager1.addDeveloper(developer1);
+    manager1.addDeveloper(developer2);
+    console.log(manager1.list);
+    manager1.deleteDeveloper(developer1);
+    console.log(manager1.list);
+
+    developer1.changeManager(manager1);
+    console.log(developer1.manager);
+
+
+</script>
+
+</body>
+</html>

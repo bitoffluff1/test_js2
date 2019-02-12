@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    "use strict";
+
+    function calculateArea(figure, a, h) {
+        let area;
+
+        switch (figure) {
+            case "triangle":
+                area = h * a / 2;
+                break;
+            case "square":
+                area = a^2;
+                break;
+            case "circle":
+                area = Math.PI * a^2;
+                break;
+        }
+
+
+        let [, ...input] = arguments;
+        let obj = {figure, area, input};
+        return obj
+    }
+
+    calculateArea("triangle", 50, 40);
+    calculateArea("circle", 40);
+
+</script>
+
+</body>
+</html>
