@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    "use strict";
+
+    function* generator() {
+        let firstName = prompt("Введите ваше имя");
+        let lastName = prompt("Введите вашу фамилию");
+        let age = prompt("Сколько вам лет?");
+        yield {firstName, lastName, age};
+    }
+
+    let iterator = generator();
+    console.log(iterator.next().value);
+
+</script>
+</body>
+</html>
