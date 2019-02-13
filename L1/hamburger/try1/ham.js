@@ -1,13 +1,14 @@
 function Hamburger(size, stuffing) {
+    this._toppings = [];
     if (size === Hamburger.SIZE_SMALL || size === Hamburger.SIZE_LARGE) {
         this.size = size;
     } else {
-        alert("Error");
+        alert("Неправильный размер гамбургера");
     }
     if (stuffing === Hamburger.STUFFING_CHEESE || stuffing === Hamburger.STUFFING_SALAD || stuffing === Hamburger.STUFFING_POTATO) {
         this.stuffing = stuffing;
     } else {
-        alert("Error");
+        alert("Неправильно выбрана начинка");
     }
 }
 

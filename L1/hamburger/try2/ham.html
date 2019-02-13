@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            color: #46a05c;
+        }
+
+        .container {
+            width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        p span {
+            font-size: 12px;
+            color: gray;
+            font-weight: normal;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        #result {
+            font-size: 18px;
+            color: #0a1d6e;
+        }
+
+        #result span {
+            color: #3266a5;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #pre {
+            font-size: 18px;
+            color: #0a1d6e;
+        }
+        #pre span {
+            color: #3266a5;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Выбери габургер</h1>
+    <form action="#" method="get">
+        <p>
+            <label for="size">Размер: </label>
+            <select name="size" id="size">
+                <option value="1">Маленький - 50 руб, 20 ккал</option>
+                <option value="2">Большой - 100 руб, 40 ккал</option>
+            </select>
+        </p>
+        <p>
+            <label>Начинка: <input type="radio" name="stuffing" value="1"> Сыр <span>(10 руб, 20 ккал)</span></label>
+            <label><input type="radio" name="stuffing" value="2"> Салат <span>(20 руб, 5 ккал)</span></label>
+            <label><input type="radio" name="stuffing" value="3"> Картофель <span>(15 руб, 10 ккал)</span></label>
+        </p>
+        <p>
+            <label>Топпинги: <input type="checkbox" name="topping_mayo" value="1"> Майонез <span>(20 руб, 5 ккал)</span></label>
+            <label><input type="checkbox" name="topping_spice" value="2"> Специи <span>(15 руб)</span></label>
+        </p>
+        <p><input type="submit" value="Рассчитать"></p>
+        <p id="result"></p>
+        <p id="pre"></p>
+    </form>
+</div>
+
+<script src="ham.js"></script>
+</body>
+</html>
