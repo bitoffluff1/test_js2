@@ -43,7 +43,14 @@
       "name": "Арбуз",
       "price": "150",
       "category": "fruits",
-      "quantity": "2"
+      "quantity": "3"
+    },
+    {
+      "id": "5",
+      "name": "Tomato",
+      "price": "80",
+      "category": "vegetables",
+      "quantity": "1"
     }
   ]
 }

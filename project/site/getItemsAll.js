@@ -58,7 +58,7 @@ MenuItemProducts.prototype.render = function () {
     var container = Container.prototype.render.call(this);
 
     if (typeof this.title === "number") {
-        container.textContent = "$" + this.title +".00";
+        container.textContent = "$" + this.title + ".00";
 
     } else {
         container.textContent = this.title;
@@ -159,6 +159,35 @@ sendRequst("http://localhost:3000/items", function (items) {
 
     });
 });
+
+(function ($) {
+    var $catalog = $(".fetured-items-box");
+
+    $catalog.on("click", ".add", function () {
+        var item = $(this).data();
+        if ($("#cart-" + item.id).length) {
+            var goodInCart = $("#cart-" + item.id).data();
+            $.ajax({
+                url: "http://localhost:3000/cart/" + item.id,
+                type: "PATCH",
+                dataType: "json",
+                data: {quantity: +goodInCart.quantity + 1},
+                success: function () {}
+            })
+        } else {
+            item.quantity = 1;
+            $.ajax({
+                url: "http://localhost:3000/cart",
+                type: "POST",
+                dataType: "json",
+                data: item,
+                success: function () {}
+            })
+        }
+    })
+
+})(jQuery);
+
 
 
 

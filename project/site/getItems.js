@@ -57,7 +57,12 @@ MenuItemProducts.prototype = Object.create(Container.prototype);
 MenuItemProducts.prototype.render = function () {
     var container = Container.prototype.render.call(this);
 
-    container.textContent = this.title;
+    if (typeof this.title === "number") {
+        container.textContent = "$" + this.title +".00";
+
+    } else {
+        container.textContent = this.title;
+    }
 
     return container;
 };
@@ -119,7 +124,7 @@ sendRequst("http://localhost:3000/items?category=featured" ,function (data) {
     data.forEach(function (item) {
 
         var p1 = new MenuItemProducts("name-item", item.name, "p");
-        var p2 = new MenuItemProducts("pink-item", item.price, "p");
+        var p2 = new MenuItemProducts("pink-item", +item.price, "p");
         var div1 = new Submenu("item-text", [p1, p2], "div");
 
         var img1 = new MenuItemImg("", item.image, "fetured-items");
