@@ -57,7 +57,12 @@ MenuItemProducts.prototype = Object.create(Container.prototype);
 MenuItemProducts.prototype.render = function () {
     var container = Container.prototype.render.call(this);
 
-    container.textContent = this.title;
+    if (typeof this.title === "number") {
+        container.textContent = "$" + this.title +".00";
+
+    } else {
+        container.textContent = this.title;
+    }
 
     return container;
 };
@@ -80,11 +85,12 @@ MenuItemImg.prototype.render = function () {
     return container;
 };
 
-function Submenu(className, items, tagName, title, link) {
+function Submenu(className, items, tagName, title, link, dataset) {
     Menu.call(this, className, items, tagName);
 
     this.title = title;
     this.link = link;
+    this.dataset = dataset;
 }
 
 Submenu.prototype = Object.create(Menu.prototype);
@@ -96,7 +102,13 @@ Submenu.prototype.render = function () {
         $span.textContent = this.title;
         container.appendChild($span);
     }
-
+    if (this.dataset) {
+        container.dataset.image = this.dataset.image;
+        container.dataset.name = this.dataset.name;
+        container.dataset.price = this.dataset.price;
+        container.dataset.category = this.dataset.category;
+        container.dataset.id = this.dataset.id;
+    }
     container.href = this.link;
 
     return container;
@@ -109,7 +121,7 @@ function sendRequst(url, callback) {
 
     if (shopParams.category) {
         url += "?category=" + shopParams.category;
-    }else{
+    } else {
         url += shopParams;
     }
 
@@ -123,11 +135,11 @@ function sendRequst(url, callback) {
     }
 }
 
-sendRequst("http://localhost:3000/items", function (data) {
-    data.forEach(function (item) {
+sendRequst("http://localhost:3000/items", function (items) {
+    items.forEach(function (item) {
 
         var p1 = new MenuItemProducts("name-item", item.name, "p");
-        var p2 = new MenuItemProducts("pink-item", item.price, "p");
+        var p2 = new MenuItemProducts("pink-item", +item.price, "p");
         var div1 = new Submenu("item-text", [p1, p2], "div");
 
         var img1 = new MenuItemImg("", item.image, "fetured-items");
@@ -137,9 +149,8 @@ sendRequst("http://localhost:3000/items", function (data) {
 
 
         var img2 = new MenuItemImg("cart-white", "img/cart-white.svg", "cart");
-        var a2 = new Submenu("add-to-card", [img2], "a", "Add to Cart", "#");
-        var div3 = new Submenu("add", [a2], "div", "");
-
+        var a2 = new Submenu("add-to-card", [img2], "div", "Add to Cart", "");
+        var div3 = new Submenu("add", [a2], "div", "", "", item);
 
         var div = new Submenu("item", [div2, div3], "div");
 

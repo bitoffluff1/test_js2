@@ -39,18 +39,11 @@
   ],
   "cart": [
     {
-      "id": "1",
-      "name": "Яблоко",
-      "price": "100",
-      "category": "fruits",
-      "quantity": "1"
-    },
-    {
       "id": "2",
       "name": "Арбуз",
       "price": "150",
       "category": "fruits",
-      "quantity": "1"
+      "quantity": "2"
     }
   ]
 }
