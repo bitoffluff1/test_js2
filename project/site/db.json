@@ -183,22 +183,5 @@
       "id": 26
     }
   ],
-  "cart": [
-    {
-      "id": "1",
-      "category": "featured",
-      "price": "52.00",
-      "name": "Mango People T-shirt",
-      "image": "img/fetured-items1.jpg",
-      "quantity": "1"
-    },
-    {
-      "id": "2",
-      "category": "featured",
-      "price": "152.00",
-      "name": "Mango People T-shirt",
-      "image": "img/fetured-items2.jpg",
-      "quantity": "1"
-    }
-  ]
+  "cart": []
 }

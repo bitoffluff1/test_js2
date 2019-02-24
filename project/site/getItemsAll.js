@@ -164,28 +164,33 @@ sendRequst("http://localhost:3000/items", function (items) {
     var $catalog = $(".fetured-items-box");
 
     $catalog.on("click", ".add", function () {
-        var item = $(this).data();
-        if ($("#cart-" + item.id).length) {
-            var goodInCart = $("#cart-" + item.id).data();
-            $.ajax({
-                url: "http://localhost:3000/cart/" + item.id,
-                type: "PATCH",
-                dataType: "json",
-                data: {quantity: +goodInCart.quantity + 1},
-                success: function () {}
-            })
-        } else {
-            item.quantity = 1;
-            $.ajax({
-                url: "http://localhost:3000/cart",
-                type: "POST",
-                dataType: "json",
-                data: item,
-                success: function () {}
-            })
-        }
+        var good = $(this).data();
+        sendRequst("http://localhost:3000/cart", function (items) {
+            items.forEach(function (item, i) {
+                if (+item.id === good.id) {
+                    $.ajax({
+                        url: "http://localhost:3000/cart/" + item.id,
+                        type: "PATCH",
+                        dataType: "json",
+                        data: {quantity: +item.quantity + 1},
+                        success: function () {
+                        }
+                    });
+                }
+                if (i === items.length-1) {
+                    good.quantity = 1;
+                    $.ajax({
+                        url: "http://localhost:3000/cart",
+                        type: "POST",
+                        dataType: "json",
+                        data: good,
+                        success: function () {
+                        }
+                    })
+                }
+            });
+        });
     })
-
 })(jQuery);
 
 

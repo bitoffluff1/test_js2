@@ -76,6 +76,7 @@ MenuItemProducts.prototype.render = function () {
         container.dataset.price = this.dataset.price;
         container.dataset.category = this.dataset.category;
         container.dataset.id = this.dataset.id;
+        container.dataset.quantity = this.dataset.quantity;
     }
     if (this.id) {
         container.id = this.id;
@@ -189,15 +190,14 @@ function buildCart() {
     buildCart();
 
     $cart.on("click", ".fa-times-circle", function () {
-        var good = $(this).data();
-        var goodInCart = $("#cart-" + good.id).data();
 
+        var good = $(this).data();
         if (good.quantity > 1) {
             $.ajax({
                 url: "http://localhost:3000/cart/" + good.id,
                 type: "PATCH",
                 dataType: "json",
-                data: {quantity: +goodInCart.quantity - 1},
+                data: {quantity: +good.quantity - 1},
                 success: function () {
                     buildCart();
                 }
@@ -211,6 +211,7 @@ function buildCart() {
                 }
             })
         }
+
     });
 
 })(jQuery);

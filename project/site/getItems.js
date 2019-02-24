@@ -129,16 +129,10 @@ sendRequst("http://localhost:3000/items?category=featured" ,function (data) {
 
         var img1 = new MenuItemImg("", item.image, "fetured-items");
 
-        var a1 = new Submenu("fetured-item", [img1, div1], "a", "", "#");
+        var a1 = new Submenu("fetured-item", [img1, div1], "a", "", "single-page.html");
         var div2 = new Submenu("fetured-item1", [a1], "div");
 
-
-        var img2 = new MenuItemImg("cart-white", "img/cart-white.svg", "cart");
-        var a2 = new Submenu("add-to-card", [img2], "a", "Add to Cart", "#");
-        var div3 = new Submenu("add", [a2], "div", "");
-
-
-        var div = new Submenu("item", [div2, div3], "div");
+        var div = new Submenu("item", [div2], "div");
 
         var $container = document.getElementsByClassName("fetured-items-box");
         $container[0].appendChild(div.render());
