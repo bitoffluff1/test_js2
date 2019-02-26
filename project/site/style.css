@@ -828,6 +828,9 @@ details[open] > .category {
   position: relative;
   margin-bottom: 39px; }
 
+.itemAll:nth-child(3n-1):last-of-type {
+  margin-right: 285px; }
+
 .item:hover img {
   filter: brightness(50%); }
 
@@ -1605,6 +1608,10 @@ body {
   text-align: left;
   text-decoration: none;
   padding: 15px; }
+  .page:hover {
+    font-weight: 500;
+    font-size: 18px;
+    color: #f16d7f; }
 
 .page_none {
   list-style-type: none; }

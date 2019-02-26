@@ -582,10 +582,11 @@ details[open] > .category
   position: relative
   margin-bottom: 39px
 
+.itemAll:nth-child(3n-1):last-of-type
+  margin-right: 285px
 
 .item:hover img
   filter: brightness(50%)
-
 
 .item:hover
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.16)
@@ -757,7 +758,6 @@ details[open] > .category
 
   &:hover
     transform: scale(1.1, 1.1) translateX(20px)
-
 
 
 .text-top-baner
@@ -1100,9 +1100,6 @@ details[open] > .category
   float: right
   margin-right: 35px
   margin-top: 58px
-
-
-
 
 
 .breadcrumb-link
@@ -1480,7 +1477,7 @@ body
   display: flex
 
 .page
-  color:  #c4c4c4
+  color: #c4c4c4
   font-size: 16px
   font-weight: 300
   line-height: 44px
@@ -1488,12 +1485,18 @@ body
   text-decoration: none
   padding: 15px
 
+  &:hover
+    font-weight: 500
+    font-size: 18px
+    color: $pink
+
 .page_none
   list-style-type: none
 
+
 .active
   text-decoration: none
-  color: #f16d7f
+  color: $pink
   font-size: 14px
   font-weight: 700
   text-transform: uppercase
