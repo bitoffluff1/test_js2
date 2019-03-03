@@ -47,14 +47,12 @@ Menu.prototype.render = function () {
     return container;
 };
 
-function MenuItemProducts(className, title, tagName, link, dataset, id) {
+function MenuItemProducts(className, title, tagName, link, dataset) {
     Container.call(this, className, tagName);
 
     this.title = title;
     this.link = link;
     this.dataset = dataset;
-    this.id = id;
-
 }
 
 MenuItemProducts.prototype = Object.create(Container.prototype);
@@ -71,15 +69,8 @@ MenuItemProducts.prototype.render = function () {
         container.href = this.link;
     }
     if (this.dataset) {
-        container.dataset.image = this.dataset.image;
-        container.dataset.name = this.dataset.name;
-        container.dataset.price = this.dataset.price;
-        container.dataset.category = this.dataset.category;
         container.dataset.id = this.dataset.id;
         container.dataset.quantity = this.dataset.quantity;
-    }
-    if (this.id) {
-        container.id = this.id;
     }
 
     return container;
@@ -98,6 +89,30 @@ MenuItemImg.prototype.render = function () {
 
     container.alt = this.alt;
     container.src = this.link;
+
+    return container;
+};
+
+function MenuItemInput(className, tagName, value, type, min, dataset) {
+    Container.call(this, className, tagName);
+
+    this.value = value;
+    this.type = type;
+    this.min = min;
+    this.dataset = dataset;
+}
+
+MenuItemInput.prototype = Object.create(Container.prototype);
+MenuItemInput.prototype.render = function () {
+    var container = Container.prototype.render.call(this);
+
+    container.value = this.value;
+    container.type = this.type;
+    container.min = this.min;
+
+    container.dataset.id = this.dataset.id;
+    container.dataset.quantity = this.dataset.quantity;
+
 
     return container;
 };
@@ -123,6 +138,7 @@ Submenu.prototype.render = function () {
 
     return container;
 };
+
 
 function sendRequst(url, callback) {
     var xhr = new XMLHttpRequest();
@@ -159,7 +175,7 @@ function buildCart() {
 
             var div2 = new MenuItemProducts("col col-2", +item.price, "div");
 
-            var input = new MenuItemProducts("input", "", "input");
+            var input = new MenuItemInput("input", "input", item.quantity, "number", 1, item);
             var div3 = new Submenu("col col-3", [input], "div");
 
             var div4 = new MenuItemProducts("col col-4", "FREE", "div");
@@ -167,7 +183,7 @@ function buildCart() {
             var subTotal = +item.price * +item.quantity;
             var div5 = new MenuItemProducts("col col-4", subTotal, "div");
 
-            var i = new MenuItemProducts("fas fa-times-circle", "", "i", "", item, "cart-" + item.id);
+            var i = new MenuItemProducts("fas fa-times-circle", "", "i", "", item);
             var div6 = new Submenu("col col-6 row-header__last row-header__last_center", [i], "div");
 
             var div = new Submenu("row row-product", [div1, div2, div3, div4, div5, div6], "div");
@@ -177,9 +193,11 @@ function buildCart() {
             sum += subTotal;
         });
 
-        var $box = document.getElementsByClassName("proceed-to-checkout-text-bottom")[0];
+        var $box = document.getElementsByClassName("proceed-to-checkout-text")[0];
         var $sum = $box.getElementsByClassName("pink")[0];
+        var $sub = $box.getElementsByClassName("subtotal")[0];
         $sum.textContent = "$" + sum;
+        $sub.textContent = "$" + sum;
     });
 }
 
@@ -190,7 +208,6 @@ function buildCart() {
     buildCart();
 
     $cart.on("click", ".fa-times-circle", function () {
-
         var good = $(this).data();
         if (good.quantity > 1) {
             $.ajax({
@@ -211,7 +228,37 @@ function buildCart() {
                 }
             })
         }
-
     });
+
+    //при изменении кол-ва товара на станице
+    $cart.on("click", ".input", function () {
+        var good = $(this).data();
+        $.ajax({
+            url: "http://localhost:3000/cart/" + good.id,
+            type: "PATCH",
+            dataType: "json",
+            data: {quantity: $(this).val()},
+            success: function () {
+                buildCart();
+            }
+        })
+    });
+
+    //чистим послностью корзину
+    $(".container").on("click", "#clear-cart", function () {
+        event.preventDefault();
+
+        sendRequst("http://localhost:3000/cart", function (items) {
+            items.forEach(function (item) {
+                $.ajax({
+                    url: "http://localhost:3000/cart/" + item.id,
+                    type: "DELETE",
+                    success: function () {
+                        buildCart();
+                    }
+                })
+            })
+        })
+    })
 
 })(jQuery);

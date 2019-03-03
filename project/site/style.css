@@ -840,6 +840,10 @@ details[open] > .category {
 .item:hover .add {
   display: flex; }
 
+.image-mini-cart {
+  width: 72px;
+  height: 85px; }
+
 .add {
   position: absolute;
   top: 94px;
