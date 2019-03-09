@@ -184,7 +184,9 @@ function buildCart() {
             var div5 = new MenuItemProducts("col col-4", subTotal, "div");
 
             var i = new MenuItemProducts("fas fa-times-circle", "", "i", "", item);
-            var div6 = new Submenu("col col-6 row-header__last row-header__last_center", [i], "div");
+            var a3 = new Submenu("delete-cart-item", [i], "a", "", "#");
+
+            var div6 = new Submenu("col col-6 row-header__last row-header__last_center", [a3], "div");
 
             var div = new Submenu("row row-product", [div1, div2, div3, div4, div5, div6], "div");
 
@@ -203,11 +205,11 @@ function buildCart() {
 
 
 (function ($) {
-    var $cart = $(".cart");
-
     buildCart();
 
+    var $cart = $(".cart");
     $cart.on("click", ".fa-times-circle", function () {
+        event.preventDefault();
         var good = $(this).data();
         if (good.quantity > 1) {
             $.ajax({

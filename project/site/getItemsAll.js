@@ -164,7 +164,6 @@ sendRequst("http://localhost:3000/items", function (items) {
     });
 });
 
-
 function buildPaginator() {
     $.ajax({
         url: "http://localhost:3000/items",
@@ -216,12 +215,13 @@ function buildMiniCart() {
 
             var figcaption = new Submenu("text-cart-drop", [a1, div, p], "figcaption");
 
-            var img = new MenuItemImg("image-mini-cart", item.image, "item img", item);
+            var img = new MenuItemImg("image-mini-cart", item.image, "item img");
             var a2 = new Submenu("img-cart-product", [img], "a", "", "#");
 
             var del = new MenuItemProducts("fas fa-times-circle fa-times-circle__cart", "", "i");
+            var a3 = new Submenu("delete-cart-item", [del], "a", "", "#", item);
 
-            var figure = new Submenu("cart-product", [a2, figcaption, del], "figure");
+            var figure = new Submenu("cart-product", [a2, figcaption, a3], "figure");
 
             var subTotal = +item.price * +item.quantity;
             sum += subTotal;
@@ -251,9 +251,8 @@ function buildMiniCart() {
     buildPaginator();
     buildMiniCart();
 
+//добавление товара в json
     var $catalog = $(".fetured-items-box");
-
-
     $catalog.on("click", ".add", function () {
         event.preventDefault();
         var good = $(this).data();
@@ -288,6 +287,7 @@ function buildMiniCart() {
                     dataType: "json",
                     data: good,
                     success: function () {
+                        buildMiniCart();
                     }
                 })
             } else {
@@ -299,6 +299,7 @@ function buildMiniCart() {
                             dataType: "json",
                             data: {quantity: +item.quantity + 1},
                             success: function () {
+                                buildMiniCart();
                             }
                         });
                     }
@@ -310,16 +311,41 @@ function buildMiniCart() {
                             dataType: "json",
                             data: good,
                             success: function () {
+                                buildMiniCart();
                             }
                         })
                     }
                 });
             }
         });
-        buildMiniCart();
-
     });
 
+//удаления товара из мини-корзины
+    var $cart = $(".cart-drop-box");
+    $cart.on("click", ".delete-cart-item", function () {
+        event.preventDefault();
+        var good = $(this).data();
+        $.ajax({
+            url: "http://localhost:3000/cart/" + good.id,
+            type: "DELETE",
+            success: function () {
+                buildMiniCart();
+            }
+        })
+    });
+
+
+    $( ".slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [ 0, 300 ],
+        slide: function( event, ui ) {
+            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        }
+    });
+    $( "#amount" ).val( "$" + $( ".slider-range" ).slider( "values", 0 ) +
+        " - $" + $( ".slider-range" ).slider( "values", 1 ) );
 })(jQuery);
 
 
