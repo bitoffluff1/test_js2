@@ -1,0 +1,14 @@
+{
+  "left": {
+    "img": "url(img/sliderHot.jpg)",
+    "name": "FISHNET TABLE"
+  },
+  "center": {
+    "img": "url(img/slider.jpg)",
+    "name": "FISHNET CHAIR"
+  },
+  "right": {
+    "img": "url(img/sliderHot.jpg)",
+    "name": "FISHNET TABLE"
+  }
+}

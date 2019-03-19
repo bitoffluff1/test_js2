@@ -1,0 +1,12 @@
+[
+  {
+    "firstName": "Иванов",
+    "lastName": "Иван",
+    "age": 28
+  },
+  {
+    "firstName": "Петрова",
+    "lastName": "Юлия",
+    "age": 32
+  }
+]

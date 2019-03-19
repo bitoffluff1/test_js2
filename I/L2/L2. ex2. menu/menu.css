@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.menu {
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+}
+
+a{
+    color: #222222;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 13px 23px 20px;
+    display: block;
+}
+a:hover {
+    color: #f16d7f;
+}
+
+.navigation{
+    background-color: #e8e8e8;
+}
+
+.submenu{
+    list-style-type: none;
+    margin-left: 10px;
+}
+
+.inside{
+    margin-left: 15px;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .position{
+            width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .reviews_color{
+            background-color: lightgoldenrodyellow;
+        }
+        .add{
+            padding: 13px;
+            margin-left: 600px;
+        }
+        .review-box{
+            margin: 15px;
+            border-bottom: 1px solid darkslategrey;
+            padding-bottom: 10px;
+        }
+
+        p{
+            padding-bottom: 10px;
+        }
+        .button-approved{
+           padding: 5px;
+        }
+        .button-delete{
+            padding: 5px;
+        }
+        .green{
+            background-color:lightgreen;
+        }
+        .approvedReviews_color{
+            background-color: lightgrey;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="reviews_color">
+<div id="reviews" class="position"> </div>
+</div>
+
+<div class="approvedReviews_color">
+<div id="approvedReviews" class="position">
+</div>
+</div>
+
+<script src="reviews.js"></script>
+</body>
+</html>
