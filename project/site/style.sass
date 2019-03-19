@@ -80,7 +80,7 @@ body
   display: none
   top: 40px
   left: -17px
-  z-index: 1
+  z-index: 10
 
 
 .cart-drop-box:before
@@ -993,6 +993,7 @@ details[open] > .category
   display: none
   top: 50px
   left: -10px
+  z-index: 10
 
 
 .drop-box:before
@@ -1209,7 +1210,6 @@ details[open] > .category
   align-items: center
   margin-bottom: 48px
 
-
 .buttons-text
   border: 1px solid #ebebeb
   background-color: #ffffff
@@ -1220,18 +1220,13 @@ details[open] > .category
   padding-right: 15px
   height: 30px
   line-height: 30px
+  display: flex
 
 .drop-list-filter
-  position: relative
-  border-radius: 5px
   background-color: #ffffff
-  padding-left: 15px
-  padding-right: 15px
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.17)
-  z-index: 1
-  display: flex
-  flex-direction: column
-  left: -15px
+  padding-left: 5px
+  padding-right: 5px
+  list-style-type: none
 
 .text-drop-list-filter
   text-decoration: none
@@ -1239,7 +1234,6 @@ details[open] > .category
   color: #6f6e6e
   font-size: 14px
   font-weight: 400
-
 
 .sort-by
   margin-left: 20px

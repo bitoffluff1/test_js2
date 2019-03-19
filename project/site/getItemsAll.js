@@ -176,15 +176,17 @@ function buildPaginator() {
                 var value = params[i].split("=");
                 objectParams[value[0]] = value[1];
             }
+
             var pageNum = objectParams._page;
+            var limitNum = objectParams._limit;
 
             //создаем список страниц
-            var page = Math.ceil(items.length / 9);
+            var page = Math.ceil(items.length / limitNum);
             for (var j = 0; j < page; j++) {
                 var k = j + 1;
                 var a = (+pageNum === k) ?
-                    new MenuItemProducts("page pink", k, "a", "productAll.html?_page=" + k + "&_limit=9") :
-                    new MenuItemProducts("page", k, "a", "productAll.html?_page=" + k + "&_limit=9");
+                    new MenuItemProducts("page pink", k, "a", "productAll.html?_page=" + k + "&_limit=" + limitNum) :
+                    new MenuItemProducts("page", k, "a", "productAll.html?_page=" + k + "&_limit="+ limitNum);
 
                 var li = new Submenu("page_none", [a], "li");
 
@@ -346,6 +348,7 @@ function buildMiniCart() {
     });
     $( "#amount" ).val( "$" + $( ".slider-range" ).slider( "values", 0 ) +
         " - $" + $( ".slider-range" ).slider( "values", 1 ) );
+
 })(jQuery);
 
 
