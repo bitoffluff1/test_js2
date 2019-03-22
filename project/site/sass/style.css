@@ -554,7 +554,7 @@ body {
 
 .the-brand-back {
   height: 613px;
-  background-image: url(img/header.jpg);
+  background-image: url(../img/header.jpg);
   background-position: 5.4px -53px;
   display: flex;
   align-items: flex-start; }
@@ -720,7 +720,7 @@ details[open] > .category {
 .for-man {
   width: 560px;
   height: 516px;
-  background-image: url(img/for-men.jpg);
+  background-image: url(../img/for-men.jpg);
   padding-top: 26px; }
 
 .text-top-category {
@@ -735,13 +735,13 @@ details[open] > .category {
 .woman {
   width: 560px;
   height: 235px;
-  background-image: url(img/woman.jpg);
+  background-image: url(../img/woman.jpg);
   padding-top: 26px; }
 
 .accesories {
   width: 560px;
   height: 235px;
-  background-image: url(img/accesories.jpg);
+  background-image: url(../img/accesories.jpg);
   padding-top: 26px;
   background-position: 149px 1px;
   background-repeat: no-repeat; }
@@ -749,7 +749,7 @@ details[open] > .category {
 .kids {
   width: 560px;
   height: 516px;
-  background-image: url(img/kids.jpg);
+  background-image: url(../img/kids.jpg);
   padding-top: 26px; }
 
 .heading {
@@ -895,7 +895,7 @@ details[open] > .category {
   margin-right: 33px; }
 
 .comments {
-  background-image: url(img/comment.jpg);
+  background-image: url(../img/comment.jpg);
   background-repeat: no-repeat;
   background-position: center;
   margin-top: 97px; }
@@ -975,7 +975,7 @@ details[open] > .category {
   margin-bottom: 10px; }
 
 .baner-left {
-  background-image: url(img/Banner.jpg);
+  background-image: url(../img/Banner.jpg);
   background-repeat: no-repeat;
   display: flex; }
 
@@ -1262,7 +1262,7 @@ details[open] > .category {
 
 .img-drop-flex {
   margin-top: 22px;
-  background-image: url(img/drop-menu.jpg);
+  background-image: url(../img/drop-menu.jpg);
   width: 255px;
   height: 118px; }
 
@@ -1604,7 +1604,9 @@ body {
 .all {
   min-height: 100%;
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  min-width: 1150px;
+  margin: 0 auto; }
 
 .content {
   flex-grow: 1; }

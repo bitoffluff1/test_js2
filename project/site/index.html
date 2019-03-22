@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sass/style.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -12,7 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-    <script src="menu.js"></script>
+    <script src="js/menu.js"></script>
 </head>
 
 <body>
@@ -46,44 +46,7 @@
                     <div class="cart-box">
                         <a href="#"><img src="img/cart.svg" class="img-cart" alt="cart"></a>
                         <div class="cart-drop-box">
-                            <figure class="cart-product">
-                                <a href="#" class="img-cart-product"><img src="img/cart-product1.jpg" alt="product"></a>
-                                <figcaption class="text-cart-drop">
-                                    <a href="#" class="text-cart-drop-box">Rebox Zane</a>
-                                    <div class="block-star">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <p class="price-cart"> 1&nbsp;x $250</p>
-                                </figcaption>
-                                <i class="fas fa-times-circle fa-times-circle__cart"></i>
-                            </figure>
-                            <figure class="cart-product">
-                                <a href="#" class="img-cart-product"><img src="img/cart-product2.jpg" alt="product"></a>
-                                <figcaption class="text-cart-drop">
-                                    <a href="#" class="text-cart-drop-box">Rebox Zane</a>
-                                    <div class="block-star">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <p class="price-cart"> 1&nbsp;x $250</p>
-                                </figcaption>
-                                <i class="fas fa-times-circle fa-times-circle__cart"></i>
-                            </figure>
-                            <div class="total">
-                                <p class="price-total">TOTAL</p>
-                                <p class="price-total">$500.00</p>
-                            </div>
-                            <div class="button-cart"><a href="checkout.html" class="button-cart-text">Checkout</a></div>
-                            <div class="button-cart"><a href="shopping-cart.html" class="button-cart-text">Go&nbsp;to
-                                cart</a>
-                            </div>
+
                         </div>
                     </div>
                     <a href="#" class="button">My&nbsp;Account <i class="fas fa-caret-down"></i></a>
@@ -190,7 +153,7 @@
             <div class="fetured-items-box container">
 
             </div>
-            <div class="button-items"><a href="productAll.html?_page=1&_limit=9" class="button">Browse All Product <i
+            <div class="button-items"><a href="productAll.html?_page=1&_limit=9" class="button">Browse All Products <i
                     class="fas fa-long-arrow-alt-right"></i></a>
             </div>
 
@@ -259,7 +222,7 @@
 
         <footer class="footer-top container">
             <div class="footer-left-text">
-                <a class="logo-footer" href="#"><img class="img-logo" src="img/logo.png" alt="logo">BRAN <span
+                <a class="logo-footer" href="index.html"><img class="img-logo" src="img/logo.png" alt="logo">BRAN <span
                         class="pink-D">D</span></a>
                 <p class="footer-text-logo">Objectively transition extensive data rather than cross functional
                     solutions.
@@ -274,7 +237,7 @@
                 <div class="footer-menu">
                     <h4 class="footer-pink">COMPANY</h4>
                     <ul class="list-footer">
-                        <li><a class="footer-link" href="#">Home</a></li>
+                        <li><a class="footer-link" href="index.html">Home</a></li>
                         <li><a class="footer-link" href="#">Shop</a></li>
                         <li><a class="footer-link" href="#">About</a></li>
                         <li><a class="footer-link" href="#">How It&nbsp;Works</a></li>
@@ -297,8 +260,8 @@
                         <li><a class="footer-link" href="productAll.html?category=men">Men</a></li>
                         <li><a class="footer-link" href="productAll.html?category=women">Women</a></li>
                         <li><a class="footer-link" href="productAll.html?category=women">Child</a></li>
-                        <li><a class="footer-link" href="productAll.html">Apparel</a></li>
-                        <li><a class="footer-link" href="productAll.html">Browse All</a></li>
+                        <li><a class="footer-link" href="productAll.html?_page=1&_limit=9">Apparel</a></li>
+                        <li><a class="footer-link" href="productAll.html?_page=1&_limit=9">Browse All</a></li>
                     </ul>
                 </div>
             </div>
@@ -319,7 +282,7 @@
         </div>
     </footer>
 </div>
-<script src="getItems.js"></script>
+<script src="js/getItems.js"></script>
 </body>
 
 </html>

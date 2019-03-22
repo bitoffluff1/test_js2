@@ -70,12 +70,12 @@ MenuItemProducts.prototype.render = function () {
     return container;
 };
 
-function MenuItemImg(className, link, alt, dataset) {
+function MenuItemImg(className, link, alt) {
     Container.call(this, className, "img");
 
     this.link = link;
     this.alt = alt;
-    this.dataset = dataset;
+
 }
 
 MenuItemImg.prototype = Object.create(Container.prototype);
@@ -84,9 +84,6 @@ MenuItemImg.prototype.render = function () {
 
     container.alt = this.alt;
     container.src = this.link;
-    if (this.dataset) {
-        container.id = this.dataset.id;
-    }
 
     return container;
 };
@@ -114,7 +111,10 @@ Submenu.prototype.render = function () {
         container.dataset.price = this.dataset.price;
         container.dataset.category = this.dataset.category;
         container.dataset.id = this.dataset.id;
+        container.dataset.color = this.dataset.color;
+        container.dataset.size = this.dataset.size;
     }
+
     container.href = this.link;
 
     return container;
@@ -122,14 +122,6 @@ Submenu.prototype.render = function () {
 
 function sendRequst(url, callback) {
     var xhr = new XMLHttpRequest();
-
-    var shopParams = getShopParams();
-
-    if (shopParams.category) {
-        url += "?category=" + shopParams.category;
-    } else {
-        url += shopParams;
-    }
 
     xhr.open("GET", url);
     xhr.send();
@@ -141,17 +133,17 @@ function sendRequst(url, callback) {
     }
 }
 
-sendRequst("http://localhost:3000/items", function (items) {
-    items.forEach(function (item) {
+sendRequst("http://localhost:3000/items?category=women", function (data) {
+    for (var i = 0; i < 4; i++) {
+        var item = data[i];
         var p1 = new MenuItemProducts("name-item", item.name, "p");
         var p2 = new MenuItemProducts("pink-item", +item.price, "p");
         var div1 = new Submenu("item-text", [p1, p2], "div");
 
-        var img1 = new MenuItemImg("", item.image, "fetured-items", item);
+        var img1 = new MenuItemImg("", item.image, "fetured-items");
 
         var a1 = new Submenu("fetured-item", [img1, div1], "a", "", "single-page.html");
         var div2 = new Submenu("fetured-item1", [a1], "div");
-
 
         var img2 = new MenuItemImg("cart-white", "img/cart-white.svg", "cart");
         var a2 = new Submenu("add-to-card", [img2], "a", "Add to Cart", "");
@@ -159,42 +151,10 @@ sendRequst("http://localhost:3000/items", function (items) {
 
         var div = new Submenu("item itemAll", [div2, div3], "div");
 
-        var $container = document.getElementsByClassName("fetured-items-box");
+        var $container = document.getElementsByClassName("like-also");
         $container[0].appendChild(div.render());
-    });
+    }
 });
-
-function buildPaginator() {
-    $.ajax({
-        url: "http://localhost:3000/items",
-        dataType: "json",
-        success: function (items) {
-            //отпределяем какая страница товара сейчас открыта и задаем ей класс pink
-            var params = window.location.search.replace("?", "").split("&");
-            var objectParams = {};
-            for (var i = 0; i < params.length; i++) {
-                var value = params[i].split("=");
-                objectParams[value[0]] = value[1];
-            }
-
-            var pageNum = objectParams._page;
-            var limitNum = objectParams._limit;
-
-            //создаем список страниц
-            var page = Math.ceil(items.length / limitNum);
-            for (var j = 0; j < page; j++) {
-                var k = j + 1;
-                var a = (+pageNum === k) ?
-                    new MenuItemProducts("page pink", k, "a", "productAll.html?_page=" + k + "&_limit=" + limitNum) :
-                    new MenuItemProducts("page", k, "a", "productAll.html?_page=" + k + "&_limit="+ limitNum);
-
-                var li = new Submenu("page_none", [a], "li");
-
-                $(".several-pages").append(li.render());
-            }
-        }
-    });
-}
 
 function buildMiniCart() {
     var $container = document.getElementsByClassName("cart-drop-box")[0];
@@ -248,13 +208,12 @@ function buildMiniCart() {
     });
 }
 
-
 (function ($) {
-    buildPaginator();
     buildMiniCart();
 
+
 //добавление товара в json
-    var $catalog = $(".fetured-items-box");
+    var $catalog = $(".like-also");
     $catalog.on("click", ".add", function () {
         event.preventDefault();
         var good = $(this).data();
@@ -336,23 +295,36 @@ function buildMiniCart() {
         })
     });
 
+//добавление главного товара в корзину
+    var $product = $(".container-single-product");
+    $product.on("click", ".button-add", function () {
+        event.preventDefault();
+        var price = $("#price").text();
+        var color = $("#color").val();
+        var size = $("#size").val();
+        var quantity = $(".input-field").val();
 
-    $( ".slider-range" ).slider({
-        range: true,
-        min: 0,
-        max: 500,
-        values: [ 0, 300 ],
-        slide: function( event, ui ) {
-            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-        }
+        $.ajax({
+            url: "http://localhost:3000/cart",
+            type: "POST",
+            dataType: "json",
+            data: {
+                id: 50,
+                category: "women",
+                price: price,
+                name: "Mango People T-shirt",
+                image: "img/single-product.jpg",
+                quantity: quantity,
+                color: color,
+                size: size,
+                    },
+            success: function () {
+                buildMiniCart();
+            }
+        })
     });
-    $( "#amount" ).val( "$" + $( ".slider-range" ).slider( "values", 0 ) +
-        " - $" + $( ".slider-range" ).slider( "values", 1 ) );
+
 
 })(jQuery);
-
-
-
-
 
 

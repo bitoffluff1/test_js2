@@ -130,7 +130,7 @@ MenuItemImg.prototype.render = function () {
 
 var xhr = new XMLHttpRequest();
 
-xhr.open("GET", "http://127.0.0.1:8080/project/site/menu.json");
+xhr.open("GET", "http://127.0.0.1:8080/project/site/json/menu.json");
 xhr.send();
 
 xhr.onreadystatechange = function () {

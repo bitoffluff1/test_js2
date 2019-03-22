@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cart</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sass/style.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -11,8 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-    <script src="menu.js"></script>
-    <script src="utils.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/utils.js"></script>
 </head>
 <body>
 <div class="all">
@@ -134,11 +134,10 @@
 
         <div class="new-arrivals">
             <div class="container new-arrivals-back">
-                <h2 class="new-arrivals-text">NEW ARRIVALS</h2>
+                <h2 class="new-arrivals-text">Shopping Cart</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-link"><a class="mini-menu-link" href="index.html">HOME/</a></li>
-                    <li class="breadcrumb-link"><a class="mini-menu-link" href="#">MEN/</a></li>
-                    <li class="active"> NEW ARRIVALS</li>
+                    <li class="active">Shopping Cart</li>
                 </ul>
             </div>
         </div>
@@ -156,7 +155,8 @@
 
             </div>
             <div class="shopping-cart-table-button">
-                <a href="#" class="button-black shopping-cart-table-button_size" id="clear-cart">cLEAR SHOPPING CART </a>
+                <a href="#" class="button-black shopping-cart-table-button_size" id="clear-cart">cLEAR SHOPPING
+                    CART </a>
                 <a href="#" class="button-black shopping-cart-table-button_size">cONTINUE sHOPPING </a>
             </div>
         </div>
@@ -195,7 +195,8 @@
                 <figure class="comment-left">
                     <img src="img/comment1.png" alt="comment1">
                     <figcaption class="box-comment">
-                        <p class="comment-1-text"> &laquo;Vestibulum quis porttitor dui! Quisque viverra nunc mi,a pulvinar
+                        <p class="comment-1-text"> &laquo;Vestibulum quis porttitor dui! Quisque viverra nunc mi,a
+                            pulvinar
                             purus
                             condimentum&nbsp;a. Aliquam condimentum mattis neque sed pretium&raquo; </p>
                         <p class="pink-comment">Bin Burhan</p>
@@ -215,7 +216,7 @@
 
         <footer class="footer-top container">
             <div class="footer-left-text">
-                <a class="logo-footer" href="#"><img class="img-logo" src="img/logo.png" alt="logo">BRAN <span
+                <a class="logo-footer" href="index.html"><img class="img-logo" src="img/logo.png" alt="logo">BRAN <span
                         class="pink-D">D</span></a>
                 <p class="footer-text-logo">Objectively transition extensive data rather than cross functional
                     solutions.
@@ -229,7 +230,7 @@
                 <div class="footer-menu">
                     <h4 class="footer-pink">COMPANY</h4>
                     <ul class="list-footer">
-                        <li><a class="footer-link" href="#">Home</a></li>
+                        <li><a class="footer-link" href="index.html">Home</a></li>
                         <li><a class="footer-link" href="#">Shop</a></li>
                         <li><a class="footer-link" href="#">About</a></li>
                         <li><a class="footer-link" href="#">How It&nbsp;Works</a></li>
@@ -249,11 +250,11 @@
                 <div class="footer-menu">
                     <h4 class="footer-pink">SHOP CATEGORY</h4>
                     <ul class="list-footer">
-                        <li><a class="footer-link" href="#">Men</a></li>
-                        <li><a class="footer-link" href="#">Woman</a></li>
-                        <li><a class="footer-link" href="#">Child</a></li>
-                        <li><a class="footer-link" href="#">Apparel</a></li>
-                        <li><a class="footer-link" href="#">Brows All</a></li>
+                        <li><a class="footer-link" href="productAll.html?category=men">Men</a></li>
+                        <li><a class="footer-link" href="productAll.html?category=women">Women</a></li>
+                        <li><a class="footer-link" href="productAll.html?category=women">Child</a></li>
+                        <li><a class="footer-link" href="productAll.html?_page=1&_limit=9">Apparel</a></li>
+                        <li><a class="footer-link" href="productAll.html?_page=1&_limit=9">Browse All</a></li>
                     </ul>
                 </div>
             </div>
@@ -263,7 +264,7 @@
 
     <footer class="footer-bottom">
         <div class="container footer-text">
-            <p class="copy"> &amp;copy 2017 Brand All Rights Reserved.</p>
+            <p class="copy"> &copy; 2019 Brand All Rights Reserved.</p>
             <div class="footer-icon">
                 <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="icon"><i class="fab fa-twitter"></i></a>
@@ -275,6 +276,6 @@
     </footer>
 </div>
 
-<script src="getCart.js"></script>
+<script src="js/getCart.js"></script>
 </body>
 </html>
