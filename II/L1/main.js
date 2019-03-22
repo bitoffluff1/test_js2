@@ -72,9 +72,7 @@ const renderItem = ({name, price, image}) =>
 
 const renderList = items => {
     const itemsHtmls = items.map(renderItem);
-    itemsHtmls.forEach(function (item) {
-        document.querySelector('.fetured-items-box').innerHTML += item;
-    });
+    document.querySelector('.fetured-items-box').innerHTML = itemsHtmls.join("");
 };
 renderList(goods);
 
