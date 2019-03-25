@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+<header class="header">
+    <div class="header-content box flex header-content_margin">
+        <details class="header-content__drop-list">
+            <summary class="drop-list__summary">Cанкт-Петербург</summary>
+            <ul class="drop-list__menu">
+                <li><a href="#" class="drop-list__link">Москва</a></li>
+                <li><a href="#" class="drop-list__link">Казань</a></li>
+            </ul>
+        </details>
+        <div class="header-content__right">
+            <a href="#" class="hover">zakaz@печатьнахолсте.рф</a>
+            <div class="icon-box">
+                <a href="#" class="icon"><i class="fab fa-vk"></i></a>
+                <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="icon"><i class="fab fa-odnoklassniki"></i></a>
+                <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</header>
+<header class="main-header">
+    <div class="header-content box flex">
+        <div class="main-header-content_left flex">
+            <a href="index.html" class="logo"><img src="img/logo.png" alt="logo"></a>
+            <ul class="navigation">
+                <li><a href="index.html" class="navigation__link navigation__link_active">главная</a></li>
+                <li><a href="#" class="navigation__link">доставка</a></li>
+                <li><a href="#" class="navigation__link">контакты</a></li>
+            </ul>
+            <a href="#" class="button">заказать</a>
+        </div>
+        <figure class="main-header-content_center flex">
+            <img src="img/phone.svg" alt="phone">
+            <figcaption class="text-gray">Звоните сейчас! <p class="text-accent">8 800 70 75 31</p></figcaption>
+        </figure>
+        <div class="main-header-content_right ">
+            <img src="img/cart-gray.png" alt="cart">
+            <p class="quantity-goods">0</p>
+        </div>
+    </div>
+</header>
+<section class="print-img" style="background-image: url(img/main.jpg);">
+    <div class="box flex_print-img">
+        <div class="print-img__content">
+            <h2 class="print-img__headline">печать на холсте <br>
+                <span class="print-img__headline print-img__headline_h3">с вашим изображением</span></h2>
+            <ul class="format__list flex">
+                <li><a href="#" class="format__link">
+                    <span class="format format_rectangle" data-width="429px"></span>
+                    <h4>Прямоуг.</h4>
+                    <i class="fas fa-check-square icon__ok"></i>
+                </a>
+                </li>
+                <li><a href="#" class="format__link">
+                    <span class="format format_square" data-width="287px"></span>
+                    <h4>Квадрат</h4>
+                    <i class="fas fa-check-square icon__ok"></i>
+                </a>
+                </li>
+                <li><a href="#" class="format__link">
+                    <span class="format format_panorama" data-width="600px"></span>
+                    <h4>Панорама</h4>
+                    <i class="fas fa-check-square icon__ok"></i>
+                </a>
+                </li>
+            </ul>
+            <div class="flex print-img__details">
+                <h4 class="print-img__h4">Размер:</h4>
+                <details class="print-img__drop-list">
+                    <summary class="print-img__summary">80 х 120</summary>
+                    <ul class="print-img__menu">
+                        <li><a href="#" class="print-img__link">100 х 120</a></li>
+                        <li><a href="#" class="print-img__link">120 х 120</a></li>
+                    </ul>
+                </details>
+            </div>
+            <figure class="print-img__figure flex">
+                <i class="far fa-file-image icon__image"></i>
+                <i class="fas fa-arrow-circle-up icon__arrow"></i>
+                <figcaption class="figure__figcaption">Перетащите сюда изображение
+                    <p class="figure__text">Или нажмите и выберете файл</p></figcaption>
+                <img src="img/click.svg" alt="click">
+            </figure>
+            <div class="print-img__button">
+                <div class="button-cart">
+                    <p class="button-cart__text">1000<span
+                            class="button-cart__text button-cart__text_small">руб.-</span></p>
+                    <a href="#" class="button-cart__img"><img src="img/cart-white.png" alt="cart"></a>
+                </div>
+                <a href="#" class="button button__print">заказать</a>
+            </div>
+        </div>
+        <img src="img/canvas.jpg" alt="canvas" class="canvas" id="canvas">
+    </div>
+</section>
+<section class="advantages" style="background-image: url(img/advantages.jpg);">
+    <div class="advantages-list">
+        <article class="article-item">
+            <img src="img/advantages_rectangle.png" alt="rectangle">
+            <div class="article__text">
+                <h3 class="article__h4">Картонный задник</h3>
+                <p class="article__p">Прародителем текста-рыбы является известный "Lorem Ipsum" – латинский текст, ноги
+                    которого
+                    растут аж из 45 года до нашей эры.</p>
+            </div>
+        </article>
+        <article class="article-item">
+            <img src="img/advantages_roller.png" alt="rectangle">
+            <div class="article__text">
+                <h3 class="article__h4">Холст покрывается лаком</h3>
+                <p class="article__p">Прародителем текста-рыбы является известный "Lorem Ipsum" – латинский текст, ноги
+                    которого
+                    растут аж из 45 года до нашей эры. </p>
+            </div>
+        </article>
+        <article class="article-item">
+            <img src="img/advantages_car.png" alt="rectangle">
+            <div class="article__text">
+                <h3 class="article__h4">Воспользуйтесь доставкой</h3>
+                <p class="article__p">Прародителем текста-рыбы является известный "Lorem Ipsum" – латинский текст, ноги
+                    которого
+                    растут аж из 45 года до нашей эры</p>
+            </div>
+        </article>
+        <article class="article-item">
+            <img src="img/advantages_eco.png" alt="rectangle">
+            <div class="article__text">
+                <h3 class="article__h4">ЭКО материалы</h3>
+                <p class="article__p">Прародителем текста-рыбы является известный "Lorem Ipsum" – латинский текст, ноги
+                    которого
+                    растут аж из 45 года до нашей эры.</p>
+            </div>
+        </article>
+    </div>
+</section>
+<section class="examples"></section>
+<div class="modal">
+        <div class="modal-content" id="original"></div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
