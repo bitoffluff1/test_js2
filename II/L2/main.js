@@ -89,10 +89,7 @@ class ItemsList {
     }
 
     calculateSum() {
-        this._sum = 0;
-        this.items.forEach(item => this._sum += item.price);
-        return this._sum;
-
+        return this.items.reduce((acc, item)=> acc + item.price, 0);
     }
 
     render() {

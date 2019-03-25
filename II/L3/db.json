@@ -1,0 +1,128 @@
+{
+  "items": [
+    {
+      "image": "img/fetured-items1.jpg",
+      "name": "Mango People T-shirt",
+      "price": 52,
+      "category": "featured",
+      "id": 1,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items2.jpg",
+      "name": "Mango People T-shirt",
+      "price": 152,
+      "category": "featured",
+      "id": 2,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items3.jpg",
+      "name": "Mango People T-shirt",
+      "price": 42,
+      "category": "featured",
+      "id": 3,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items4.jpg",
+      "name": "Mango People T-shirt",
+      "price": 52,
+      "category": "featured",
+      "id": 4,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items5.jpg",
+      "name": "Mango People T-shirt",
+      "price": 50,
+      "category": "featured",
+      "id": 5,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items6.jpg",
+      "name": "Mango People T-shirt",
+      "price": 52,
+      "category": "featured",
+      "id": 6,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items7.jpg",
+      "name": "Mango People T-shirt",
+      "price": 102,
+      "category": "featured",
+      "id": 7,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items8.jpg",
+      "name": "Mango People T-shirt",
+      "price": 52,
+      "category": "featured",
+      "id": 8,
+      "color": "Black",
+      "size": "S"
+    }
+  ],
+  "cart": [
+    {
+      "image": "img/fetured-items1.jpg",
+      "name": "Mango People T-shirt",
+      "price": 52,
+      "category": "featured",
+      "id": 1,
+      "color": "Black",
+      "size": "S",
+      "quantity": 1
+    },
+    {
+      "image": "img/fetured-items2.jpg",
+      "name": "Mango People T-shirt",
+      "price": 152,
+      "category": "featured",
+      "id": 2,
+      "color": "Black",
+      "size": "S",
+      "quantity": 1
+    },
+    {
+      "image": "img/fetured-items3.jpg",
+      "name": "Mango People T-shirt",
+      "price": 42,
+      "category": "featured",
+      "id": 3,
+      "color": "Black",
+      "size": "S",
+      "quantity": 2
+    },
+    {
+      "image": "img/fetured-items4.jpg",
+      "name": "Mango People T-shirt",
+      "price": 52,
+      "category": "featured",
+      "id": 4,
+      "color": "Black",
+      "size": "S",
+      "quantity": 1
+    },
+    {
+      "image": "img/fetured-items5.jpg",
+      "name": "Mango People T-shirt",
+      "price": 50,
+      "category": "featured",
+      "id": 5,
+      "color": "Black",
+      "size": "S",
+      "quantity": 1
+    }
+  ]
+}
