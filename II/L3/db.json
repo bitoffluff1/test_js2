@@ -11,7 +11,7 @@
     },
     {
       "image": "img/fetured-items2.jpg",
-      "name": "Mango People T-shirt",
+      "name": "Mango People Dress",
       "price": 152,
       "category": "featured",
       "id": 2,
@@ -20,7 +20,7 @@
     },
     {
       "image": "img/fetured-items3.jpg",
-      "name": "Mango People T-shirt",
+      "name": "Mango People Jacket",
       "price": 42,
       "category": "featured",
       "id": 3,
@@ -29,7 +29,7 @@
     },
     {
       "image": "img/fetured-items4.jpg",
-      "name": "Mango People T-shirt",
+      "name": "Mango People Top",
       "price": 52,
       "category": "featured",
       "id": 4,
@@ -38,7 +38,7 @@
     },
     {
       "image": "img/fetured-items5.jpg",
-      "name": "Mango People T-shirt",
+      "name": "Mango People Accessory",
       "price": 50,
       "category": "featured",
       "id": 5,
@@ -47,7 +47,7 @@
     },
     {
       "image": "img/fetured-items6.jpg",
-      "name": "Mango People T-shirt",
+      "name": "Mango People Blazer",
       "price": 52,
       "category": "featured",
       "id": 6,
@@ -56,7 +56,7 @@
     },
     {
       "image": "img/fetured-items7.jpg",
-      "name": "Mango People T-shirt",
+      "name": "Mango People Pant",
       "price": 102,
       "category": "featured",
       "id": 7,
@@ -65,7 +65,7 @@
     },
     {
       "image": "img/fetured-items8.jpg",
-      "name": "Mango People T-shirt",
+      "name": "Mango People Sweater",
       "price": 52,
       "category": "featured",
       "id": 8,
@@ -76,12 +76,12 @@
   "cart": [
     {
       "id": "4",
-      "name": "Mango People T-shirt",
+      "name": "Mango People Top",
       "price": "52",
       "image": "img/fetured-items4.jpg",
       "color": "Black",
       "size": "S",
-      "quantity": 1
+      "quantity": "1"
     }
   ]
 }

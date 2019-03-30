@@ -1,16 +1,11 @@
-function sendRequst(url) {
-    return new Promise((resolve) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", url);
-        xhr.send();
-
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                resolve(JSON.parse(xhr.responseText));
-            }
-        }
-    });
-
+function sendRequst(url, method, data) {
+    fetch(url, {
+        method: method,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    }).then((response) => response.json());
 }
 
 const API_URL = "http://localhost:3000";
@@ -50,24 +45,29 @@ class ItemsList {
     }
 
     fetchItems() {
-        return new Promise((resolve) => {
-            resolve(sendRequst(`${API_URL}/items`).then(
-                (items) => {
-                    this.items = items.map(item => new Item(item.id, item.name, item.price, item.image, item.color, item.size));
-                }
-            ));
-        });
+        return fetch(`${API_URL}/items`)
+            .then((response) => response.json())
+            .then((items) => {
+                this.items = items.map(item => new Item(item.id, item.name, item.price, item.image, item.color, item.size));
+                this.filteredItems = this.items;
+            });
     }
 
     calculateSum() {
         return this.items.reduce((acc, item) => acc + item.price, 0);
     }
 
+    filterItems(query) {
+        const regexp = new RegExp(query, "i");
+        this.filteredItems = this.items.filter((item) => regexp.test(item.name))
+    }
+
     render() {
-        const itemsHtmls = this.items.map(item => item.render());
+        const itemsHtmls = this.filteredItems.map(item => item.render());
         return itemsHtmls.join("");
     }
 }
+
 
 class Cart {
     constructor(id, name, price, image, quantity, color, size) {
@@ -113,13 +113,11 @@ class ItemsCart {
     }
 
     fetchCartItems() {
-        return new Promise((resolve) => {
-            resolve(sendRequst(`${API_URL}/cart`).then(
-                (items) => {
-                    this.itemsCart = items.map(item => new Cart(item.id, item.name, item.price, item.image, item.quantity, item.color, item.size));
-                }
-            ));
-        });
+        return fetch(`${API_URL}/cart`)
+            .then((response) => response.json())
+            .then((items) => {
+                this.itemsCart = items.map(item => new Cart(item.id, item.name, item.price, item.image, item.quantity, item.color, item.size));
+            });
     }
 
     calculateSum() {
@@ -133,124 +131,123 @@ class ItemsCart {
 
     deleteItem(data) {
         if (+data.quantity === 1) {
-            const xhr = new XMLHttpRequest();
-            xhr.open("DELETE", `${API_URL}/cart/${+data.id}`, true);
-            xhr.send();
+            fetch(`${API_URL}/cart/${+data.id}`, {method: "DELETE"}).then((response) => response.json())
         } else {
-            sendRequst(`${API_URL}/cart`).then(
-                (items) => {
-                    items.forEach((item) => {
-                        if (+item.id === +data.id) {
-                            const xhr = new XMLHttpRequest();
-                            xhr.open("PATCH", `${API_URL}/cart/${+data.id}`, true);
-                            xhr.setRequestHeader("Content-Type", "application/json");
-
-                            xhr.onreadystatechange = () => {
-                                if (xhr.readyState === XMLHttpRequest.DONE) {
-                                    JSON.parse(xhr.responseText);
-                                }
-                            };
-
-                            const newItem = JSON.stringify({"quantity": +item.quantity - 1});
-                            xhr.send(newItem);
-                        }
-                    });
-                }
-            );
+            const newQuantity = +data.quantity - 1;
+            sendRequst(`${API_URL}/cart/${+data.id}`, "PATCH", {quantity: newQuantity});
         }
     }
 
     addItem(data) {
-        sendRequst(`${API_URL}/cart`).then(
-            (items) => {
+        return fetch(`${API_URL}/cart`)
+            .then((response) => response.json())
+            .then((items) => {
                 if (!items.length) {
-                    const xhr = new XMLHttpRequest();
-                    xhr.open("POST", `${API_URL}/cart`, true);
-                    xhr.setRequestHeader("Content-Type", "application/json");
-
-                    xhr.onreadystatechange = () => {
-                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                            JSON.parse(xhr.responseText);
-                        }
-                    };
-
                     data.quantity = 1;
-                    const newItem = JSON.stringify(data);
-                    xhr.send(newItem);
+                    sendRequst(`${API_URL}/cart`, "POST", data);
                 } else {
                     items.forEach((item, i) => {
                         if (+item.id === +data.id) {
-                            const xhr = new XMLHttpRequest();
-                            xhr.open("PATCH", `${API_URL}/cart/${+data.id}`, true);
-                            xhr.setRequestHeader("Content-Type", "application/json");
-
-                            xhr.onreadystatechange = () => {
-                                if (xhr.readyState === XMLHttpRequest.DONE) {
-                                    JSON.parse(xhr.responseText);
-                                }
-                            };
-
-                            const newItem = JSON.stringify({"quantity": +item.quantity + 1});
-                            xhr.send(newItem);
+                            sendRequst(`${API_URL}/cart/${+data.id}`, "PATCH", {"quantity": +item.quantity + 1});
                         }
 
                         if (i === items.length - 1) {
-                            const xhr = new XMLHttpRequest();
-                            xhr.open("POST", `${API_URL}/cart`, true);
-                            xhr.setRequestHeader("Content-Type", "application/json");
-
-                            xhr.onreadystatechange = () => {
-                                if (xhr.readyState === XMLHttpRequest.DONE) {
-                                    JSON.parse(xhr.responseText);
-                                }
-                            };
-
                             data.quantity = 1;
-                            const newItem = JSON.stringify(data);
-                            xhr.send(newItem);
+                            sendRequst(`${API_URL}/cart`, "POST", data);
                         }
                     })
                 }
-            }
-        )
+            })
     }
 }
 
-
 const items = new ItemsList();
-items.fetchItems().then(
-    () => {
+items.fetchItems().then(() => {
         document.querySelector(".fetured-items-box").innerHTML = items.render();
     }
 );
 
 const cartItems = new ItemsCart();
-cartItems.fetchCartItems().then(
-    () => {
+cartItems.fetchCartItems().then(() => {
         document.querySelector(".cart").innerHTML = cartItems.render();
     }
 );
 
-const $buttonAdd = document.querySelector(".fetured-items-box");
-$buttonAdd.addEventListener("click", (event) => {
+//добавление товара в корзину
+document.querySelector(".fetured-items-box").addEventListener("click", (event) => {
     event.preventDefault();
     if (event.target.tagName !== "A") return;
     const data = event.target.dataset;
-    cartItems.addItem(data);
+    cartItems.addItem(data).then(() => {
+        cartItems.fetchCartItems().then(() => {
+                document.querySelector(".cart").innerHTML = cartItems.render();
+            }
+        );
+    });
 });
 
-const $buttonDelete = document.querySelector(".cart");
-$buttonDelete.addEventListener("click", (event) => {
+//удаление товара из корзины
+document.querySelector(".cart").addEventListener("click", (event) => {
     event.preventDefault();
     if (event.target.parentNode.tagName !== "A") return;
     const data = event.target.parentNode.dataset;
     cartItems.deleteItem(data);
+    cartItems.fetchCartItems().then(() => {
+            document.querySelector(".cart").innerHTML = cartItems.render();
+        }
+    );
 });
 
+//поиск товара по имени
+const $searchText = document.querySelector(".input-form");
+const $searchButton = document.querySelector(".button-form");
+const $namesList = document.querySelector(".names-list");
+
+let namesItems = [];
+fetch(`${API_URL}/items`)
+    .then((response) => response.json())
+    .then((items) => {
+        items.map(item => namesItems.push(item.name))
+    })
+    .then(() => buildList());
 
 
+function buildList() {
+    document.querySelector(".input-list").innerHTML = "";
 
+    let filteredNames = namesItems.slice();
+    if($searchText.value){
+        filteredNames = filteredNames.filter((name)=>{
+            const reqExp = new RegExp("^" + $searchText.value, "ig");
+            return reqExp.test(name)
+        })
+    }
 
+    const list = filteredNames.map(name => `<li class="input-link">${name}</li>`);
+    document.querySelector(".input-list").innerHTML = list.join("");
+}
+
+$searchText.addEventListener("focus", () => {
+    $namesList.style.display = "block";
+});
+
+$searchText.addEventListener("input", () => {
+    buildList();
+});
+
+$searchText.addEventListener("focusout", () => {
+    setTimeout(()=>{$namesList.style.display = "none"}, 500);
+});
+
+$namesList.addEventListener("click", (event) => {
+    if (event.target.tagName !== "LI") return;
+    $searchText.value = event.target.textContent;
+});
+
+$searchButton.addEventListener("click", () => {
+    items.filterItems($searchText.value);
+    document.querySelector(".fetured-items-box").innerHTML = items.render();
+});
 
 
 
