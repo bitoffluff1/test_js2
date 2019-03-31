@@ -844,6 +844,20 @@ details[open] > .category {
     background-color: #ffffff;
     outline: none;
 }
+.img-cart{
+    position: relative;
+}
+.cart-items{
+    background-color: #f16d7f;
+    color: white;
+    padding: 2px 9px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: -13px;
+}
 
 .menu-category {
     margin-top: 98px;
@@ -1516,7 +1530,7 @@ details[open] > .category {
 
 .img-drop-flex {
     margin-top: 22px;
-    background-image: url(../img/drop-menu.jpg);
+    background-image: url(img/drop-menu.jpg);
     width: 255px;
     height: 118px;
 }

@@ -19,39 +19,13 @@
                 <details class="Browse-details">
                     <summary class="Browse">Browse</summary>
                     <div class="browse-drop-box">
-                        <div class="browse-drop-flex">
-                            <h3 class="drop-heading">Women</h3>
-                            <ul class="browse-drop-menu">
-                                <li><a class="drop-link" href="">Dresses</a></li>
-                                <li><a class="drop-link" href="">Tops</a></li>
-                                <li><a class="drop-link" href="">Sweaters/Knits</a></li>
-                                <li><a class="drop-link" href="">Jackets/Coats</a></li>
-                                <li><a class="drop-link" href="">Blazers</a></li>
-                                <li><a class="drop-link" href="">Denim</a></li>
-                                <li><a class="drop-link" href="">Leggings/Pants</a></li>
-                                <li><a class="drop-link" href="">Skirts/Shorts</a></li>
-                                <li><a class="drop-link" href="">Accessories </a></li>
-                            </ul>
-                        </div>
-                        <div class="browse-drop-flex">
-                            <h3 class="drop-heading">Man</h3>
-                            <ul class="browse-drop-menu">
-                                <li><a class="drop-link" href="">Tees/Tank tops</a></li>
-                                <li><a class="drop-link" href="">Shirts/Polos</a></li>
-                                <li><a class="drop-link" href="">Sweaters</a></li>
-                                <li><a class="drop-link" href="">Sweatshirts/Hoodies</a></li>
-                                <li><a class="drop-link" href="">Blazers</a></li>
-                                <li><a class="drop-link" href="">Jackets/vests</a></li>
-                            </ul>
-                        </div>
+
                     </div>
                 </details>
                 <div>
                     <input class="input-form" type="text" placeholder="Search for Item...">
                     <div id="namesList" class="names-list">
-                        <ul class="input-list">
 
-                        </ul>
                     </div>
                 </div>
                 <button class="button-form" type="submit"><i class="fas fa-search"></i></button>
@@ -60,11 +34,87 @@
         <div class="header-right">
             <div class="cart-box">
                 <a href="#"><img src="img/cart.svg" class="img-cart" alt="cart"></a>
+                <div class="cart-items"></div>
             </div>
             <a href="#" class="button">My&nbsp;Account <i class="fas fa-caret-down"></i></a>
         </div>
     </div>
 </header>
+<nav class="navigation">
+    <div class="container">
+        <ul class="menu">
+            <li class="menu-list">
+                <a class="menu-link" href="index.html">Home</a>
+            </li>
+            <li class="menu-list"><a class="menu-link" href="productAll.html?category=men">Man</a>
+                <div class="drop-box">
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex">
+                        <div class="img-drop-flex">
+                            <a href="#" class="text-img-drop-flex">Super sale!</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="menu-list"><a class="menu-link" href="productAll.html?category=women">Women</a>
+                <div class="drop-box">
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex">
+                        <div class="img-drop-flex">
+                            <a href="#" class="text-img-drop-flex">Super sale!</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="menu-list"><a class="menu-link" href="productAll.html?category=men">Kids</a>
+                <div class="drop-box drop-box-last">
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex">
+                        <div class="img-drop-flex">
+                            <a href="#" class="text-img-drop-flex">Super sale!</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="menu-list"><a class="menu-link" href="productAll.html?category=women">Accessories</a>
+                <div class="drop-box drop-box-last">
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex">
+                        <div class="img-drop-flex">
+                            <a href="#" class="text-img-drop-flex">Super sale!</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="menu-list"><a class="menu-link" href="productAll.html?category=featured">Featured</a>
+                <div class="drop-box drop-box-last">
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex">
+                        <div class="img-drop-flex">
+                            <a href="#" class="text-img-drop-flex">Super sale!</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="menu-list"><a class="menu-link" href="productAll.html?category=featured">Hot Deals</a>
+                <div class="drop-box drop-box-last">
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex"></div>
+                    <div class="drop-flex">
+                        <div class="img-drop-flex">
+                            <a href="#" class="text-img-drop-flex">Super sale!</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
 <main>
     <div class="fetured-items-box container"></div>
 </main>
