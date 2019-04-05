@@ -75,61 +75,178 @@
   ],
   "cart": [
     {
-      "id": "4",
-      "name": "Mango People Top",
-      "price": "52",
-      "image": "img/fetured-items4.jpg",
+      "image": "img/fetured-items8.jpg",
+      "name": "Mango People Sweater",
+      "price": 52,
+      "category": "featured",
+      "id": 8,
       "color": "Black",
       "size": "S",
-      "quantity": 2
+      "quantity": 3
     },
     {
-      "id": "8",
-      "name": "Mango People Sweater",
-      "price": "52",
-      "image": "img/fetured-items8.jpg",
+      "image": "img/fetured-items6.jpg",
+      "name": "Mango People Blazer",
+      "price": 52,
+      "category": "featured",
+      "id": 6,
       "color": "Black",
       "size": "S",
-      "quantity": "1"
+      "quantity": 1
+    },
+    {
+      "image": "img/fetured-items5.jpg",
+      "name": "Mango People Accessory",
+      "price": 50,
+      "category": "featured",
+      "id": 5,
+      "color": "Black",
+      "size": "S",
+      "quantity": 1
     }
   ],
   "browse": [
-    {"blockName": "Women","title": "Dresses"},
-    {"blockName": "Women","title": "Tops"},
-    {"blockName": "Women","title": "Sweaters/Knits"},
-    {"blockName": "Women","title": "Jackets/Coats"},
-    {"blockName": "Women","title": "Blazers"},
-    {"blockName": "Women","title": "Denim"},
-    {"blockName": "Women","title": "Leggings/Pants"},
-    {"blockName": "Women","title": "Skirts/Shorts"},
-    {"blockName": "Women","title": "Accessories"},
-    {"blockName": "Men", "title": "Tees/Tank tops"},
-    {"blockName": "Men", "title": "Shirts/Polos"},
-    {"blockName": "Men", "title": "Sweaters"},
-    {"blockName": "Men", "title": "Sweatshirts/Hoodies"},
-    {"blockName": "Men", "title": "Blazers"},
-    {"blockName": "Men", "title": "Jackets/vests"}
+    {
+      "blockName": "Women",
+      "title": "Dresses"
+    },
+    {
+      "blockName": "Women",
+      "title": "Tops"
+    },
+    {
+      "blockName": "Women",
+      "title": "Sweaters/Knits"
+    },
+    {
+      "blockName": "Women",
+      "title": "Jackets/Coats"
+    },
+    {
+      "blockName": "Women",
+      "title": "Blazers"
+    },
+    {
+      "blockName": "Women",
+      "title": "Denim"
+    },
+    {
+      "blockName": "Women",
+      "title": "Leggings/Pants"
+    },
+    {
+      "blockName": "Women",
+      "title": "Skirts/Shorts"
+    },
+    {
+      "blockName": "Women",
+      "title": "Accessories"
+    },
+    {
+      "blockName": "Men",
+      "title": "Tees/Tank tops"
+    },
+    {
+      "blockName": "Men",
+      "title": "Shirts/Polos"
+    },
+    {
+      "blockName": "Men",
+      "title": "Sweaters"
+    },
+    {
+      "blockName": "Men",
+      "title": "Sweatshirts/Hoodies"
+    },
+    {
+      "blockName": "Men",
+      "title": "Blazers"
+    },
+    {
+      "blockName": "Men",
+      "title": "Jackets/vests"
+    }
   ],
   "nav": [
-    {"blockName": "Women1","title": "Dresses"},
-    {"blockName": "Women1","title": "Tops"},
-    {"blockName": "Women1","title": "Sweaters/Knits"},
-    {"blockName": "Women1","title": "Jackets/Coats"},
-    {"blockName": "Women1","title": "Blazers"},
-    {"blockName": "Women1","title": "Denim"},
-    {"blockName": "Women1","title": "Leggings/Pants"},
-    {"blockName": "Women1","title": "Skirts/Shorts"},
-    {"blockName": "Women1","title": "Accessories"},
-    {"blockName": "Women2", "title": "Dresses"},
-    {"blockName": "Women2", "title": "Tops"},
-    {"blockName": "Women2", "title": "Sweaters/Knits"},
-    {"blockName": "Women2", "title": "Jackets/Coats"},
-    {"blockName": "Women3", "title": "Dresses"},
-    {"blockName": "Women3", "title": "Tops"},
-    {"blockName": "Women3", "title": "Sweaters/Knits"},
-    {"blockName": "Women4", "title": "Dresses"},
-    {"blockName": "Women4", "title": "Tops"},
-    {"blockName": "Women4", "title": "Sweaters/Knits"},
-    {"blockName": "Women4", "title": "Jackets/Coats"}
+    {
+      "blockName": "Women1",
+      "title": "Dresses"
+    },
+    {
+      "blockName": "Women1",
+      "title": "Tops"
+    },
+    {
+      "blockName": "Women1",
+      "title": "Sweaters/Knits"
+    },
+    {
+      "blockName": "Women1",
+      "title": "Jackets/Coats"
+    },
+    {
+      "blockName": "Women1",
+      "title": "Blazers"
+    },
+    {
+      "blockName": "Women1",
+      "title": "Denim"
+    },
+    {
+      "blockName": "Women1",
+      "title": "Leggings/Pants"
+    },
+    {
+      "blockName": "Women1",
+      "title": "Skirts/Shorts"
+    },
+    {
+      "blockName": "Women1",
+      "title": "Accessories"
+    },
+    {
+      "blockName": "Women2",
+      "title": "Dresses"
+    },
+    {
+      "blockName": "Women2",
+      "title": "Tops"
+    },
+    {
+      "blockName": "Women2",
+      "title": "Sweaters/Knits"
+    },
+    {
+      "blockName": "Women2",
+      "title": "Jackets/Coats"
+    },
+    {
+      "blockName": "Women3",
+      "title": "Dresses"
+    },
+    {
+      "blockName": "Women3",
+      "title": "Tops"
+    },
+    {
+      "blockName": "Women3",
+      "title": "Sweaters/Knits"
+    },
+    {
+      "blockName": "Women4",
+      "title": "Dresses"
+    },
+    {
+      "blockName": "Women4",
+      "title": "Tops"
+    },
+    {
+      "blockName": "Women4",
+      "title": "Sweaters/Knits"
+    },
+    {
+      "blockName": "Women4",
+      "title": "Jackets/Coats"
+    }
   ]
 }
