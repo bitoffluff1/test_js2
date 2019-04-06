@@ -81,7 +81,7 @@ Vue.component("cart-item", {
                     </figure>
                 </div>
                 <div class="col col-2">\${{item.price}}</div>
-                <div class="col col-3"><input class="input" type="number" min="1" :value="item.quantity"></div>
+                <div class="col col-3"><input class="input" type="number" min="1"  v-model="item.quantity"   @click="handleChangeInputClick(item, item.quantity)"></div>
                 <div class="col col-4">FREE</div>
                 <div class="col col-5">\${{item.price * item.quantity}}</div>
                 <div class="col col-6 row-header__last row-header__last_center">
@@ -91,6 +91,9 @@ Vue.component("cart-item", {
     methods: {
         handleDeleteClick(item) {
             this.$emit("ondelete", item);
+        },
+        handleChangeInputClick(item, quantity) {
+            this.$emit("changeinput", item, quantity);
         }
     }
 });
@@ -100,13 +103,118 @@ Vue.component("cart-products", {
     methods: {
         handleDeleteClick(item) {
             this.$emit("ondelete", item)
+        },
+        handleChangeInputClick(item, quantity) {
+            this.$emit("changeinput", item, quantity);
         }
     },
     template: `
         <div class="cart">
-            <cart-item @ondelete="handleDeleteClick" v-for="entry in cart" :item="entry" :key="entry.id"></cart-item>
+            <cart-item @ondelete="handleDeleteClick" @changeinput="handleChangeInputClick" v-for="entry in cart" :item="entry" :key="entry.id" ></cart-item>
         </div>
     `,
+});
+
+Vue.component("mini-cart-item", {
+    props: ["item"],
+    template: `
+        <figure class="cart-product">
+            <a href="#" class="img-cart-product"><img :src="item.image" alt="product" class="image-mini-cart"></a>
+            <figcaption class="text-cart-drop">
+                <a href="#" class="text-cart-drop-box">{{item.name}}</a>
+                <div class="block-star">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="price-cart">{{item.quantity}} x \${{item.price}}</p>
+            </figcaption>
+            <i class="fas fa-times-circle fa-times-circle__cart" @click="handleDeleteClick(item)"></i>
+        </figure>`,
+
+    methods: {
+        handleDeleteClick(item) {
+            this.$emit("ondelete", item);
+        },
+    }
+});
+
+Vue.component("mini-cart-products", {
+    props: ["cart"],
+    methods: {
+        handleDeleteClick(item) {
+            this.$emit("ondelete", item)
+        },
+    },
+    template: `
+        <div>
+            <mini-cart-item @ondelete="handleDeleteClick" v-for="entry in cart" :item="entry" :key="entry.id" ></mini-cart-item>
+        </div>
+    `,
+});
+
+Vue.component("menu-link", {
+    props: ["link"],
+    template: `
+            <li><a class="drop-link" href="#">{{link}}</a></li>`,
+});
+
+Vue.component("browse-menu", {
+    data() {
+        return {
+            lists: [],
+        };
+    },
+    mounted() {//когда компонент монтируется в дом
+        fetch(`${API_URL}/browse`)
+            .then((response) => response.json())
+            .then((items) => {
+                this.lists = items;
+            });
+    },
+    template: `
+        <div>
+            <div class="browse-drop-flex" v-for="list in lists">
+                <h3 class="drop-heading">{{list.blockName}}</h3>
+                <menu-link class="browse-drop-menu" v-for="link in list.title" :link="link" :key="link.id"></menu-link>
+            </div>
+        </div>`,
+});
+
+Vue.component("nav-menu", {
+    data() {
+        return {
+            lists: [],
+        };
+    },
+    mounted() {//когда компонент монтируется в дом
+        fetch(`${API_URL}/nav`)
+            .then((response) => response.json())
+            .then((items) => {
+                this.lists = items;
+            });
+    },
+    template: `
+        <div class="drop-box">
+            <div class="drop-flex">
+                <h3 class="drop-heading">{{lists[0].blockName}}</h3>
+                <menu-link class="drop-menu" v-for="link in lists[0].title" :link="link" :key="link.id"></menu-link>
+            </div>
+            <div class="drop-flex">
+                <h3 class="drop-heading">{{lists[1].blockName}}</h3>
+                <menu-link class="drop-menu" v-for="link in lists[1].title" :link="link" :key="link.id"></menu-link>
+                <br>
+                <h3 class="drop-heading">{{lists[2].blockName}}</h3>
+                <menu-link class="drop-menu" v-for="link in lists[2].title" :link="link" :key="link.id"></menu-link>
+            </div>
+            <div class="drop-flex">
+                <h3 class="drop-heading">{{lists[3].blockName}}</h3>
+                <menu-link class="drop-menu" v-for="link in lists[3].title" :link="link" :key="link.id"></menu-link>
+                <div class="img-drop-flex"><a href="#" class="text-img-drop-flex">Super sale!</a></div>
+            </div>
+        </div>`,
 });
 
 
@@ -121,6 +229,9 @@ const app = new Vue({
     computed: {
         total() {
             return this.cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        },
+        totalAmount() {
+            return this.cart.reduce((acc, item) => acc + +item.quantity, 0);
         }
     },
     mounted() {//когда компонент монтируется в дом
@@ -188,6 +299,25 @@ const app = new Vue({
                         this.cart = this.cart.filter((cartItem) => cartItem.id !== item.id);
                     })
             }
-        }
+        },
+        handleChangeInputClick(item, quantity) {
+            fetch(`${API_URL}/cart/${item.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({quantity: +quantity})
+            })
+                .then((response) => response.json());
+        },
+        clearCart(){
+            this.cart.forEach((item)=>{
+                fetch(`${API_URL}/cart/${item.id}`, {
+                    method: "DELETE"
+                }).then(() => {
+                    this.cart = this.cart.filter((cartItem) => cartItem.id !== item.id);
+                })
+            })
+        },
     }
 });
