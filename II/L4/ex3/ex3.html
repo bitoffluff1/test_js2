@@ -23,9 +23,10 @@
         .writeToMe input {
             width: 300px;
         }
-        .error{
-            outline: 2px solid red;
+        input.invalid:not(:placeholder-shown) {
+            border-color: red;
         }
+
 
     </style>
 </head>
@@ -33,9 +34,9 @@
 <h1>Напишите нам!</h1>
 <div class="writeToMe">
     <ul id="forms">
-        <li>Ваше имя: <input type="text" class="name" placeholder="Иван Иванов"></li>
-        <li>Телефон: <input class="phone" placeholder="+7(000)000-0000"></li>
-        <li>Email: <input type="email" class="mail"  placeholder="example@mail.ru"></li>
+        <li>Ваше имя: <input type="text" class="name" placeholder="Иван Иванов" data-validation-rule="name"></li>
+        <li>Телефон: <input class="phone" placeholder="+7(000)000-0000" data-validation-rule="phone"></li>
+        <li>Email: <input type="email" class="mail"  placeholder="example@mail.ru" data-validation-rule="email"></li>
         <li>Тема: <input type="text"></li>
         <li>Текстовое поле:
             <textarea cols="45" rows="10"></textarea></li>

@@ -1,39 +1,21 @@
-const $button = document.getElementById("button");
-const $form = document.querySelectorAll("input");
-
-$button.addEventListener("click", () => {
-    const name = $form[0].value;
-    const regName = /^[а-я\s]+$/i;
-    if (name.length > 0) {
-        if (regName.test(name) === false) {
-            $form[0].classList.add("error");
-            alert("Не правильно введено имя");
-        } else {
-            $form[0].classList.remove("error");
-        }
-    }
+const validation = {
+    name: /^[a-z]+$/iu,
+    phone: /^\+\d\(\d{3}\)\d{3}-\d{4}$/,
+    email: /.+@.+\..+/i
+};
 
 
-    const phone = $form[1].value;
-    const regPhone = /^\+\d\(\d{3}\)\d{3}-\d{4}$/;
-    if (phone.length > 0) {
-        if (regPhone.test(phone) === false) {
-            $form[1].classList.add("error");
-            alert("Не правильно введен номер телефона");
-        } else {
-            $form[1].classList.remove("error");
-        }
-    }
-
-    const email = $form[2].value;
-    const regEmail = /^.+@.+\..+$/;
-    if (email.length > 0) {
-        if (regEmail.test(email) === false) {
-            $form[2].classList.add("error");
-            alert("Не правильно введен адрес электронной почты");
-        } else {
-            $form[2].classList.remove("error");
-        }
-    }
+document.getElementById("button").addEventListener("click", () => {
+    Object.keys(validation).forEach((rule) => {
+        const $fields = document.querySelectorAll("[data-validation-rule='" + rule + "']");
+        $fields.forEach((field) => {
+            if (validation[rule].test(field.value)) {
+                field.classList.remove("invalid");
+            } else {
+                field.classList.add("invalid");
+            }
+        });
+    });
+    event.preventDefault();
 });
 
