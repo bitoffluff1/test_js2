@@ -48,7 +48,44 @@
                             cart</a></div>
                     </div>
                 </div>
-                <a href="#" class="button">My&nbsp;Account <i class="fas fa-caret-down"></i></a>
+                <a href="#" class="button" @click.prevent="handleShowModalClick">My&nbsp;Account</a>
+                <div class="modal" v-if="modal.length">
+                    <div class="modal-content">
+                        <a href="#"><i @click.prevent="handleShowModalClick" class="fas fa-times-circle fas_modal"></i></a>
+                        <main class="modal_main">
+                            <div class="titles">
+                                <a href="#" @click="handleSignClick" class="title"><h2
+                                        class="shopping-cart-forms-text modal_title">SIGN IN</h2></a>
+                                <a href="#" @click="handleSignClick" class="title"><h2
+                                        class="shopping-cart-forms-text modal_title">SIGN UP</h2></a>
+                            </div>
+                            <div v-if="signIn.length">
+                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                       placeholder="Example@gmail.com" type="email" required v-model="checkEmail">
+                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                       type="password" placeholder="Password" required v-model="checkPassword">
+                                <div class="modal-button">
+                                    <a href="#" class="button-black shopping-cart-forms-button_size modal_size" @click.prevent="checkUser">SIGN IN</a>
+                                    <p v-if="check.length" class="sent"><i class="far fa-check-circle"></i></p>
+                                </div>
+                            </div>
+                            <div v-if="signUp.length" id="singUp">
+                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                       placeholder="Example@gmail.com" type="email" v-model="email" required data-validation-rule="email">
+                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                       placeholder="First Name" type="text" v-model="firstName" required data-validation-rule="name">
+                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                       placeholder="Last Name" type="text" v-model="lastName" required data-validation-rule="name">
+                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                       type="password" placeholder="Password" v-model="password" required>
+                                <div class="modal-button">
+                                    <a href="#" class="button-black shopping-cart-forms-button_size modal_size" @click.prevent="sendUser">SIGN UP</a>
+                                    <p v-if="sent.length" class="sent"><i class="far fa-check-circle"></i></p>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -107,7 +144,7 @@
                 <option value="r3" class="shipping-address-link">Bangladesh</option>
             </select>
             <input class="shopping-cart-forms-input shopping-cart-forms-input_width" placeholder="State">
-            <input class="shopping-cart-forms-input shopping-cart-forms-input_width" placeholder="Postcode / Zip">
+            <input class="shopping-cart-forms-input shopping-cart-forms-input_width" placeholder="Postcode/Zip">
             <a href="#" class="button-black shopping-cart-forms-button_size">get a&nbsp;quote</a>
         </div>
         <div class="coupon-discount">

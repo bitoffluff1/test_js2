@@ -5,7 +5,7 @@ Vue.component("product-item", {
     template: `
             <div class="item">
                 <div class="fetured-item1">
-                    <a href="#" class="fetured-item">
+                    <a href="single-page.html" class="fetured-item">
                         <img :src="item.image" alt="fetured-items">
                         <div class="item-text">
                             <p class="name-item">{{item.name}}</p>
@@ -217,7 +217,6 @@ Vue.component("nav-menu", {
         </div>`,
 });
 
-
 const app = new Vue({
     el: "#app",
     data: {
@@ -225,6 +224,20 @@ const app = new Vue({
         filterValue: "",
         isVisibleCart: "",
         cart: [],
+
+        modal: "",
+        signIn: "active",
+        signUp: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        password: "",
+        sent: "",
+        check: "",
+        checkEmail: "",
+        checkPassword: "",
+        userId: "",
+
     },
     computed: {
         total() {
@@ -233,13 +246,6 @@ const app = new Vue({
         totalAmount() {
             return this.cart.reduce((acc, item) => acc + +item.quantity, 0);
         }
-    },
-    mounted() {//когда компонент монтируется в дом
-        fetch(`${API_URL}/cart`)
-            .then((response) => response.json())
-            .then((items) => {
-                this.cart = items;
-            });
     },
     methods: {
         handleSearchClick() {
@@ -266,7 +272,7 @@ const app = new Vue({
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({...item, quantity: 1})
+                    body: JSON.stringify({...item, quantity: 1, userId: this.userId})
                 })
                     .then((response) => response.json())
                     .then((item) => {
@@ -275,6 +281,11 @@ const app = new Vue({
             }
         },
         handleShowCartClick() {
+            fetch(`${API_URL}/cart?userId=${this.userId}`)
+                .then((response) => response.json())
+                .then((items) => {
+                    this.cart = items;
+                });
             this.isVisibleCart = this.isVisibleCart.length ? "" : "active";
         },
         handleDeleteClick(item) {
@@ -310,8 +321,8 @@ const app = new Vue({
             })
                 .then((response) => response.json());
         },
-        clearCart(){
-            this.cart.forEach((item)=>{
+        clearCart() {
+            this.cart.forEach((item) => {
                 fetch(`${API_URL}/cart/${item.id}`, {
                     method: "DELETE"
                 }).then(() => {
@@ -319,5 +330,55 @@ const app = new Vue({
                 })
             })
         },
+        handleShowModalClick() {
+            this.modal = this.modal.length ? "" : "active";
+        },
+        handleSignClick() {
+            this.signUp = this.signUp.length ? "" : "active";
+            this.signIn = this.signIn.length ? "" : "active";
+        },
+        sendUser() {
+            const validation = {
+                name: /^[a-z]+$/iu,
+                email: /.+@.+\..+/i
+            };
+            Object.keys(validation).forEach((rule) => {
+                const fields = document.querySelectorAll("[data-validation-rule='" + rule + "']");
+                fields.forEach((field) => {
+                    if (validation[rule].test(field.value)) {
+                        field.classList.remove("invalid");
+                    } else {
+                        field.classList.add("invalid");
+                    }
+                });
+            });
+
+            const $singUp = document.getElementById("singUp");
+            if ($singUp.querySelectorAll(".invalid").length === 0) {
+                fetch(`${API_URL}/users`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: this.email,
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        password: this.password,
+                    })
+                }).then((response) => response.json());
+                this.sent = "sent";
+            }
+        },
+        checkUser() {
+            fetch(`${API_URL}/users?email=${this.checkEmail}&password=${this.checkPassword}`)
+                .then((response) => response.json())
+                .then((user) => {
+                    if (user) {
+                        this.check = "check";
+                        this.userId = user[0].id;
+                    }
+                });
+        }
     }
 });

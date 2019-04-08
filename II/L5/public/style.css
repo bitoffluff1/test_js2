@@ -821,13 +821,13 @@ details[open] > .category {
     list-style-type: none;
 }
 
-.input-link{
+.input-link {
     margin: 8px;
     cursor: pointer;
     color: #858585;
 }
 
-.input-link:hover{
+.input-link:hover {
     color: #000000;
 }
 
@@ -844,10 +844,12 @@ details[open] > .category {
     background-color: #ffffff;
     outline: none;
 }
-.img-cart{
+
+.img-cart {
     position: relative;
 }
-.cart-items{
+
+.cart-items {
     background-color: #f16d7f;
     color: white;
     padding: 2px 9px;
@@ -1101,7 +1103,7 @@ details[open] > .category {
 }
 
 .comments {
-    background-image: url(../img/comment.jpg);
+    background-image: url(img/comment.jpg);
     background-repeat: no-repeat;
     background-position: center;
     margin-top: 97px;
@@ -1987,5 +1989,75 @@ body {
     color: #f16d7f;
 }
 
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    max-width: 100%;
+    height: 400px;
+    max-height: 100%;
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f5f3f3;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+
+.fas_modal {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+}
+
+.titles {
+    display: flex;
+}
+
+.title {
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.modal_title:hover {
+    color: #f16d7f;
+}
+
+input.invalid:not(:placeholder-shown) {
+    border-color: red;
+}
+
+.modal-button{
+    display: flex;
+    align-items: center;
+}
+
+.sent {
+    color: #f16d7f;
+    font-size: 16px;
+    padding: 20px;
+}
+
+.modal_size{
+    height: 20px;
+    line-height: 20px;
+}
 /*# sourceMappingURL=style.css.map */
 
