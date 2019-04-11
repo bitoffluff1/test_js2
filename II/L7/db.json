@@ -1,0 +1,204 @@
+{
+  "items": [
+    {
+      "image": "img/fetured-items1.jpg",
+      "name": "Mango People T-shirt",
+      "price": 52,
+      "category": "featured",
+      "id": 1,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items2.jpg",
+      "name": "Mango People Dress",
+      "price": 152,
+      "category": "featured",
+      "id": 2,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items3.jpg",
+      "name": "Mango People Jacket",
+      "price": 42,
+      "category": "featured",
+      "id": 3,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items4.jpg",
+      "name": "Mango People Top",
+      "price": 52,
+      "category": "featured",
+      "id": 4,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items5.jpg",
+      "name": "Mango People Accessory",
+      "price": 50,
+      "category": "featured",
+      "id": 5,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items6.jpg",
+      "name": "Mango People Blazer",
+      "price": 52,
+      "category": "featured",
+      "id": 6,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items7.jpg",
+      "name": "Mango People Pant",
+      "price": 102,
+      "category": "featured",
+      "id": 7,
+      "color": "Black",
+      "size": "S"
+    },
+    {
+      "image": "img/fetured-items8.jpg",
+      "name": "Mango People Sweater",
+      "price": 52,
+      "category": "featured",
+      "id": 8,
+      "color": "Black",
+      "size": "S"
+    }
+  ],
+  "cart": [
+    {
+      "image": "img/fetured-items1.jpg",
+      "name": "Mango People T-shirt",
+      "price": 52,
+      "category": "featured",
+      "id": 1,
+      "color": "Black",
+      "size": "S",
+      "quantity": 1,
+      "userId": 2
+    },
+    {
+      "image": "img/fetured-items2.jpg",
+      "name": "Mango People Dress",
+      "price": 152,
+      "category": "featured",
+      "id": 2,
+      "color": "Black",
+      "size": "S",
+      "quantity": 1,
+      "userId": 2
+    },
+    {
+      "image": "img/fetured-items4.jpg",
+      "name": "Mango People Top",
+      "price": 52,
+      "category": "featured",
+      "id": 4,
+      "color": "Black",
+      "size": "S",
+      "quantity": 1,
+      "userId": "1"
+    }
+  ],
+  "browse": [
+    {
+      "id": 1,
+      "blockName": "Women",
+      "title": [
+        "Dresses",
+        "Tops",
+        "Sweaters/Knits",
+        "Jackets/Coats",
+        "Blazers",
+        "Denim",
+        "Leggings/Pants",
+        "Skirts/Shorts",
+        "Accessories"
+      ]
+    },
+    {
+      "id": 2,
+      "blockName": "Men",
+      "title": [
+        "Tees/Tank tops",
+        "Shirts/Polos",
+        "Sweaters",
+        "Sweatshirts/Hoodies",
+        "Blazers",
+        "Jackets/Vests"
+      ]
+    }
+  ],
+  "nav": [
+    {
+      "id": 1,
+      "blockName": "Women1",
+      "title": [
+        "Dresses",
+        "Tops",
+        "Sweaters/Knits",
+        "Jackets/Coats",
+        "Blazers",
+        "Denim",
+        "Leggings/Pants",
+        "Skirts/Shorts",
+        "Accessories"
+      ]
+    },
+    {
+      "id": 2,
+      "blockName": "Women2",
+      "title": [
+        "Dresses",
+        "Tops",
+        "Sweaters/Knits"
+      ]
+    },
+    {
+      "id": 3,
+      "blockName": "Women3",
+      "title": [
+        "Dresses",
+        "Tops",
+        "Sweaters/Knits"
+      ]
+    },
+    {
+      "id": 4,
+      "blockName": "Women4",
+      "title": [
+        "Dresses",
+        "Tops",
+        "Sweaters/Knits",
+        "Jackets/Coats"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "email": "e@mail.ru",
+      "firstName": "Vasya",
+      "lastName": "Ivanov",
+      "password": "123",
+      "id": 1
+    },
+    {
+      "email": "e@gmail.com",
+      "firstName": "Ivan",
+      "lastName": "Ivanov",
+      "password": "1234",
+      "id": 2
+    }
+  ],
+  "feedback": [
+
+  ]
+}
