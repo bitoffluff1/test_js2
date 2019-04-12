@@ -255,12 +255,21 @@ const app = new Vue({
         sent: "",
         check: "",
         userId: 0,
+        modalAcc: "",
+        currentPassword: "",
+        newPassword: "",
+        changePass:"",
 
         name: "",
         mail: "",
         message: "",
         submit: "",
 
+    },
+    watch: {
+        userId: function () {
+            this.getCart()
+        }
     },
     computed: {
         total() {
@@ -422,7 +431,30 @@ const app = new Vue({
                         this.check = message[0];
                     }
                 })
-                .then(() => this.getCart());
+        },
+        handleSignOutClick() {
+            this.userId = 0;
+            this.check = "";
+        },
+        handleChangePasswordClick() {
+            this.modalAcc = this.modalAcc.length ? "" : "active";
+        },
+        changePassword() {
+            fetch(`${API_URL}/pass`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    currentPassword: this.currentPassword,
+                    newPassword: this.newPassword,
+                    userId: this.userId
+                })
+            })
+                .then((response) => response.json())
+                .then((message) => {
+                    this.changePass = message[0];
+                })
         },
         sendFeedback() {
             fetch(`${API_URL}/feedback`, {

@@ -223,6 +223,33 @@ app.post("/auth", (req, res) => {
     });
 });
 
+app.post("/pass", (req, res) => {
+    fs.readFile("./db/users.json", "utf-8", (err, data) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        const users = JSON.parse(data);
+        const {currentPassword, newPassword, userId} = req.body;
+        const isExist = users.find((user) => user.id === userId && user.password === currentPassword);
+        console.log(isExist);
+        if (isExist) {
+            isExist.password = newPassword;
+
+            fs.writeFile("./db/users.json", JSON.stringify(users), (err) => {
+                if (err) {
+                    return console.log(err);
+                }
+
+                res.send(["Password change"]);
+            });
+        } else {
+            res.send(["Wrong password"]);
+        }
+    });
+});
+
 app.post("/feedback", (req, res) => {
     fs.readFile("./db/feedback.json", "utf-8", (err, data) => {
         if (err) {

@@ -2044,7 +2044,7 @@ input.invalid:not(:placeholder-shown) {
     border-color: red;
 }
 
-.modal-button{
+.modal-button {
     display: flex;
     align-items: center;
 }
@@ -2055,28 +2055,59 @@ input.invalid:not(:placeholder-shown) {
     padding: 20px;
 }
 
-.modal_size{
+.modal_size {
     height: 20px;
     line-height: 20px;
 }
 
-.feedback{
+.feedback {
     display: flex;
     justify-content: center;
     margin-top: 50px;
 }
-.textarea_size{
+
+.textarea_size {
     height: 100px;
     width: 600px;
-    resize:none;
+    resize: none;
     font-family: "Lato", sans-serif;
 }
 
-.modal_text__margin{
+.modal_text__margin {
     padding: 0 20px;
 }
-.modal_text__color{
+
+.modal_text__color {
     color: #f16d7f;
+}
+
+.button-pink_active {
+    border: 1px solid #ef5b70;
+    background-color: #ffffff;
+    color: #ef5b70;
+    height: 36px;
+}
+
+.buttons_account{
+    display: flex;
+    position: relative;
+}
+
+.account_drop-box{
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #ececec;
+    position: absolute;
+    padding: 20px;
+    display: none;
+    top: 40px;
+    left: -40px;
+    z-index: 10;
+    list-style-type: none;
+}
+
+.buttons_account:hover .account_drop-box {
+    display: block;
 }
 
 

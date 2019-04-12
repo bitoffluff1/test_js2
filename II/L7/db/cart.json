@@ -1,14 +1,14 @@
 [
   {
-    "image": "img/fetured-items3.jpg",
-    "name": "Mango People Jacket",
-    "price": 42,
+    "image": "img/fetured-items4.jpg",
+    "name": "Mango People Top",
+    "price": 52,
     "category": "featured",
-    "id": 3,
+    "id": 4,
     "color": "Black",
     "size": "S",
-    "quantity": 2,
-    "userId": 0
+    "quantity": 1,
+    "userId": 1
   },
   {
     "image": "img/fetured-items3.jpg",
@@ -18,7 +18,7 @@
     "id": 3,
     "color": "Black",
     "size": "S",
-    "quantity": 2,
-    "userId": 0
+    "quantity": 1,
+    "userId": 1
   }
 ]

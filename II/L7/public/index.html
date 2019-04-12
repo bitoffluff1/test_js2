@@ -40,7 +40,42 @@
                             cart</a></div>
                     </div>
                 </div>
-                <a href="#" class="button" @click.prevent="handleShowModalClick">My&nbsp;Account</a>
+
+                <a href="#" class="button" @click.prevent="handleShowModalClick"
+                   v-if=" userId === 0">My&nbsp;Account</a>
+                <div v-else class="buttons_account">
+                    <a href="#" class="button">{{check}}</a>
+                    <div class="account_drop-box">
+                        <li><a class="drop-link" href="#" @click.prevent="handleSignOutClick">Sign Out</a></li>
+                        <li><a class="drop-link" href="#" @click.prevent="handleChangePasswordClick">Change&nbsp;password</a>
+                        </li>
+                        <div class="modal" v-if="modalAcc.length">
+                            <div class="modal-content">
+                                <a href="#"><i @click.prevent="handleChangePasswordClick"
+                                               class="fas fa-times-circle fas_modal"></i></a>
+                                <main class="modal_main">
+                                    <a href="#" class="title"><h2
+                                            class="shopping-cart-forms-text modal_title">CHANGE PASSWORD</h2></a>
+                                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                           placeholder="Сurrent Password" type="password" v-model="currentPassword"
+                                           required>
+                                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                           type="password" placeholder="New Password" required v-model="newPassword">
+                                    <div class="modal-button">
+                                        <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
+                                           @click.prevent="changePassword">SAVE PASSWORD</a>
+                                        <p v-if="changePass.length"
+                                           class="trending-now-link modal_text__margin modal_text__color">{{changePass}}</p>
+                                    </div>
+
+                                </main>
+                            </div>
+                        </div>
+                        <li><a class="drop-link" href="#">Orders</a></li>
+                    </div>
+                </div>
+
+
                 <div class="modal" v-if="modal.length">
                     <div class="modal-content">
                         <a href="#"><i @click.prevent="handleShowModalClick" class="fas fa-times-circle fas_modal"></i></a>
@@ -61,7 +96,7 @@
                                        @click.prevent="checkUser">SIGN IN</a>
                                     <p v-if="check.length"
                                        class="trending-now-link modal_text__margin modal_text__color">{{check}}</p>
-                                    <a v-else class="trending-now-link modal_text__margin" href="#">Forgot password</a>
+                                    <!--<a v-if="check.length" class="trending-now-link modal_text__margin" href="#">Change password</a>-->
                                 </div>
                             </div>
                             <div v-if="signUp.length" id="singUp">
