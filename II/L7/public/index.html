@@ -53,13 +53,15 @@
                             </div>
                             <div v-if="signIn.length">
                                 <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                                       placeholder="Example@gmail.com" type="email" required v-model="checkEmail">
+                                       placeholder="Login" type="text" v-model="checkLogin" required>
                                 <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
                                        type="password" placeholder="Password" required v-model="checkPassword">
                                 <div class="modal-button">
                                     <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
                                        @click.prevent="checkUser">SIGN IN</a>
-                                    <p v-if="check.length" class="sent"><i class="far fa-check-circle"></i></p>
+                                    <p v-if="check.length"
+                                       class="trending-now-link modal_text__margin modal_text__color">{{check}}</p>
+                                    <a v-else class="trending-now-link modal_text__margin" href="#">Forgot password</a>
                                 </div>
                             </div>
                             <div v-if="signUp.length" id="singUp">
@@ -67,17 +69,15 @@
                                        placeholder="Example@gmail.com" type="email" v-model="email" required
                                        data-validation-rule="email">
                                 <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                                       placeholder="First Name" type="text" v-model="firstName" required
-                                       data-validation-rule="name">
-                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                                       placeholder="Last Name" type="text" v-model="lastName" required
+                                       placeholder="Login" type="text" v-model="login" required
                                        data-validation-rule="name">
                                 <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
                                        type="password" placeholder="Password" v-model="password" required>
                                 <div class="modal-button">
                                     <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
                                        @click.prevent="sendUser">SIGN UP</a>
-                                    <p v-if="sent.length" class="sent"><i class="far fa-check-circle"></i></p>
+                                    <p v-if="sent.length"
+                                       class="trending-now-link modal_text__margin modal_text__color">{{sent}}</p>
                                 </div>
                             </div>
                         </main>
@@ -165,7 +165,8 @@
                    placeholder="Name" type="text" v-model="name" required data-validation-rule="name">
             <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
                    placeholder="Example@gmail.com" type="email" required v-model="mail">
-            <textarea class="shopping-cart-forms-input textarea_size" placeholder="You message" v-model="message" ></textarea>
+            <textarea class="shopping-cart-forms-input textarea_size" placeholder="You message"
+                      v-model="message"></textarea>
             <div class="modal-button">
                 <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
                    @click.prevent="sendFeedback">Submit</a>

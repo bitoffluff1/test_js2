@@ -237,7 +237,6 @@ Vue.component("nav-menu", {
 });
 
 
-
 const app = new Vue({
     el: "#app",
     data: {
@@ -249,27 +248,19 @@ const app = new Vue({
         signIn: "active",
         signUp: "",
         email: "",
-        firstName: "",
-        lastName: "",
+        login: "",
         password: "",
-        checkEmail: "",
+        checkLogin: "",
         checkPassword: "",
         sent: "",
         check: "",
-        userId: "",
+        userId: 0,
 
-        name:"",
-        mail:"",
-        message:"",
-        submit:"",
+        name: "",
+        mail: "",
+        message: "",
+        submit: "",
 
-    },
-    mounted() {
-        fetch(`${API_URL}/cart`)
-            .then((response) => response.json())
-            .then((items) => {
-                this.cart = items;
-            });
     },
     computed: {
         total() {
@@ -280,6 +271,14 @@ const app = new Vue({
         }
     },
     methods: {
+        getCart() {
+            this.cart = [];
+            fetch(`${API_URL}/cart/${this.userId}`)
+                .then((response) => response.json())
+                .then((items) => {
+                    this.cart = items;
+                });
+        },
         handleSearchClick(query) {
             this.filterValue = query;
         },
@@ -313,11 +312,6 @@ const app = new Vue({
             }
         },
         handleShowCartClick() {
-            /*fetch(`${API_URL}/cart?userId=${this.userId}`)
-                .then((response) => response.json())
-                .then((items) => {
-                    this.cart = items;
-                });*/
             this.isVisibleCart = this.isVisibleCart.length ? "" : "active";
         },
         handleDeleteClick(item) {
@@ -394,25 +388,43 @@ const app = new Vue({
                     },
                     body: JSON.stringify({
                         email: this.email,
-                        firstName: this.firstName,
-                        lastName: this.lastName,
-                        password: this.password,
+                        login: this.login,
+                        password: this.password
                     })
-                }).then((response) => response.json());
-                this.sent = "sent";
+                })
+                    .then((response) => response.json())
+                    .then((message) => {
+                        if (message.login) {
+                            this.sent = "Hi, " + message.login;
+                        } else {
+                            this.sent = message[0];
+                        }
+                    });
             }
         },
         checkUser() {
-            fetch(`${API_URL}/users?email=${this.checkEmail}&password=${this.checkPassword}`)
+            fetch(`${API_URL}/auth`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    checkLogin: this.checkLogin,
+                    checkPassword: this.checkPassword
+                })
+            })
                 .then((response) => response.json())
-                .then((user) => {
-                    if (user) {
-                        this.check = "check";
-                        this.userId = user[0].id;
+                .then((message) => {
+                    if (message.login) {
+                        this.check = "Hi, " + message.login;
+                        this.userId = message.id;
+                    } else {
+                        this.check = message[0];
                     }
-                });
+                })
+                .then(() => this.getCart());
         },
-        sendFeedback(){
+        sendFeedback() {
             fetch(`${API_URL}/feedback`, {
                 method: "POST",
                 headers: {

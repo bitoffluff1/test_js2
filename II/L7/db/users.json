@@ -1,22 +1,14 @@
 [
   {
-    "email": "e@mail.ru",
-    "firstName": "Vasya",
-    "lastName": "Ivanov",
+    "email": "a@mail.ru",
+    "login": "Alex",
     "password": "123",
     "id": 1
   },
   {
-    "email": "e@gmail.com",
-    "firstName": "Ivan",
-    "lastName": "Ivanov",
-    "password": "1234",
+    "email": "i@mail.ru",
+    "login": "Ivan",
+    "password": "12345",
     "id": 2
-  },
-  {
-    "email": "a@gmail.ru",
-    "firstName": "ivan",
-    "lastName": "ivanov",
-    "password": "12345"
   }
 ]

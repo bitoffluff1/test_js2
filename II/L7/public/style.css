@@ -2072,6 +2072,13 @@ input.invalid:not(:placeholder-shown) {
     font-family: "Lato", sans-serif;
 }
 
+.modal_text__margin{
+    padding: 0 20px;
+}
+.modal_text__color{
+    color: #f16d7f;
+}
+
 
 /*# sourceMappingURL=style.css.map */
 
