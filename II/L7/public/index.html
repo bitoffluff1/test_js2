@@ -65,7 +65,8 @@
                                         <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
                                            @click.prevent="changePassword">SAVE PASSWORD</a>
                                         <p v-if="changePass.length"
-                                           class="trending-now-link modal_text__margin modal_text__color">{{changePass}}</p>
+                                           class="trending-now-link modal_text__margin modal_text__color">
+                                            {{changePass}}</p>
                                     </div>
 
                                 </main>
@@ -74,8 +75,6 @@
                         <li><a class="drop-link" href="#">Orders</a></li>
                     </div>
                 </div>
-
-
                 <div class="modal" v-if="modal.length">
                     <div class="modal-content">
                         <a href="#"><i @click.prevent="handleShowModalClick" class="fas fa-times-circle fas_modal"></i></a>
@@ -193,20 +192,33 @@
             <a href="#" class="button-pink proceed-to-checkout-button_size">proceed to&nbsp;checkout</a>
         </div>
     </div>
-    <div class="container feedback">
-        <div>
-            <h2 class="shopping-cart-forms-text">Send Us Your Feedback</h2>
-            <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                   placeholder="Name" type="text" v-model="name" required data-validation-rule="name">
-            <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                   placeholder="Example@gmail.com" type="email" required v-model="mail">
-            <textarea class="shopping-cart-forms-input textarea_size" placeholder="You message"
-                      v-model="message"></textarea>
-            <div class="modal-button">
-                <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
-                   @click.prevent="sendFeedback">Submit</a>
-                <p v-if="submit.length" class="sent"><i class="far fa-check-circle"></i></p>
+    <div class="feedback">
+        <div class="feedback_new">
+            <div>
+                <h2 class="shopping-cart-forms-text">Send Us Your Feedback</h2>
+                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                       placeholder="Name" type="text" v-model="name" required data-validation-rule="name">
+                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                       placeholder="Example@gmail.com" type="email" required v-model="mail">
+                <textarea class="shopping-cart-forms-input textarea_size" placeholder="You message"
+                          v-model="message"></textarea>
+                <div class="modal-button">
+                    <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
+                       @click.prevent="sendFeedback">Submit</a>
+                    <p v-if="submit.length" class="sent"><i class="far fa-check-circle"></i></p>
+                </div>
             </div>
+        </div>
+        <div class="feedback_approval">
+            <div class="container">
+                <h2 class="shopping-cart-forms-text shopping-cart-forms-text_padding">Feedback for approval</h2>
+                <feedback-list-app :feedback="feedbackForApproval" @ondelete="deleteApproval"
+                               @approval="revocationApproval"></feedback-list-app>
+            </div>
+        </div>
+        <div class="feedback container">
+            <h2 class="shopping-cart-forms-text shopping-cart-forms-text_padding">Feedback</h2>
+            <feedback-list :feedback="feedback"></feedback-list>
         </div>
     </div>
 </div>

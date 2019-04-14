@@ -186,11 +186,12 @@ app.post("/users", (req, res) => {
         const users = JSON.parse(data);
         const {login} = req.body;
         const isExist = users.find((user) => user.login === login);
+        const lastId = users[users.length-1].id;
 
         if (isExist) {
             res.send(["User with this login is already registered"]);
         } else {
-            users.push({...req.body, "id": users.length + 1});
+            users.push({...req.body, "id": lastId + 1});
 
             fs.writeFile("./db/users.json", JSON.stringify(users), (err) => {
                 if (err) {
@@ -257,10 +258,11 @@ app.post("/feedback", (req, res) => {
             return;
         }
 
-        const cart = JSON.parse(data);
-        cart.push(req.body);
+        const feedbackList = JSON.parse(data);
+        const lastId = feedbackList[feedbackList.length-1].id;
+        feedbackList.push({...req.body, "id": lastId + 1});
 
-        fs.writeFile("./db/feedback.json", JSON.stringify(cart), (err) => {
+        fs.writeFile("./db/feedback.json", JSON.stringify(feedbackList), (err) => {
             if (err) {
                 return console.log(err);
             }
@@ -270,6 +272,75 @@ app.post("/feedback", (req, res) => {
     });
 });
 
+app.get("/approval", (req, res) => {
+    fs.readFile("./db/feedback.json", "utf-8", (err, data) => {
+        if (err) {
+            return console.log(err);
+        }
+        let feedbackList = JSON.parse(data);
+        feedbackList = feedbackList.filter((item) => item.type === "new");
+
+        res.send(feedbackList);
+    });
+});
+
+app.patch("/feedback/:id", (req, res) => {
+    fs.readFile("./db/feedback.json", "utf-8", (err, data) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        let feedbackList = JSON.parse(data);
+
+        feedbackList = feedbackList.map((item) => {
+            if (item.id === +req.params.id) {
+                return {...item, ...req.body};
+            }
+            return item;
+        });
+
+        fs.writeFile("./db/feedback.json", JSON.stringify(feedbackList), (err) => {
+            if (err) {
+                return console.log(err);
+            }
+
+            res.send(feedbackList.find((item) => item.id === +req.params.id));
+        });
+    });
+});
+
+app.delete("/feedback/:id", (req, res) => {
+    fs.readFile("./db/feedback.json", "utf-8", (err, data) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        let feedbackList = JSON.parse(data);
+        feedbackList = feedbackList.filter((item) => item.id !== +req.params.id);
+
+        fs.writeFile("./db/feedback.json", JSON.stringify(feedbackList), (err) => {
+            if (err) {
+                return console.log(err);
+            }
+
+            res.send(feedbackList.find((item) => item.id === +req.params.id));
+        });
+    });
+});
+
+app.get("/feedback", (req, res) => {
+    fs.readFile("./db/feedback.json", "utf-8", (err, data) => {
+        if (err) {
+            return console.log(err);
+        }
+        let feedbackList = JSON.parse(data);
+        feedbackList = feedbackList.filter((item) => item.type === "approved");
+
+        res.send(feedbackList);
+    });
+});
 
 app.listen(3000, () => {
     console.log("Server has been started");

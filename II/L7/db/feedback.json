@@ -1,1 +1,37 @@
-[{"email":"e@mail.ru","name":"Helen","message":"Some message"}]
+[
+  {
+    "email": "e@mail.ru",
+    "name": "Helen",
+    "message": "Some message",
+    "type": "approved",
+    "id": 1
+  },
+  {
+    "email": "e@mail.ru",
+    "name": "Ivan",
+    "message": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorem ducimus, ipsum odit perferendis quis",
+    "type": "approved",
+    "id": 3
+  },
+  {
+    "email": "w@mail.ru",
+    "name": "Nik",
+    "message": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid architecto cum eius fugiat harum inventore modi, necessitatibus non officia, quaerat quia sapiente tenetur ullam, voluptas?",
+    "type": "new",
+    "id": 5
+  },
+  {
+    "email": "a@mail.ru",
+    "name": "Ann",
+    "message": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid architecto cum eius fugiat harum inventore modi, aerat quia sapiente tenetur ullam, voluptas?",
+    "type": "new",
+    "id": 6
+  },
+  {
+    "email": "l@mail.ru",
+    "name": "Liza",
+    "message": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis, quisquam. Aliquid architecto cum eius fugiat harum inventore modi, necessitatibus non officia",
+    "type": "approved",
+    "id": 7
+  }
+]

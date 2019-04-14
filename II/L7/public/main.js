@@ -58,8 +58,7 @@ Vue.component("products", {
     template: `
         <div class="fetured-items-box container">
             <product-item @onbuy="handleBuyClick" v-for="entry in filteredItems" :item="entry" :key="entry.id"></product-item>
-        </div>
-    `,
+        </div>`
 });
 
 Vue.component("search", {
@@ -74,11 +73,10 @@ Vue.component("search", {
         }
     },
     template: `
-    <div>
-        <input class="input-form" type="text" placeholder="Search for Item..." v-model="searchQuery"><button class="button-form" type="submit" @click.prevent="handleSearchClick"><i
-                class="fas fa-search"></i></button>
-    </div>
-    `
+         <div>
+             <input class="input-form" type="text" placeholder="Search for Item..." v-model="searchQuery"><button class="button-form" type="submit" @click.prevent="handleSearchClick"><i
+                     class="fas fa-search"></i></button>
+         </div>`
 });
 
 Vue.component("cart-item", {
@@ -100,7 +98,7 @@ Vue.component("cart-item", {
                     </figure>
                 </div>
                 <div class="col col-2">\${{item.price}}</div>
-                <div class="col col-3"><input class="input" type="number" min="1"  v-model="item.quantity"   @click="handleChangeInputClick(item, item.quantity)"></div>
+                <div class="col col-3"><input class="input" type="number" min="1"  v-model="item.quantity" @click="handleChangeInputClick(item, item.quantity)"></div>
                 <div class="col col-4">FREE</div>
                 <div class="col col-5">\${{item.price * item.quantity}}</div>
                 <div class="col col-6 row-header__last row-header__last_center">
@@ -236,6 +234,65 @@ Vue.component("nav-menu", {
         </div>`,
 });
 
+Vue.component("feedback-item-app", {
+    props: ["item"],
+    template: `
+        <div class="feedback-item">
+            <h4 class="text-material-designer">Name: <span class="bold-text">{{item.name}}</span></h4>
+            <p class="text-details text-details_margin">{{item.message}}</p>
+            <div class="modal-button">
+                <a href="#" class="button-pink shopping-cart-forms-button_size modal_size"
+                   @click.prevent="revocationApproval(item)">APPROVAL</a>
+                <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
+                   @click.prevent="deleteApproval(item)">Delete</a>
+            </div>
+         </div>`
+    ,
+    methods: {
+        deleteApproval(item) {
+            this.$emit("ondelete", item);
+        },
+        revocationApproval(item) {
+            this.$emit("approval", item);
+        }
+    }
+});
+
+Vue.component("feedback-list-app", {
+    props: ["feedback"],
+    methods: {
+        deleteApproval(item) {
+            this.$emit("ondelete", item)
+        },
+        revocationApproval(item) {
+            this.$emit("approval", item);
+        }
+    },
+    template: `
+        <div class="feedback-list">
+            <feedback-item-app @ondelete="deleteApproval" @approval="revocationApproval" v-for="entry in feedback" :item="entry" :key="entry.id" ></feedback-item-app>
+        </div>
+    `
+});
+Vue.component("feedback-item", {
+    props: ["item"],
+    template: `
+        <div class="feedback-item">
+            <h4 class="text-material-designer">Name: <span class="bold-text">{{item.name}}</span></h4>
+            <p class="text-details text-details_margin">{{item.message}}</p>
+         </div>`
+    ,
+});
+
+Vue.component("feedback-list", {
+    props: ["feedback"],
+    template: `
+        <div class="feedback-list">
+            <feedback-item v-for="entry in feedback" :item="entry" :key="entry.id" ></feedback-item>
+        </div>
+    `
+});
+
 
 const app = new Vue({
     el: "#app",
@@ -258,13 +315,15 @@ const app = new Vue({
         modalAcc: "",
         currentPassword: "",
         newPassword: "",
-        changePass:"",
+        changePass: "",
 
         name: "",
         mail: "",
         message: "",
         submit: "",
 
+        feedbackForApproval: [],
+        feedback: [],
     },
     watch: {
         userId: function () {
@@ -278,6 +337,21 @@ const app = new Vue({
         totalAmount() {
             return this.cart.reduce((acc, item) => acc + +item.quantity, 0);
         }
+    },
+    mounted() {//когда компонент монтируется в дом
+        this.feedbackForApproval = [];
+        fetch(`${API_URL}/approval`)
+            .then((response) => response.json())
+            .then((items) => {
+                this.feedbackForApproval = items;
+            });
+
+        this.feedback = [];
+        fetch(`${API_URL}/feedback`)
+            .then((response) => response.json())
+            .then((items) => {
+                this.feedback= items;
+            });
     },
     methods: {
         getCart() {
@@ -466,9 +540,36 @@ const app = new Vue({
                     email: this.mail,
                     name: this.name,
                     message: this.message,
+                    type: "new"
                 })
-            }).then((response) => response.json());
-            this.submit = "submit";
-        }
+            })
+                .then((response) => response.json())
+                .then((feedback) => {
+                    this.submit = "submit";
+                    this.feedbackForApproval.push(feedback);
+                });
+
+        },
+        revocationApproval(item) {
+            fetch(`${API_URL}/feedback/${item.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({type: "approved"})
+            })
+                .then((response) => response.json())
+                .then((item) => {
+                    this.feedbackForApproval = this.feedbackForApproval.filter((feedbackItem) => feedbackItem.id !== item.id);
+                })
+        },
+        deleteApproval(item) {
+            fetch(`${API_URL}/feedback/${item.id}`, {
+                method: "DELETE"
+            })
+                .then(() => {
+                    this.feedbackForApproval = this.feedbackForApproval.filter((feedbackItem) => feedbackItem.id !== item.id);
+                })
+        },
     }
 });
