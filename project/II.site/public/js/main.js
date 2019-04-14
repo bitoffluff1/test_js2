@@ -35,6 +35,7 @@ Vue.component("products", {
     data() {
         return {
             items: [],
+            category: "featured",
         };
     },
     computed: { //вычисляемое свойство
@@ -48,7 +49,11 @@ Vue.component("products", {
         }
     },
     mounted() {//когда компонент монтируется в дом
-        fetch(`${API_URL}/items`)
+        const params = window.location.pathname.replace("/", "");
+        if (params === "index.html") {
+            this.category = "featured";
+        }
+        fetch(`${API_URL}/items/${this.category}`)
             .then((response) => response.json())
             .then((items) => {
                 this.items = items;
@@ -56,7 +61,7 @@ Vue.component("products", {
             });
     },
     template: `
-        <div class="fetured-items-box container">
+        <div class="fetured-items-box">
             <product-item @onbuy="handleBuyClick" v-for="entry in filteredItems" :item="entry" :key="entry.id"></product-item>
         </div>`
 });
@@ -74,7 +79,7 @@ Vue.component("search", {
     },
     template: `
          <div>
-             <input class="input-form" type="text" placeholder="Search for Item..." v-model="searchQuery"><button class="button-form" type="submit" @click.prevent="handleSearchClick"><i
+             <input class="input-form" type="text" placeholder="Search for Item..." v-model="searchQuery"><button class="button-form" @click.prevent="handleSearchClick"><i
                      class="fas fa-search"></i></button>
          </div>`
 });
@@ -301,7 +306,6 @@ const app = new Vue({
     el: "#app",
     data: {
         filterValue: "",
-        isVisibleCart: "",
         cart: [],
 
         modal: "",
@@ -353,7 +357,7 @@ const app = new Vue({
         fetch(`${API_URL}/feedback`)
             .then((response) => response.json())
             .then((items) => {
-                this.feedback= items;
+                this.feedback = items;
             });
     },
     methods: {
@@ -396,9 +400,6 @@ const app = new Vue({
                         this.cart.push(item);
                     })
             }
-        },
-        handleShowCartClick() {
-            this.isVisibleCart = this.isVisibleCart.length ? "" : "active";
         },
         handleDeleteClick(item) {
             if (item.quantity > 1) {

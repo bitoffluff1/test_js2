@@ -1,0 +1,14 @@
+[
+  {
+    "email": "a@mail.ru",
+    "login": "Alex",
+    "password": "1234",
+    "id": 1
+  },
+  {
+    "email": "i@mail.ru",
+    "login": "Ivan",
+    "password": "12345",
+    "id": 2
+  }
+]

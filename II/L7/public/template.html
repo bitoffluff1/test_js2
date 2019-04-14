@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+<body>
+<div id="app">
+    <header class="header">
+        <div class="container header-flex">
+            <div class="header-left">
+                <a class="logo" href="template.html"><img class="img-logo" src="img/logo.png" alt="logo">BRAN <span
+                        class="pink-D">D</span></a>
+                <form class="header-form" action="">
+                    <details class="Browse-details">
+                        <summary class="Browse">Browse</summary>
+                        <div class="browse-drop-box">
+                            <browse-menu></browse-menu>
+                        </div>
+                    </details>
+                    <search @search="handleSearchClick"></search>
+                </form>
+            </div>
+            <div class="header-right">
+                <div class="cart-box">
+                    <a href="#"><img src="img/cart.svg" class="img-cart" alt="cart" @click="handleShowCartClick"></a>
+                    <div class="cart-items">{{totalAmount}}</div>
+                    <div class="cart-drop-box">
+                        <mini-cart-products :cart="cart" @ondelete="handleDeleteClick"></mini-cart-products>
+                        <div class="total">
+                            <p class="price-total">TOTAL</p>
+                            <p class="price-total">${{total}}</p>
+                        </div>
+                        <div class="button-cart"><a href="checkout.html" class="button-cart-text">Checkout</a></div>
+                        <div class="button-cart"><a href="shopping-cart.html" class="button-cart-text">Go&nbsp;to
+                            cart</a></div>
+                    </div>
+                </div>
+
+                <a href="#" class="button" @click.prevent="handleShowModalClick"
+                   v-if=" userId === 0">My&nbsp;Account</a>
+                <div v-else class="buttons_account">
+                    <a href="#" class="button">{{check}}</a>
+                    <div class="account_drop-box">
+                        <li><a class="drop-link" href="#" @click.prevent="handleSignOutClick">Sign Out</a></li>
+                        <li><a class="drop-link" href="#" @click.prevent="handleChangePasswordClick">Change&nbsp;password</a>
+                        </li>
+                        <div class="modal" v-if="modalAcc.length">
+                            <div class="modal-content">
+                                <a href="#"><i @click.prevent="handleChangePasswordClick"
+                                               class="fas fa-times-circle fas_modal"></i></a>
+                                <main class="modal_main">
+                                    <a href="#" class="title"><h2
+                                            class="shopping-cart-forms-text modal_title">CHANGE PASSWORD</h2></a>
+                                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                           placeholder="Сurrent Password" type="password" v-model="currentPassword"
+                                           required>
+                                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                           type="password" placeholder="New Password" required v-model="newPassword">
+                                    <div class="modal-button">
+                                        <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
+                                           @click.prevent="changePassword">SAVE PASSWORD</a>
+                                        <p v-if="changePass.length"
+                                           class="trending-now-link modal_text__margin modal_text__color">
+                                            {{changePass}}</p>
+                                    </div>
+
+                                </main>
+                            </div>
+                        </div>
+                        <li><a class="drop-link" href="#">Orders</a></li>
+                    </div>
+                </div>
+                <div class="modal" v-if="modal.length">
+                    <div class="modal-content">
+                        <a href="#"><i @click.prevent="handleShowModalClick" class="fas fa-times-circle fas_modal"></i></a>
+                        <main class="modal_main">
+                            <div class="titles">
+                                <a href="#" @click="handleSignClick" class="title"><h2
+                                        class="shopping-cart-forms-text modal_title">SIGN IN</h2></a>
+                                <a href="#" @click="handleSignClick" class="title"><h2
+                                        class="shopping-cart-forms-text modal_title">SIGN UP</h2></a>
+                            </div>
+                            <div v-if="signIn.length">
+                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                       placeholder="Login" type="text" v-model="checkLogin" required>
+                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                       type="password" placeholder="Password" required v-model="checkPassword">
+                                <div class="modal-button">
+                                    <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
+                                       @click.prevent="checkUser">SIGN IN</a>
+                                    <p v-if="check.length"
+                                       class="trending-now-link modal_text__margin modal_text__color">{{check}}</p>
+                                    <!--<a v-if="check.length" class="trending-now-link modal_text__margin" href="#">Change password</a>-->
+                                </div>
+                            </div>
+                            <div v-if="signUp.length" id="singUp">
+                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                       placeholder="Example@gmail.com" type="email" v-model="email" required
+                                       data-validation-rule="email">
+                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                       placeholder="Login" type="text" v-model="login" required
+                                       data-validation-rule="name">
+                                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                       type="password" placeholder="Password" v-model="password" required>
+                                <div class="modal-button">
+                                    <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
+                                       @click.prevent="sendUser">SIGN UP</a>
+                                    <p v-if="sent.length"
+                                       class="trending-now-link modal_text__margin modal_text__color">{{sent}}</p>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="navigation">
+        <div class="container">
+            <ul class="menu">
+                <li class="menu-list">
+                    <a class="menu-link" href="template.html">Home</a>
+                </li>
+                <li class="menu-list"><a class="menu-link" href="productAll.html?category=men">Man</a>
+                    <nav-menu></nav-menu>
+                </li>
+                <li class="menu-list"><a class="menu-link" href="productAll.html?category=women">Women</a>
+                    <nav-menu></nav-menu>
+                </li>
+                <li class="menu-list"><a class="menu-link" href="productAll.html?category=men">Kids</a>
+                    <nav-menu></nav-menu>
+                </li>
+                <li class="menu-list"><a class="menu-link" href="productAll.html?category=women">Accessories</a>
+                    <nav-menu class="drop-box-last"></nav-menu>
+                </li>
+                <li class="menu-list"><a class="menu-link" href="productAll.html?category=featured">Featured</a>
+                    <nav-menu class="drop-box-last"></nav-menu>
+                </li>
+                <li class="menu-list"><a class="menu-link" href="productAll.html?category=featured">Hot Deals</a>
+                    <nav-menu class="drop-box-last"></nav-menu>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <products :query="filterValue" @onbuy="handleBuyClick"></products>
+    </main>
+    <div v-if="isVisibleCart.length" class="shopping-cart-table container">
+        <div class="row row-header">
+            <div class="col col-1 row-header__col row_first">Product details</div>
+            <div class="col row-header__col">unite price</div>
+            <div class="col row-header__col">quantity</div>
+            <div class="col row-header__col">shipping</div>
+            <div class="col row-header__col">subtotal</div>
+            <div class="col row-header__col row-header__last">action</div>
+        </div>
+        <cart-products :cart="cart" @ondelete="handleDeleteClick" @changeinput="handleChangeInputClick"></cart-products>
+        <div class="shopping-cart-table-button">
+            <a href="#" class="button-black shopping-cart-table-button_size" @click.prevent="clearCart">cLEAR SHOPPING
+                CART </a>
+            <a href="#" class="button-black shopping-cart-table-button_size">cONTINUE sHOPPING </a>
+        </div>
+    </div>
+    <div class="shopping-cart-forms container">
+        <div class="shipping-address">
+            <h2 class="shopping-cart-forms-text">Shipping Address</h2>
+            <select class="shopping-cart-forms-input">
+                <option value="r1" class="shipping-address-link">Bangladesh</option>
+                <option value="r2" class="shipping-address-link">Bangladesh</option>
+                <option value="r3" class="shipping-address-link">Bangladesh</option>
+            </select>
+            <input class="shopping-cart-forms-input shopping-cart-forms-input_width" placeholder="State">
+            <input class="shopping-cart-forms-input shopping-cart-forms-input_width" placeholder="Postcode/Zip">
+            <a href="#" class="button-black shopping-cart-forms-button_size">get a&nbsp;quote</a>
+        </div>
+        <div class="coupon-discount">
+            <h2 class="shopping-cart-forms-text">coupon discount</h2>
+            <p class="shopping-cart-forms-p">Enter your coupon code if&nbsp;you have one</p>
+            <input class="shopping-cart-forms-input shopping-cart-forms-input_width" placeholder="State">
+            <a href="#" class="button-black shopping-cart-forms-button_size">Apply coupon</a>
+        </div>
+        <div class="proceed-to-checkout">
+            <div class="proceed-to-checkout-text">
+                <p class="proceed-to-checkout-text-top">Sub total ${{total}}</p>
+                <p class="proceed-to-checkout-text-bottom">GRAND TOTAL <span class="pink">${{total}}</span></p>
+            </div>
+            <a href="#" class="button-pink proceed-to-checkout-button_size">proceed to&nbsp;checkout</a>
+        </div>
+    </div>
+    <div class="feedback-block">
+        <div class="feedback-new">
+            <div>
+                <h2 class="shopping-cart-forms-text">Send Us Your Feedback</h2>
+                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                       placeholder="Name" type="text" v-model="name" required data-validation-rule="name">
+                <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                       placeholder="Example@gmail.com" type="email" required v-model="mail">
+                <textarea class="shopping-cart-forms-input textarea_size" placeholder="You message"
+                          v-model="message"></textarea>
+                <div class="modal-button">
+                    <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
+                       @click.prevent="sendFeedback">Submit</a>
+                    <p v-if="submit.length" class="sent"><i class="far fa-check-circle"></i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2 class="name-product name-product_margin">Feedback</h2>
+            <feedback-list :feedback="feedback"></feedback-list>
+        </div>
+
+        <div v-if="userId > 0" class="feedback-approval">
+            <div class="container">
+                <h2 class="shopping-cart-forms-text shopping-cart-forms-text_padding">Feedback for approval</h2>
+                <feedback-list-app :feedback="feedbackForApproval" @ondelete="deleteApproval"
+                                   @approval="revocationApproval"></feedback-list-app>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

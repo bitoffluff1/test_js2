@@ -61,13 +61,21 @@ app.use("/cart", (req, res, next) => {
     next();
 });
 
-app.get("/items", (req, res) => {
+app.get("/items/:category", (req, res) => {
     fs.readFile("./db/items.json", "utf-8", (err, data) => {
         if (err) {
             return console.log(err);
         }
 
-        res.send(data);
+        let items = JSON.parse(data);
+
+        if (req.params.category === "all") {
+            res.send(items);
+        } else {
+            items = items.filter((item) => item.category === req.params.category);
+
+            res.send(items);
+        }
     });
 });
 
@@ -91,8 +99,7 @@ app.get("/cart/:userId", (req, res) => {
 app.post("/cart", (req, res) => {
     fs.readFile("./db/cart.json", "utf-8", (err, data) => {
         if (err) {
-            console.log(err);
-            return;
+            return console.log(err);
         }
 
         const cart = JSON.parse(data);
@@ -111,8 +118,7 @@ app.post("/cart", (req, res) => {
 app.patch("/cart/:id", (req, res) => {
     fs.readFile("./db/cart.json", "utf-8", (err, data) => {
         if (err) {
-            console.log(err);
-            return;
+            return console.log(err);
         }
 
         let cart = JSON.parse(data);
@@ -137,8 +143,7 @@ app.patch("/cart/:id", (req, res) => {
 app.delete("/cart/:id", (req, res) => {
     fs.readFile("./db/cart.json", "utf-8", (err, data) => {
         if (err) {
-            console.log(err);
-            return;
+            return console.log(err);
         }
 
         let cart = JSON.parse(data);
@@ -179,14 +184,13 @@ app.get("/nav", (req, res) => {
 app.post("/users", (req, res) => {
     fs.readFile("./db/users.json", "utf-8", (err, data) => {
         if (err) {
-            console.log(err);
-            return;
+            return console.log(err);
         }
 
         const users = JSON.parse(data);
         const {login} = req.body;
         const isExist = users.find((user) => user.login === login);
-        const lastId = users[users.length-1].id;
+        const lastId = users[users.length - 1].id;
 
         if (isExist) {
             res.send(["User with this login is already registered"]);
@@ -208,8 +212,7 @@ app.post("/users", (req, res) => {
 app.post("/auth", (req, res) => {
     fs.readFile("./db/users.json", "utf-8", (err, data) => {
         if (err) {
-            console.log(err);
-            return;
+            return console.log(err);
         }
 
         const users = JSON.parse(data);
@@ -227,8 +230,7 @@ app.post("/auth", (req, res) => {
 app.post("/pass", (req, res) => {
     fs.readFile("./db/users.json", "utf-8", (err, data) => {
         if (err) {
-            console.log(err);
-            return;
+            return console.log(err);
         }
 
         const users = JSON.parse(data);
@@ -254,12 +256,11 @@ app.post("/pass", (req, res) => {
 app.post("/feedback", (req, res) => {
     fs.readFile("./db/feedback.json", "utf-8", (err, data) => {
         if (err) {
-            console.log(err);
-            return;
+            return console.log(err);
         }
 
         const feedbackList = JSON.parse(data);
-        const lastId = feedbackList[feedbackList.length-1].id;
+        const lastId = feedbackList[feedbackList.length - 1].id;
         feedbackList.push({...req.body, "id": lastId + 1, "data": moment().format('LL')});
 
         fs.writeFile("./db/feedback.json", JSON.stringify(feedbackList), (err) => {
@@ -287,8 +288,7 @@ app.get("/approval", (req, res) => {
 app.patch("/feedback/:id", (req, res) => {
     fs.readFile("./db/feedback.json", "utf-8", (err, data) => {
         if (err) {
-            console.log(err);
-            return;
+            return console.log(err);
         }
 
         let feedbackList = JSON.parse(data);
@@ -313,8 +313,7 @@ app.patch("/feedback/:id", (req, res) => {
 app.delete("/feedback/:id", (req, res) => {
     fs.readFile("./db/feedback.json", "utf-8", (err, data) => {
         if (err) {
-            console.log(err);
-            return;
+            return console.log(err);
         }
 
         let feedbackList = JSON.parse(data);

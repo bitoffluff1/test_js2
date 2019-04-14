@@ -26,7 +26,7 @@ Vue.component("product-item", {
 });
 
 Vue.component("products", {
-    props: ["query"],
+    props: ["query", "pagenumber"],
     methods: {
         handleBuyClick(item) {
             this.$emit("onbuy", item)
@@ -35,6 +35,8 @@ Vue.component("products", {
     data() {
         return {
             items: [],
+            category: "",
+            size: 9
         };
     },
     computed: { //вычисляемое свойство
@@ -45,19 +47,32 @@ Vue.component("products", {
             } else {
                 return this.items;
             }
+        },
+        paginatedData(){
+            const start = this.pagenumber * this.size,
+                end = start + this.size;
+            return this.items.slice(start, end);
         }
     },
     mounted() {//когда компонент монтируется в дом
-        fetch(`${API_URL}/items`)
+        const params = window.location.pathname.replace("/", "");
+        if (params === "index.html") {
+            this.category = "featured";
+        } else if (params === "product.html") {
+            this.category = "all";
+        }
+        fetch(`${API_URL}/items/${this.category}`)
             .then((response) => response.json())
             .then((items) => {
                 this.items = items;
                 this.filteredItems = items;
             });
+
+
     },
     template: `
-        <div class="fetured-items-box container">
-            <product-item @onbuy="handleBuyClick" v-for="entry in filteredItems" :item="entry" :key="entry.id"></product-item>
+        <div class="fetured-items-box">
+            <product-item @onbuy="handleBuyClick" v-for="entry in paginatedData" :item="entry" :key="entry.id"></product-item>
         </div>`
 });
 
@@ -74,7 +89,7 @@ Vue.component("search", {
     },
     template: `
          <div>
-             <input class="input-form" type="text" placeholder="Search for Item..." v-model="searchQuery"><button class="button-form" type="submit" @click.prevent="handleSearchClick"><i
+             <input class="input-form" type="text" placeholder="Search for Item..." v-model="searchQuery"><button class="button-form" @click.prevent="handleSearchClick"><i
                      class="fas fa-search"></i></button>
          </div>`
 });
@@ -301,8 +316,8 @@ const app = new Vue({
     el: "#app",
     data: {
         filterValue: "",
-        isVisibleCart: "",
         cart: [],
+        pageNumber: 0,
 
         modal: "",
         signIn: "active",
@@ -353,10 +368,16 @@ const app = new Vue({
         fetch(`${API_URL}/feedback`)
             .then((response) => response.json())
             .then((items) => {
-                this.feedback= items;
+                this.feedback = items;
             });
     },
     methods: {
+        nextPage() {
+            this.pageNumber++;
+        },
+        prevPage() {
+            this.pageNumber--;
+        },
         getCart() {
             this.cart = [];
             fetch(`${API_URL}/cart/${this.userId}`)
@@ -396,9 +417,6 @@ const app = new Vue({
                         this.cart.push(item);
                     })
             }
-        },
-        handleShowCartClick() {
-            this.isVisibleCart = this.isVisibleCart.length ? "" : "active";
         },
         handleDeleteClick(item) {
             if (item.quantity > 1) {
