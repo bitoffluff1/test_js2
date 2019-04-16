@@ -62,7 +62,8 @@
                                                placeholder="Сurrent Password" type="password" v-model="currentPassword"
                                                required>
                                         <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                                               type="password" placeholder="New Password" required v-model="newPassword">
+                                               type="password" placeholder="New Password" required
+                                               v-model="newPassword">
                                         <div class="modal-button">
                                             <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
                                                @click.prevent="changePassword">SAVE PASSWORD</a>
@@ -70,7 +71,6 @@
                                                class="trending-now-link modal_text__margin modal_text__color">
                                                 {{changePass}}</p>
                                         </div>
-
                                     </main>
                                 </div>
                             </div>
@@ -79,15 +79,16 @@
                     </div>
                     <div class="modal" v-if="modal.length">
                         <div class="modal-content">
-                            <a href="#"><i @click.prevent="handleShowModalClick" class="fas fa-times-circle fas_modal"></i></a>
+                            <a href="#"><i @click.prevent="handleShowModalClick"
+                                           class="fas fa-times-circle fas_modal"></i></a>
                             <main class="modal_main">
                                 <div class="titles">
-                                    <a href="#" @click="handleSignClick" class="title"><h2
+                                    <a href="#" @click="handleSignClick('signIn')" class="title"><h2
                                             class="shopping-cart-forms-text modal_title">SIGN IN</h2></a>
-                                    <a href="#" @click="handleSignClick" class="title"><h2
+                                    <a href="#" @click="handleSignClick('signUp')" class="title"><h2
                                             class="shopping-cart-forms-text modal_title">SIGN UP</h2></a>
                                 </div>
-                                <div v-if="signIn.length">
+                                <form v-if="sign === 'signIn'">
                                     <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
                                            placeholder="Login" type="text" v-model="checkLogin" required>
                                     <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
@@ -97,25 +98,33 @@
                                            @click.prevent="checkUser">SIGN IN</a>
                                         <p v-if="check.length"
                                            class="trending-now-link modal_text__margin modal_text__color">{{check}}</p>
-                                        <!--<a v-if="check.length" class="trending-now-link modal_text__margin" href="#">Change password</a>-->
                                     </div>
-                                </div>
-                                <div v-if="signUp.length" id="singUp">
+                                </form>
+                                <form v-if="sign === 'signUp'">
                                     <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                                           placeholder="Example@gmail.com" type="email" v-model="email" required
+                                           placeholder="Example@gmail.com" type="email" v-model="email" name="email"
+                                           required
                                            data-validation-rule="email">
                                     <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                                           placeholder="Login" type="text" v-model="login" required
+                                           placeholder="Login" type="text" v-model="login" name="login" required
                                            data-validation-rule="name">
                                     <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                                           type="password" placeholder="Password" v-model="password" required>
+                                           type="password" placeholder="Password" v-model="password" name="password"
+                                           required>
                                     <div class="modal-button">
                                         <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
-                                           @click.prevent="sendUser">SIGN UP</a>
+                                           @click="sendUser">SIGN UP</a>
+                                        <p v-if="errors.length"
+                                           class="trending-now-link modal_text__margin modal_text__color">
+                                            <b>Please correct the following error(s):</b>
+                                            <ul>
+                                                <li v-for="error in errors">{{ error }}</li>
+                                            </ul>
+                                        </p>
                                         <p v-if="sent.length"
                                            class="trending-now-link modal_text__margin modal_text__color">{{sent}}</p>
                                     </div>
-                                </div>
+                                </form>
                             </main>
                         </div>
                     </div>
@@ -163,7 +172,7 @@
             <div class="container menu-category">
                 <div class="for-man">
                     <div class="text-button">
-                        <a href="#" class="text-category">
+                        <a href="product.html?category=men" class="text-category">
                             <p class="text-top-category">HOT DEAL</p>
                             <p class="text-bottom-category">FOR MEN</p>
                         </a>
@@ -173,9 +182,9 @@
                 <div class="accesories-fon">
                     <div class="accesories">
                         <div class="text-button">
-                            <a href="#" class="text-category">
-                                <p class="text-top-category">LUXIROUS &amp; trendy</p>
-                                <p class="text-bottom-category">ACCESORIES</p>
+                            <a href="product.html?category=men" class="text-category">
+                                <p class="text-top-category">LUXURIOUS &amp; trendy</p>
+                                <p class="text-bottom-category">Accessories</p>
                             </a>
                         </div>
                     </div>
@@ -183,7 +192,7 @@
 
                 <div class="woman">
                     <div class="text-button">
-                        <a href="#" class="text-category">
+                        <a href="product.html?category=women" class="text-category">
                             <p class="text-top-category">30% offer</p>
                             <p class="text-bottom-category">women</p>
                         </a>
@@ -192,7 +201,7 @@
 
                 <div class="kids">
                     <div class="text-button">
-                        <a href="#" class="text-category">
+                        <a href="product.html?category=women" class="text-category">
                             <p class="text-top-category">new arrivals</p>
                             <p class="text-bottom-category">FOR kids</p>
                         </a>
@@ -309,11 +318,11 @@
                 <div class="footer-menu">
                     <h4 class="footer-pink">SHOP CATEGORY</h4>
                     <ul class="list-footer">
-                        <li><a class="footer-link" href="#">Men</a></li>
-                        <li><a class="footer-link" href="#">Women</a></li>
-                        <li><a class="footer-link" href="#">Child</a></li>
-                        <li><a class="footer-link" href="#">Apparel</a></li>
-                        <li><a class="footer-link" href="#">Browse All</a></li>
+                        <li><a class="footer-link" href="product.html?category=men">Men</a></li>
+                        <li><a class="footer-link" href="product.html?category=women">Women</a></li>
+                        <li><a class="footer-link" href="product.html?category=men">Child</a></li>
+                        <li><a class="footer-link" href="product.html">Apparel</a></li>
+                        <li><a class="footer-link" href="product.html">Browse All</a></li>
                     </ul>
                 </div>
             </div>

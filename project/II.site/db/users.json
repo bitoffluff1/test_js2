@@ -10,5 +10,11 @@
     "login": "Ivan",
     "password": "12345",
     "id": 2
+  },
+  {
+    "email": "ann@mail.ru",
+    "login": "Ann",
+    "password": "123",
+    "id": 3
   }
 ]

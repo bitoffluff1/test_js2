@@ -2,10 +2,15 @@ const API_URL = "http://localhost:3000";
 
 Vue.component("product-item", {
     props: ["item"],
+    data() {
+        return {
+            url: "single-page.html?id=" + this.item.id
+        }
+    },
     template: `
             <div class="item">
                 <div class="fetured-item1">
-                    <a href="single-page.html" class="fetured-item">
+                    <a :href="url" class="fetured-item">
                         <img :src="item.image" alt="fetured-items">
                         <div class="item-text">
                             <p class="name-item">{{item.name}}</p>
@@ -24,6 +29,7 @@ Vue.component("product-item", {
         }
     }
 });
+
 
 Vue.component("products", {
     props: ["query"],
@@ -301,6 +307,81 @@ Vue.component("feedback-list", {
     `
 });
 
+Vue.component("item", {
+    data() {
+        return {
+            item: {},
+            id: null
+        };
+    },
+    mounted() {//когда компонент монтируется в дом
+        const params = window.location.search.replace("?", "").split("=");
+        this.id = +params[1];
+
+        fetch(`${API_URL}/single-page.html/${this.id}`)
+            .then((response) => response.json())
+            .then((item) => {
+                this.item = item;
+            });
+    },
+    methods: {
+        handleBuyClick(item) {
+            this.$emit("onbuy", item);
+        }
+    },
+    template: `
+            <section class="single-product-box">
+            <div class="single-product">
+                <img class="img-product" :src="item.image" alt="product">
+            </div>
+
+            <div class="box-details-single-product">
+                <div class="container details-single-product">
+                    <div class="container-single-product">
+                        <p class="text-collection">{{item.category}}</p>
+                        <h3 class="name-product">{{item.name}}</h3>
+                        <p class="text-details">Compellingly actualize fully researched processes before proactive
+                            outsourcing.
+                            Progressively syndicate collaborative architectures before cutting-edge services. Completely
+                            visualize parallel core competencies rather than exceptional portals.
+                        </p>
+                        <div class="material-designer">
+                            <p class="text-material-designer">MATERIAL: <span class="bold-text">COTTON</span></p>
+                            <p class="text-material-designer">DESIGNER: <span class="bold-text">BINBURHAN</span></p>
+                        </div>
+                        <p class="price">$<span>{{item.price}}</span></p>
+                        <hr class="hr">
+                        <div class="choose">
+                            <div class="choose-box">
+                                <h4 class="choose-title">CHOOSE COLOR</h4>
+                                <select class="text-choose" name="color" id="color">
+                                    <option>Red</option>
+                                    <option>Green</option>
+                                </select>
+                            </div>
+                            <div class="choose-box">
+                                <h4 class="choose-title">CHOOSE SIZE</h4>
+                                <select class="text-choose" name="size" id="size">
+                                    <option>XXS</option>
+                                    <option>XS</option>
+                                </select>
+                            </div>
+                            <div class="choose-box">
+                                <h4 class="choose-title">QUANTITY</h4>
+                                <input class="input-field" type="number" min="1" value="1">
+                            </div>
+                        </div>
+                        <div class="box-button-add">
+                            <a href="#" class="button-add" @click.prevent="handleBuyClick(item)"><img class="img-cart-pink" src="img/cart-pink.svg"
+                                                                alt="cart">Add to&nbsp;Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>`
+});
+
+
 
 const app = new Vue({
     el: "#app",
@@ -309,8 +390,7 @@ const app = new Vue({
         cart: [],
 
         modal: "",
-        signIn: "active",
-        signUp: "",
+        sign: "signIn",
         email: "",
         login: "",
         password: "",
@@ -323,6 +403,7 @@ const app = new Vue({
         currentPassword: "",
         newPassword: "",
         changePass: "",
+        errors: [],
 
         name: "",
         mail: "",
@@ -446,28 +527,29 @@ const app = new Vue({
         handleShowModalClick() {
             this.modal = this.modal.length ? "" : "active";
         },
-        handleSignClick() {
-            this.signUp = this.signUp.length ? "" : "active";
-            this.signIn = this.signIn.length ? "" : "active";
+        handleSignClick(button) {
+            if (button === 'signIn') {
+                this.sign = 'signIn';
+            }
+            if (button === 'signUp') {
+                this.sign = 'signUp';
+            }
         },
         sendUser() {
             const validation = {
                 name: /^[a-z]+$/iu,
                 email: /.+@.+\..+/i
             };
-            Object.keys(validation).forEach((rule) => {
-                const fields = document.querySelectorAll("[data-validation-rule='" + rule + "']");
-                fields.forEach((field) => {
-                    if (validation[rule].test(field.value)) {
-                        field.classList.remove("invalid");
-                    } else {
-                        field.classList.add("invalid");
-                    }
-                });
-            });
+            this.errors = [];
 
-            const $singUp = document.getElementById("singUp");
-            if ($singUp.querySelectorAll(".invalid").length === 0) {
+            if (!validation["name"].test(this.login)) {
+                this.errors.push("Name required")
+            }
+            if (!validation["email"].test(this.email)) {
+                this.errors.push("Valid email required")
+            }
+
+            if (!this.errors.length) {
                 fetch(`${API_URL}/users`, {
                     method: "POST",
                     headers: {

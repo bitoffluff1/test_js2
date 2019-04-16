@@ -3,91 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
-    <link rel="stylesheet" href="sass/style.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-    <script src="js/menu.js"></script>
+    <link rel="stylesheet" href="sass/style.css">
 </head>
 <body>
-<div class="all">
+<div class="all" id="app">
     <div class="content">
-
         <header class="header">
             <div class="container header-flex">
                 <div class="header-left">
                     <a class="logo" href="index.html"><img class="img-logo" src="img/logo.png" alt="logo">BRAN <span
                             class="pink-D">D</span></a>
                     <form class="header-form" action="">
-                        <details>
+                        <details class="Browse-details">
                             <summary class="Browse">Browse</summary>
                             <div class="browse-drop-box">
-                                <div class="browse-drop-flex">
-                                    <h3 class="drop-heading">Women</h3>
-
-                                </div>
-                                <div class="browse-drop-flex">
-                                    <h3 class="drop-heading">Man</h3>
-
-                                </div>
+                                <browse-menu></browse-menu>
                             </div>
                         </details>
-                        <input class="input-form" type="text" placeholder="Search for Item...">
-                        <button class="button-form" type="submit"><i class="fas fa-search"></i></button>
+                        <search @search="handleSearchClick"></search>
                     </form>
                 </div>
                 <div class="header-right">
                     <div class="cart-box">
-                        <a href="#" class="img-cart"><img src="img/cart.svg" alt="cart"></a>
+                        <a href="#"><img src="img/cart.svg" class="img-cart" alt="cart"></a>
+                        <div class="cart-items">{{totalAmount}}</div>
                         <div class="cart-drop-box">
-                            <figure class="cart-product">
-                                <a href="#" class="img-cart-product"><img src="img/cart-product1.jpg" alt="product"></a>
-                                <figcaption class="text-cart-drop">
-                                    <a href="#" class="text-cart-drop-box">Rebox Zane</a>
-                                    <div class="block-star">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <p class="price-cart"> 1&nbsp;x $250</p>
-                                </figcaption>
-                                <i class="fas fa-times-circle fa-times-circle__cart"></i>
-                            </figure>
-                            <figure class="cart-product">
-                                <a href="#" class="img-cart-product"><img src="img/cart-product2.jpg" alt="product"></a>
-                                <figcaption class="text-cart-drop">
-                                    <a href="#" class="text-cart-drop-box">Rebox Zane</a>
-                                    <div class="block-star">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <p class="price-cart"> 1&nbsp;x $250</p>
-                                </figcaption>
-                                <i class="fas fa-times-circle fa-times-circle__cart"></i>
-                            </figure>
+                            <mini-cart-products :cart="cart" @ondelete="handleDeleteClick"></mini-cart-products>
                             <div class="total">
                                 <p class="price-total">TOTAL</p>
-                                <p class="price-total">$500.00</p>
+                                <p class="price-total">${{total}}</p>
                             </div>
                             <div class="button-cart"><a href="checkout.html" class="button-cart-text">Checkout</a></div>
                             <div class="button-cart"><a href="shopping-cart.html" class="button-cart-text">Go&nbsp;to
                                 cart</a></div>
                         </div>
                     </div>
-                    <a href="#" class="button">My&nbsp;Account <i class="fas fa-caret-down"></i></a>
+
+                    <a href="#" class="button" @click.prevent="handleShowModalClick"
+                       v-if=" userId === 0">My&nbsp;Account</a>
+                    <div v-else class="buttons_account">
+                        <a href="#" class="button">{{check}}</a>
+                        <div class="account_drop-box">
+                            <li><a class="drop-link" href="#" @click.prevent="handleSignOutClick">Sign Out</a></li>
+                            <li><a class="drop-link" href="#" @click.prevent="handleChangePasswordClick">Change&nbsp;password</a>
+                            </li>
+                            <div class="modal" v-if="modalAcc.length">
+                                <div class="modal-content">
+                                    <a href="#"><i @click.prevent="handleChangePasswordClick"
+                                                   class="fas fa-times-circle fas_modal"></i></a>
+                                    <main class="modal_main">
+                                        <a href="#" class="title"><h2
+                                                class="shopping-cart-forms-text modal_title">CHANGE PASSWORD</h2></a>
+                                        <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                               placeholder="Сurrent Password" type="password" v-model="currentPassword"
+                                               required>
+                                        <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                               type="password" placeholder="New Password" required
+                                               v-model="newPassword">
+                                        <div class="modal-button">
+                                            <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
+                                               @click.prevent="changePassword">SAVE PASSWORD</a>
+                                            <p v-if="changePass.length"
+                                               class="trending-now-link modal_text__margin modal_text__color">
+                                                {{changePass}}</p>
+                                        </div>
+                                    </main>
+                                </div>
+                            </div>
+                            <li><a class="drop-link" href="#">Orders</a></li>
+                        </div>
+                    </div>
+                    <div class="modal" v-if="modal.length">
+                        <div class="modal-content">
+                            <a href="#"><i @click.prevent="handleShowModalClick"
+                                           class="fas fa-times-circle fas_modal"></i></a>
+                            <main class="modal_main">
+                                <div class="titles">
+                                    <a href="#" @click="handleSignClick('signIn')" class="title"><h2
+                                            class="shopping-cart-forms-text modal_title">SIGN IN</h2></a>
+                                    <a href="#" @click="handleSignClick('signUp')" class="title"><h2
+                                            class="shopping-cart-forms-text modal_title">SIGN UP</h2></a>
+                                </div>
+                                <form v-if="sign === 'signIn'">
+                                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                           placeholder="Login" type="text" v-model="checkLogin" required>
+                                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                           type="password" placeholder="Password" required v-model="checkPassword">
+                                    <div class="modal-button">
+                                        <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
+                                           @click.prevent="checkUser">SIGN IN</a>
+                                        <p v-if="check.length"
+                                           class="trending-now-link modal_text__margin modal_text__color">{{check}}</p>
+                                    </div>
+                                </form>
+                                <form v-if="sign === 'signUp'">
+                                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                           placeholder="Example@gmail.com" type="email" v-model="email" name="email"
+                                           required
+                                           data-validation-rule="email">
+                                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                           placeholder="Login" type="text" v-model="login" name="login" required
+                                           data-validation-rule="name">
+                                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                                           type="password" placeholder="Password" v-model="password" name="password"
+                                           required>
+                                    <div class="modal-button">
+                                        <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
+                                           @click="sendUser">SIGN UP</a>
+                                        <p v-if="errors.length"
+                                           class="trending-now-link modal_text__margin modal_text__color">
+                                            <b>Please correct the following error(s):</b>
+                                        <ul>
+                                            <li v-for="error in errors">{{ error }}</li>
+                                        </ul>
+                                        </p>
+                                        <p v-if="sent.length"
+                                           class="trending-now-link modal_text__margin modal_text__color">{{sent}}</p>
+                                    </div>
+                                </form>
+                            </main>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
-
         <nav class="navigation">
             <div class="container">
                 <ul class="menu">
@@ -95,34 +137,22 @@
                         <a class="menu-link" href="index.html">Home</a>
                     </li>
                     <li class="menu-list"><a class="menu-link" href="product.html?category=men">Man</a>
-                        <div class="drop-box">
-
-                        </div>
+                        <nav-menu></nav-menu>
                     </li>
                     <li class="menu-list"><a class="menu-link" href="product.html?category=women">Women</a>
-                        <div class="drop-box">
-
-                        </div>
+                        <nav-menu></nav-menu>
                     </li>
                     <li class="menu-list"><a class="menu-link" href="product.html?category=men">Kids</a>
-                        <div class="drop-box drop-box-last">
-
-                        </div>
+                        <nav-menu></nav-menu>
                     </li>
                     <li class="menu-list"><a class="menu-link" href="product.html?category=women">Accessories</a>
-                        <div class="drop-box drop-box-last">
-
-                        </div>
+                        <nav-menu class="drop-box-last"></nav-menu>
                     </li>
                     <li class="menu-list"><a class="menu-link" href="product.html?category=featured">Featured</a>
-                        <div class="drop-box drop-box-last">
-
-                        </div>
+                        <nav-menu class="drop-box-last"></nav-menu>
                     </li>
                     <li class="menu-list"><a class="menu-link" href="product.html?category=featured">Hot Deals</a>
-                        <div class="drop-box drop-box-last">
-
-                        </div>
+                        <nav-menu class="drop-box-last"></nav-menu>
                     </li>
                 </ul>
             </div>
@@ -435,6 +465,7 @@
                 </details>
             </div>
         </div>
+
         <div class="comments">
             <div class="container comments-back">
                 <figure class="comment-left">
@@ -496,9 +527,9 @@
                     <ul class="list-footer">
                         <li><a class="footer-link" href="product.html?category=men">Men</a></li>
                         <li><a class="footer-link" href="product.html?category=women">Women</a></li>
-                        <li><a class="footer-link" href="product.html?category=women">Child</a></li>
-                        <li><a class="footer-link" href="product.html?_page=1&_limit=9">Apparel</a></li>
-                        <li><a class="footer-link" href="product.html?_page=1&_limit=9">Browse All</a></li>
+                        <li><a class="footer-link" href="product.html?category=men">Child</a></li>
+                        <li><a class="footer-link" href="product.html">Apparel</a></li>
+                        <li><a class="footer-link" href="product.html">Browse All</a></li>
                     </ul>
                 </div>
             </div>
@@ -519,7 +550,8 @@
         </div>
     </footer>
 </div>
-<script src="js/getItems.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js/product.js"></script>
 </body>
 </html>

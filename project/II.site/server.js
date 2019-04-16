@@ -341,6 +341,17 @@ app.get("/feedback", (req, res) => {
     });
 });
 
+app.get("/single-page.html/:id", (req, res) => {
+    fs.readFile("./db/items.json", "utf-8", (err, data) => {
+        if (err) {
+            return console.log(err);
+        }
+        const items = JSON.parse(data);
+
+        res.send(items.find((item) => item.id === +req.params.id));
+    });
+});
+
 app.listen(3000, () => {
     console.log("Server has been started");
 });
