@@ -1,1 +1,24 @@
-[{"image":"img/fetured-items4.jpg","name":"Mango People Top","price":52,"category":"featured","id":4,"color":"Black","size":"S","quantity":1,"userId":1},{"image":"img/fetured-items3.jpg","name":"Mango People Jacket","price":42,"category":"featured","id":3,"color":"Black","size":"S","quantity":2,"userId":1},{"image":"img/fetured-items2.jpg","name":"Mango People Dress","price":152,"category":"featured","id":2,"color":"Black","size":"S","quantity":1,"userId":1},{"image":"img/fetured-items4.jpg","name":"Mango People Top","price":52,"category":"featured","id":4,"color":"Black","size":"S","quantity":1,"userId":0}]
+[
+  {
+    "image": "img/fetured-items4.jpg",
+    "name": "Mango People Top",
+    "price": 52,
+    "category": "featured",
+    "id": 4,
+    "color": "Black",
+    "size": "S",
+    "quantity": 1,
+    "userId": 1
+  },
+  {
+    "image": "img/fetured-items3.jpg",
+    "name": "Mango People Jacket",
+    "price": 42,
+    "category": "featured",
+    "id": 3,
+    "color": "Black",
+    "size": "S",
+    "quantity": 2,
+    "userId": 1
+  }
+]

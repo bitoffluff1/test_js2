@@ -346,9 +346,25 @@ app.get("/single-page.html/:id", (req, res) => {
         if (err) {
             return console.log(err);
         }
-        const items = JSON.parse(data);
+        let items = JSON.parse(data);
 
-        res.send(items.find((item) => item.id === +req.params.id));
+        const product = items.find((item) => item.id === +req.params.id);
+        items = items.filter((item) => item.category === product.category);
+
+        let randomItems = [];
+        let i = 0;
+        while (i < 3) {
+            const rand = Math.floor(Math.random() * items.length);
+            if (randomItems.length === 0) {
+                randomItems.push(items[rand]);
+            }
+            if (randomItems.length > 0 & !randomItems.includes(items[rand])) {
+                randomItems.push(items[rand]);
+                i++;
+            }
+        }
+
+        res.send({product, randomItems: randomItems});
     });
 });
 

@@ -42,8 +42,7 @@
                         </div>
                     </div>
 
-                    <a href="#" class="button" @click.prevent="handleShowModalClick"
-                       v-if=" userId === 0">My&nbsp;Account</a>
+                    <a href="#" class="button" @click.prevent="handleShowModalClick" v-if="userId === 0">My&nbsp;Account</a>
                     <div v-else class="buttons_account">
                         <a href="#" class="button">{{check}}</a>
                         <div class="account_drop-box">
@@ -169,13 +168,6 @@
         </div>
 
         <item @onbuy="handleBuyClick"></item>
-
-        <section class="like-also-box">
-            <h2 class="text-like-also">you may like also</h2>
-            <div class="like-also container">
-
-            </div>
-        </section>
 
         <div class="feedback-block">
             <div class="feedback-new">

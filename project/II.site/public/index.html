@@ -43,8 +43,7 @@
                         </div>
                     </div>
 
-                    <a href="#" class="button" @click.prevent="handleShowModalClick"
-                       v-if=" userId === 0">My&nbsp;Account</a>
+                    <a href="#" class="button" @click.prevent="handleShowModalClick" v-if ="userId === 0" >My&nbsp;Account</a>
                     <div v-else class="buttons_account">
                         <a href="#" class="button">{{check}}</a>
                         <div class="account_drop-box">
@@ -117,9 +116,9 @@
                                         <p v-if="errors.length"
                                            class="trending-now-link modal_text__margin modal_text__color">
                                             <b>Please correct the following error(s):</b>
-                                            <ul>
-                                                <li v-for="error in errors">{{ error }}</li>
-                                            </ul>
+                                        <ul>
+                                            <li v-for="error in errors">{{ error }}</li>
+                                        </ul>
                                         </p>
                                         <p v-if="sent.length"
                                            class="trending-now-link modal_text__margin modal_text__color">{{sent}}</p>

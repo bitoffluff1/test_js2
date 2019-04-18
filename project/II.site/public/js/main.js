@@ -92,13 +92,18 @@ Vue.component("search", {
 
 Vue.component("cart-item", {
     props: ["item"],
+    data() {
+        return {
+            url: "single-page.html?id=" + this.item.id
+        }
+    },
     template: `
             <div class="row row-product">
                 <div class="col col-1 row_first">
                     <figure class="col-1__product">
-                        <a href="#"><img :src="item.image" alt="item" class="cart-item-img"></a>
+                        <a :href="url"><img :src="item.image" alt="item" class="cart-item-img"></a>
                         <figcaption class="col-1__text">
-                            <a href="#" class="shopping-cart-product-text">{{item.name}}</a>
+                            <a :href="url" class="shopping-cart-product-text">{{item.name}}</a>
                             <p class="shopping-cart-product-text-bottom">
                                 <span class="bold">Color: </span>
                                 <span>{{item.color}}</span></p>
@@ -145,11 +150,16 @@ Vue.component("cart-products", {
 
 Vue.component("mini-cart-item", {
     props: ["item"],
+    data() {
+        return {
+            url: "single-page.html?id=" + this.item.id
+        }
+    },
     template: `
         <figure class="cart-product">
-            <a href="#" class="img-cart-product"><img :src="item.image" alt="product" class="image-mini-cart"></a>
+            <a :href="url" class="img-cart-product"><img :src="item.image" alt="product" class="image-mini-cart"></a>
             <figcaption class="text-cart-drop">
-                <a href="#" class="text-cart-drop-box">{{item.name}}</a>
+                <a :href="url" class="text-cart-drop-box">{{item.name}}</a>
                 <div class="block-star">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -311,6 +321,8 @@ Vue.component("item", {
     data() {
         return {
             item: {},
+            randomItems: [],
+            quantityItem: 1,
             id: null
         };
     },
@@ -320,17 +332,18 @@ Vue.component("item", {
 
         fetch(`${API_URL}/single-page.html/${this.id}`)
             .then((response) => response.json())
-            .then((item) => {
-                this.item = item;
+            .then((items) => {
+                this.item = items.product;
+                this.randomItems = items.randomItems;
             });
     },
     methods: {
         handleBuyClick(item) {
-            this.$emit("onbuy", item);
+            this.$emit("onbuy", item, +this.quantityItem);
         }
     },
     template: `
-            <section class="single-product-box">
+        <div><section class="single-product-box">
             <div class="single-product">
                 <img class="img-product" :src="item.image" alt="product">
             </div>
@@ -368,7 +381,7 @@ Vue.component("item", {
                             </div>
                             <div class="choose-box">
                                 <h4 class="choose-title">QUANTITY</h4>
-                                <input class="input-field" type="number" min="1" value="1">
+                                <input v-model="quantityItem" class="input-field" type="number" min="1" value="1">
                             </div>
                         </div>
                         <div class="box-button-add">
@@ -378,9 +391,14 @@ Vue.component("item", {
                     </div>
                 </div>
             </div>
-        </section>`
+        </section>
+        <section class="like-also-box">
+            <h2 class="text-like-also">you may like also</h2>
+            <div class="like-also container">
+                <product-item @onbuy="handleBuyClick" v-for="entry in randomItems" :item="entry" :key="entry.id"></product-item>
+            </div>
+        </section></div>`
 });
-
 
 
 const app = new Vue({
@@ -389,6 +407,7 @@ const app = new Vue({
         filterValue: "",
         cart: [],
 
+        userId: 0,
         modal: "",
         sign: "signIn",
         email: "",
@@ -398,7 +417,6 @@ const app = new Vue({
         checkPassword: "",
         sent: "",
         check: "",
-        userId: 0,
         modalAcc: "",
         currentPassword: "",
         newPassword: "",
@@ -440,11 +458,21 @@ const app = new Vue({
             .then((items) => {
                 this.feedback = items;
             });
+
+        if (localStorage.userId) {
+            this.userId = +localStorage.userId;
+        }
+        fetch(`${API_URL}/cart/${localStorage.userId}`)
+            .then((response) => response.json())
+            .then((items) => {
+                this.cart = items;
+            });
+
     },
     methods: {
         getCart() {
             this.cart = [];
-            fetch(`${API_URL}/cart/${this.userId}`)
+            fetch(`${API_URL}/cart/${localStorage.userId}`)
                 .then((response) => response.json())
                 .then((items) => {
                     this.cart = items;
@@ -453,7 +481,7 @@ const app = new Vue({
         handleSearchClick(query) {
             this.filterValue = query;
         },
-        handleBuyClick(item) {
+        handleBuyClick(item, quantityItem = 1) {
             const cartItem = this.cart.find((entry) => entry.id === item.id);
             if (cartItem) {
                 fetch(`${API_URL}/cart/${item.id}`, {
@@ -461,7 +489,7 @@ const app = new Vue({
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({quantity: cartItem.quantity + 1})
+                    body: JSON.stringify({quantity: cartItem.quantity + quantityItem})
                 })
                     .then((response) => response.json())
                     .then((item) => {
@@ -474,7 +502,7 @@ const app = new Vue({
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({...item, quantity: 1, userId: this.userId})
+                    body: JSON.stringify({...item, quantity: quantityItem, userId: localStorage.userId})
                 })
                     .then((response) => response.json())
                     .then((item) => {
@@ -585,14 +613,16 @@ const app = new Vue({
                 .then((response) => response.json())
                 .then((message) => {
                     if (message.login) {
+                        localStorage.setItem('userId', message.id);
                         this.check = "Hi, " + message.login;
-                        this.userId = message.id;
+                        //this.userId = message.id;
                     } else {
                         this.check = message[0];
                     }
                 })
         },
         handleSignOutClick() {
+            localStorage.setItem('userId', '0');
             this.userId = 0;
             this.check = "";
         },
@@ -608,7 +638,7 @@ const app = new Vue({
                 body: JSON.stringify({
                     currentPassword: this.currentPassword,
                     newPassword: this.newPassword,
-                    userId: this.userId
+                    //userId: localStorage.userId
                 })
             })
                 .then((response) => response.json())
