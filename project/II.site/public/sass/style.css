@@ -1787,7 +1787,7 @@ input.invalid:not(:placeholder-shown) {
   position: absolute;
   padding: 20px;
   display: none;
-  top: 40px;
+  top: 38px;
   left: -40px;
   z-index: 10;
   list-style-type: none; }

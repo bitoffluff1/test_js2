@@ -1,23 +1,23 @@
 [
   {
-    "image": "img/fetured-items4.jpg",
-    "name": "Mango People Top",
+    "image": "img/product-like2.jpg",
+    "name": "Mango People T-shirt",
     "price": 52,
-    "category": "featured",
-    "id": 4,
+    "category": "women",
+    "id": 26,
     "color": "Black",
     "size": "S",
     "quantity": 1,
     "userId": 1
   },
   {
-    "image": "img/fetured-items3.jpg",
-    "name": "Mango People Jacket",
-    "price": 42,
+    "image": "img/fetured-items2.jpg",
+    "name": "Mango People Dress",
+    "price": 152,
     "category": "featured",
-    "id": 3,
-    "color": "Black",
-    "size": "S",
+    "id": 2,
+    "color": "Red",
+    "size": "XXS",
     "quantity": 2,
     "userId": 1
   }

@@ -72,6 +72,82 @@ Vue.component("products", {
         </div>`
 });
 
+Vue.component("all-products", {
+    props: ["query"],
+    methods: {
+        handleBuyClick(item) {
+            this.$emit("onbuy", item)
+        },
+        nextPage() {
+            this.pageNumber++;
+        },
+        prevPage() {
+            this.pageNumber--;
+        }
+    },
+    data() {
+        return {
+            items: [],
+            category: "",
+            size: 9,
+            pageNumber: 0
+        };
+    },
+    computed: { //вычисляемое свойство
+        filteredItems() {
+            if (this.query) {
+                const regexp = new RegExp(this.query, "i");
+                return this.items.filter((item) => regexp.test(item.name));
+            } else {
+                return this.items;
+            }
+        },
+        pageCount() {
+            let l = this.items.length,
+                s = this.size;
+            return Math.floor(l / s);
+        },
+        paginatedData() {
+            const start = this.pageNumber * this.size,
+                end = start + this.size;
+            return this.items.slice(start, end);
+        }
+    },
+    mounted() {//когда компонент монтируется в дом
+        const params = window.location.pathname.replace("/", "");
+        if (params === "index.html") {
+            this.category = "featured";
+        } else if (params === "product.html") {
+            this.category = "all";
+        }
+
+        const paramsGender = window.location.search.replace("?", "").split("=");
+        if (paramsGender[1]) {
+            this.category = paramsGender[1];
+        }
+
+        fetch(`${API_URL}/items/${this.category}`)
+            .then((response) => response.json())
+            .then((items) => {
+                this.items = items;
+                this.filteredItems = items;
+            });
+    },
+    template: `
+        <div>
+            <div class="fetured-items-box">
+                <product-item class = "itemAll" @onbuy="handleBuyClick" v-for="entry in paginatedData" :item="entry" :key="entry.id"></product-item>
+            </div>
+            <div class="more-product">
+                <div class="pagination">
+                    <a href="#" class="button-all button-all_pagination" :disabled="pageNumber === 0" @click.prevent="prevPage">Previous</a>
+                    <a href="#" class="button-all button-all_pagination" :disabled="pageNumber >= pageCount -1" @click.prevent="nextPage">Next</a>
+                </div>
+                <div class="button-more-product"><a href="product.html" class="button-all">View All</a></div>
+            </div>
+        </div>`
+});
+
 Vue.component("search", {
     data() {
         return {
@@ -279,22 +355,7 @@ Vue.component("feedback-item-app", {
     }
 });
 
-Vue.component("feedback-list-app", {
-    props: ["feedback"],
-    methods: {
-        deleteApproval(item) {
-            this.$emit("ondelete", item)
-        },
-        revocationApproval(item) {
-            this.$emit("approval", item);
-        }
-    },
-    template: `
-        <div class="feedback-list">
-            <feedback-item-app @ondelete="deleteApproval" @approval="revocationApproval" v-for="entry in feedback" :item="entry" :key="entry.id" ></feedback-item-app>
-        </div>
-    `
-});
+
 Vue.component("feedback-item", {
     props: ["item"],
     template: `
@@ -308,13 +369,117 @@ Vue.component("feedback-item", {
     ,
 });
 
-Vue.component("feedback-list", {
-    props: ["feedback"],
+
+Vue.component("feedback", {
+    props: ["id"],
+    data() {
+        return {
+            feedback: [],
+            feedbackForApproval: [],
+
+            name: "",
+            mail: "",
+            message: "",
+            submit: ""
+        }
+    },
+    computed: {
+        userId() {
+            if (this.id) {
+                return this.id
+            }
+        }
+    },
+    mounted() {
+        fetch(`${API_URL}/feedback`)
+            .then((response) => response.json())
+            .then((items) => {
+                this.feedback = items;
+            });
+
+        fetch(`${API_URL}/approval`)
+            .then((response) => response.json())
+            .then((items) => {
+                this.feedbackForApproval = items;
+            });
+    },
+    methods: {
+        sendFeedback() {
+            fetch(`${API_URL}/feedback`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: this.mail,
+                    name: this.name,
+                    message: this.message,
+                    type: "new"
+                })
+            })
+                .then((response) => response.json())
+                .then((feedback) => {
+                    this.submit = "submit";
+                    this.feedbackForApproval.push(feedback);
+                });
+
+        },
+        revocationApproval(item) {
+            fetch(`${API_URL}/feedback/${item.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({type: "approved"})
+            })
+                .then((response) => response.json())
+                .then((item) => {
+                    this.feedback.push(this.feedbackForApproval.find((feedbackItem) => feedbackItem.id === item.id));
+                    this.feedbackForApproval = this.feedbackForApproval.filter((feedbackItem) => feedbackItem.id !== item.id);
+                })
+        },
+        deleteApproval(item) {
+            fetch(`${API_URL}/feedback/${item.id}`, {
+                method: "DELETE"
+            })
+                .then(() => {
+                    this.feedbackForApproval = this.feedbackForApproval.filter((feedbackItem) => feedbackItem.id !== item.id);
+                })
+        }
+    },
     template: `
-        <div class="">
-            <feedback-item v-for="entry in feedback" :item="entry" :key="entry.id" ></feedback-item>
-        </div>
-    `
+        <div class="feedback-block">
+            <div class="feedback-new">
+                <div>
+                    <h2 class="shopping-cart-forms-text">Send Us Your Feedback</h2>
+                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                           placeholder="Name" type="text" v-model="name" required data-validation-rule="name">
+                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
+                           placeholder="Example@gmail.com" type="email" required v-model="mail">
+                    <textarea class="shopping-cart-forms-input textarea_size" placeholder="You message"
+                              v-model="message"></textarea>
+                    <div class="modal-button">
+                        <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
+                           @click.prevent="sendFeedback">Submit</a>
+                        <p v-if="submit.length" class="sent"><i class="far fa-check-circle"></i></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <h2 class="name-product name-product_margin">Feedback</h2>
+                <feedback-item v-for="entry in feedback" :item="entry" :key="entry.id" ></feedback-item>
+            </div>
+
+            <div v-if="userId > 0" class="feedback-approval">
+                <div class="container">
+                    <h2 class="shopping-cart-forms-text shopping-cart-forms-text_padding">Feedback for approval</h2>
+                    <div class="feedback-list">
+                        <feedback-item-app @ondelete="deleteApproval" @approval="revocationApproval" v-for="entry in feedbackForApproval" :item="entry" :key="entry.id" ></feedback-item-app>
+                    </div>
+                </div>
+            </div>
+        </div>`
 });
 
 Vue.component("item", {
@@ -323,6 +488,8 @@ Vue.component("item", {
             item: {},
             randomItems: [],
             quantityItem: 1,
+            color: "",
+            size: "",
             id: null
         };
     },
@@ -339,7 +506,7 @@ Vue.component("item", {
     },
     methods: {
         handleBuyClick(item) {
-            this.$emit("onbuy", item, +this.quantityItem);
+            this.$emit("onbuy", item, +this.quantityItem, this.color, this.size);
         }
     },
     template: `
@@ -367,14 +534,14 @@ Vue.component("item", {
                         <div class="choose">
                             <div class="choose-box">
                                 <h4 class="choose-title">CHOOSE COLOR</h4>
-                                <select class="text-choose" name="color" id="color">
+                                <select v-model="color" class="text-choose" name="color" id="color">
                                     <option>Red</option>
                                     <option>Green</option>
                                 </select>
                             </div>
                             <div class="choose-box">
                                 <h4 class="choose-title">CHOOSE SIZE</h4>
-                                <select class="text-choose" name="size" id="size">
+                                <select v-model="size" class="text-choose" name="size" id="size">
                                     <option>XXS</option>
                                     <option>XS</option>
                                 </select>
@@ -408,6 +575,8 @@ const app = new Vue({
         cart: [],
 
         userId: 0,
+        check: "",
+
         modal: "",
         sign: "signIn",
         email: "",
@@ -416,24 +585,24 @@ const app = new Vue({
         checkLogin: "",
         checkPassword: "",
         sent: "",
-        check: "",
+
         modalAcc: "",
         currentPassword: "",
         newPassword: "",
         changePass: "",
         errors: [],
-
-        name: "",
-        mail: "",
-        message: "",
-        submit: "",
-
-        feedbackForApproval: [],
-        feedback: [],
     },
     watch: {
-        userId: function () {
-            this.getCart()
+        userId(newUserId) {
+            localStorage.userId = newUserId;
+            localStorage.check = this.check;
+
+            this.cart = [];
+            fetch(`${API_URL}/cart/${localStorage.userId}`)
+                .then((response) => response.json())
+                .then((items) => {
+                    this.cart = items;
+                });
         }
     },
     computed: {
@@ -444,24 +613,14 @@ const app = new Vue({
             return this.cart.reduce((acc, item) => acc + +item.quantity, 0);
         }
     },
-    mounted() {//когда компонент монтируется в дом
-        this.feedbackForApproval = [];
-        fetch(`${API_URL}/approval`)
-            .then((response) => response.json())
-            .then((items) => {
-                this.feedbackForApproval = items;
-            });
-
-        this.feedback = [];
-        fetch(`${API_URL}/feedback`)
-            .then((response) => response.json())
-            .then((items) => {
-                this.feedback = items;
-            });
-
+    mounted() {
+        if (localStorage.check) {
+            this.check = localStorage.check;
+        }
         if (localStorage.userId) {
             this.userId = +localStorage.userId;
         }
+
         fetch(`${API_URL}/cart/${localStorage.userId}`)
             .then((response) => response.json())
             .then((items) => {
@@ -470,18 +629,10 @@ const app = new Vue({
 
     },
     methods: {
-        getCart() {
-            this.cart = [];
-            fetch(`${API_URL}/cart/${localStorage.userId}`)
-                .then((response) => response.json())
-                .then((items) => {
-                    this.cart = items;
-                });
-        },
         handleSearchClick(query) {
             this.filterValue = query;
         },
-        handleBuyClick(item, quantityItem = 1) {
+        handleBuyClick(item, quantityItem = 1, color = "Black", size = "S") {
             const cartItem = this.cart.find((entry) => entry.id === item.id);
             if (cartItem) {
                 fetch(`${API_URL}/cart/${item.id}`, {
@@ -502,7 +653,13 @@ const app = new Vue({
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({...item, quantity: quantityItem, userId: localStorage.userId})
+                    body: JSON.stringify({
+                        ...item,
+                        quantity: quantityItem,
+                        color: color,
+                        size: size,
+                        userId: +localStorage.userId
+                    })
                 })
                     .then((response) => response.json())
                     .then((item) => {
@@ -613,16 +770,14 @@ const app = new Vue({
                 .then((response) => response.json())
                 .then((message) => {
                     if (message.login) {
-                        localStorage.setItem('userId', message.id);
                         this.check = "Hi, " + message.login;
-                        //this.userId = message.id;
+                        this.userId = +message.id;
                     } else {
                         this.check = message[0];
                     }
                 })
         },
         handleSignOutClick() {
-            localStorage.setItem('userId', '0');
             this.userId = 0;
             this.check = "";
         },
@@ -638,55 +793,13 @@ const app = new Vue({
                 body: JSON.stringify({
                     currentPassword: this.currentPassword,
                     newPassword: this.newPassword,
-                    //userId: localStorage.userId
+                    userId: +localStorage.userId
                 })
             })
                 .then((response) => response.json())
                 .then((message) => {
                     this.changePass = message[0];
                 })
-        },
-        sendFeedback() {
-            fetch(`${API_URL}/feedback`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: this.mail,
-                    name: this.name,
-                    message: this.message,
-                    type: "new"
-                })
-            })
-                .then((response) => response.json())
-                .then((feedback) => {
-                    this.submit = "submit";
-                    this.feedbackForApproval.push(feedback);
-                });
-
-        },
-        revocationApproval(item) {
-            fetch(`${API_URL}/feedback/${item.id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({type: "approved"})
-            })
-                .then((response) => response.json())
-                .then((item) => {
-                    this.feedback.push(this.feedbackForApproval.find((feedbackItem) => feedbackItem.id === item.id));
-                    this.feedbackForApproval = this.feedbackForApproval.filter((feedbackItem) => feedbackItem.id !== item.id);
-                })
-        },
-        deleteApproval(item) {
-            fetch(`${API_URL}/feedback/${item.id}`, {
-                method: "DELETE"
-            })
-                .then(() => {
-                    this.feedbackForApproval = this.feedbackForApproval.filter((feedbackItem) => feedbackItem.id !== item.id);
-                })
-        },
+        }
     }
 });

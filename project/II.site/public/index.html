@@ -43,8 +43,9 @@
                         </div>
                     </div>
 
-                    <a href="#" class="button" @click.prevent="handleShowModalClick" v-if ="userId === 0" >My&nbsp;Account</a>
-                    <div v-else class="buttons_account">
+                    <a href="#" class="button" @click.prevent="handleShowModalClick"
+                       v-if="userId === 0">My&nbsp;Account</a>
+                    <div v-else-if="userId > 0" class="buttons_account">
                         <a href="#" class="button">{{check}}</a>
                         <div class="account_drop-box">
                             <li><a class="drop-link" href="#" @click.prevent="handleSignOutClick">Sign Out</a></li>

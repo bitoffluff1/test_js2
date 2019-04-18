@@ -43,7 +43,7 @@
                     </div>
 
                     <a href="#" class="button" @click.prevent="handleShowModalClick" v-if="userId === 0">My&nbsp;Account</a>
-                    <div v-else class="buttons_account">
+                    <div v-else-if="userId > 0" class="buttons_account">
                         <a href="#" class="button">{{check}}</a>
                         <div class="account_drop-box">
                             <li><a class="drop-link" href="#" @click.prevent="handleSignOutClick">Sign Out</a></li>
@@ -169,37 +169,7 @@
 
         <item @onbuy="handleBuyClick"></item>
 
-        <div class="feedback-block">
-            <div class="feedback-new">
-                <div>
-                    <h2 class="shopping-cart-forms-text">Send Us Your Feedback</h2>
-                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                           placeholder="Name" type="text" v-model="name" required data-validation-rule="name">
-                    <input class="shopping-cart-forms-input shopping-cart-forms-input_width"
-                           placeholder="Example@gmail.com" type="email" required v-model="mail">
-                    <textarea class="shopping-cart-forms-input textarea_size" placeholder="You message"
-                              v-model="message"></textarea>
-                    <div class="modal-button">
-                        <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
-                           @click.prevent="sendFeedback">Submit</a>
-                        <p v-if="submit.length" class="sent"><i class="far fa-check-circle"></i></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <h2 class="name-product name-product_margin">Feedback</h2>
-                <feedback-list :feedback="feedback"></feedback-list>
-            </div>
-
-            <div v-if="userId > 0" class="feedback-approval">
-                <div class="container">
-                    <h2 class="shopping-cart-forms-text shopping-cart-forms-text_padding">Feedback for approval</h2>
-                    <feedback-list-app :feedback="feedbackForApproval" @ondelete="deleteApproval"
-                                       @approval="revocationApproval"></feedback-list-app>
-                </div>
-            </div>
-        </div>
+        <feedback :id="userId"></feedback>
 
         <div class="comments product">
             <div class="container comments-back">
