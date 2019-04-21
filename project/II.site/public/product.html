@@ -223,66 +223,7 @@
                     </ul>
                 </details>
             </div>
-
-            <div class="mini-container">
-                <div class="forms-right">
-                    <div class="trending-now">
-                        <p class="text">Trending now</p>
-                        <div class="trending-now-text">
-                            <a href="#" class="trending-now-link">Bohemian <span class="trending-span">|</span></a>
-                            <a href="#" class="trending-now-link">Floral <span class="trending-span">|</span></a>
-                            <a href="#" class="trending-now-link">Lace</a>
-                            <a href="#" class="trending-now-link">Floral <span class="trending-span">|</span></a>
-                            <a href="#" class="trending-now-link">Lace <span class="trending-span">|</span></a>
-                            <a href="#" class="trending-now-link">Bohemian</a>
-                        </div>
-                    </div>
-                    <div class="checkbox-size">
-                        <p class="text">Size</p>
-                        <div class="checkbox-box">
-                            <label class="text-checkbox" for="XSS">
-                                <input id="XSS" type="checkbox"> XSS</label>
-                            <label class="text-checkbox" for="XS">
-                                <input id="XS" type="checkbox"> XS</label>
-                            <label class="text-checkbox" for="S">
-                                <input id="S" type="checkbox"> S</label>
-                            <label class="text-checkbox" for="M">
-                                <input id="M" type="checkbox"> M</label>
-                            <label class="text-checkbox" for="L">
-                                <input id="L" type="checkbox">L</label>
-                            <label class="text-checkbox" for="XL">
-                                <input id="XL" type="checkbox"> XL</label>
-                            <label class="text-checkbox" for="XXL">
-                                <input id="XXL" type="checkbox"> XXL</label>
-                        </div>
-                    </div>
-                    <div class="range-price">
-                        <label class="text" for="amount">pRICE</label>
-                        <input id="amount" class="amount" type="text" readonly>
-                        <div class="slider-range"></div>
-                    </div>
-                </div>
-                <div class="buttons">
-                    <div class="sort-by">
-                        <p class="buttons-text">Sort By </p>
-                        <p class="buttons-text"><a href="product.html?_page=1&_limit=9&_sort=name&_order=asc"
-                                                   class="text-drop-list-filter">Name</a></p>
-                        <p class="buttons-text"><a href="product.html?_page=1&_limit=9&_sort=price&_order=asc"
-                                                   class="text-drop-list-filter">Low
-                            price</a></p>
-                    </div>
-                    <div class="show">
-                        <p class="buttons-text">Show</p>
-                        <p class="buttons-text"><a href="product.html?_page=1&_limit=9"
-                                                   class="text-drop-list-filter">9</a>
-                        </p>
-                        <p class="buttons-text"><a href="product.html?_page=1&_limit=12"
-                                                   class="text-drop-list-filter">12</a>
-                        </p>
-                    </div>
-                </div>
-                <all-products :query="filterValue" @onbuy="handleBuyClick"></all-products>
-            </div>
+            <all-products :query="filterValue" @onbuy="handleBuyClick"></all-products>
         </div>
 
         <div class="special-offers">

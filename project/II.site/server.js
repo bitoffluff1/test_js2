@@ -79,6 +79,7 @@ app.get("/items/:category", (req, res) => {
     });
 });
 
+
 app.get("/cart/:userId", (req, res) => {
     fs.readFile("./db/cart.json", "utf-8", (err, data) => {
         if (err) {
@@ -367,6 +368,8 @@ app.get("/single-page.html/:id", (req, res) => {
         res.send({product, randomItems: randomItems});
     });
 });
+
+
 
 app.listen(3000, () => {
     console.log("Server has been started");

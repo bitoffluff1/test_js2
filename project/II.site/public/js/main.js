@@ -83,41 +83,172 @@ Vue.component("all-products", {
         },
         prevPage() {
             this.pageNumber--;
-        }
+        },
+        handleQuantityItemOnPageClick(size) {
+            this.quantityItemOnPage = +size;
+        },
+        sortItems(sortBy) {
+            if (sortBy === "lowPrice") {
+                if (this.arrSortByPrice.length) {
+                    this.arrSortByPrice.sort((itemA, itemB) => {
+                        return itemA.price - itemB.price
+                    });
+                } else {
+                    this.items.sort((itemA, itemB) => {
+                        return itemA.price - itemB.price
+                    })
+                }
+            }
+
+            if (sortBy === "name") {
+                if (this.arrSortByPrice.length) {
+                    this.arrSortByPrice.sort((a, b) => {
+                        const nameA = a.name.toLowerCase();
+                        const nameB = b.name.toLowerCase();
+                        if (nameA < nameB)
+                            return -1;
+                        if (nameA > nameB)
+                            return 1;
+                        return 0
+                    });
+                } else {
+                    this.items.sort((a, b) => {
+                        const nameA = a.name.toLowerCase();
+                        const nameB = b.name.toLowerCase();
+                        if (nameA < nameB)
+                            return -1;
+                        if (nameA > nameB)
+                            return 1;
+                        return 0
+                    });
+                }
+            }
+        },
+        sortByPrice(newPrice) {
+            this.arrSortByPrice = [];
+
+            if (this.query && this.arrSortBySize.length) {
+                if (this.filteredItems.length < this.arrSortBySize.length) {
+                    this.arrSortByPrice = this.filteredItems.filter((item) => item.price < newPrice);
+                } else {
+                    this.arrSortByPrice = this.arrSortBySize.filter((item) => item.price < newPrice);
+                }
+            } else if (this.query) {
+                this.arrSortByPrice = this.filteredItems.filter((item) => item.price < newPrice);
+            } else if (this.arrSortBySize.length) {
+                this.arrSortByPrice = this.arrSortBySize.filter((item) => item.price < newPrice);
+            } else {
+                this.arrSortByPrice = this.items.filter((item) => item.price < newPrice);
+            }
+        },
+        sortBySize(newSize) {
+            this.arrSortBySize = [];
+
+            if (this.query && this.arrSortByPrice.length) {
+                if (this.filteredItems.length < this.arrSortByPrice.length) {
+                    newSize.forEach((size) => {
+                        this.arrSortBySize = this.arrSortBySize.concat(this.filteredItems.filter((item) => item.size === size));
+                    });
+                } else {
+                    newSize.forEach((size) => {
+                        this.arrSortBySize = this.arrSortBySize.concat(this.arrSortByPrice.filter((item) => item.size === size));
+                    });
+                }
+            } else if (this.query) {
+                newSize.forEach((size) => {
+                    this.arrSortBySize = this.arrSortBySize.concat(this.filteredItems.filter((item) => item.size === size));
+                });
+            } else if (this.arrSortByPrice.length) {
+                newSize.forEach((size) => {
+                    this.arrSortBySize = this.arrSortBySize.concat(this.arrSortByPrice.filter((item) => item.size === size));
+                });
+            } else {
+                newSize.forEach((size) => {
+                    this.arrSortBySize = this.arrSortBySize.concat(this.arrSortBySize.filter((item) => item.size === size));
+                });
+            }
+        },
     },
     data() {
         return {
             items: [],
             category: "",
-            size: 9,
-            pageNumber: 0
+            quantityItemOnPage: 9,
+            pageNumber: 0,
+            checkedSize: [],
+            price: 0,
+            maxPrice: 0,
+            arrSortByPrice: [],
+            arrSortBySize: [],
         };
     },
-    computed: { //вычисляемое свойство
+    watch: {
+        price(newPrice) {
+            this.sortByPrice(newPrice);
+        },
+        checkedSize(newSize) {
+            this.sortBySize(newSize);
+        }
+    },
+    computed: {
         filteredItems() {
             if (this.query) {
                 const regexp = new RegExp(this.query, "i");
-                return this.items.filter((item) => regexp.test(item.name));
-            } else {
-                return this.items;
+
+                if (this.arrSortBySize.length && this.arrSortByPrice.length) {
+                    if (this.arrSortBySize.length >= this.arrSortByPrice.length) {
+                        return this.arrSortByPrice.filter((item) => regexp.test(item.name));
+                    }
+                    return this.arrSortBySize.filter((item) => regexp.test(item.name));
+                } else if (this.arrSortBySize.length) {
+                    return this.arrSortBySize.filter((item) => regexp.test(item.name));
+                } else if (this.arrSortByPrice.length) {
+                    return this.arrSortByPrice.filter((item) => regexp.test(item.name));
+                }
+                let arr = [];
+                arr = this.items.filter((item) => regexp.test(item.name));
+                return arr;
             }
         },
         pageCount() {
             let l = this.items.length,
-                s = this.size;
+                s = this.quantityItemOnPage;
             return Math.floor(l / s);
-        },
+        }
+        ,
         paginatedData() {
-            const start = this.pageNumber * this.size,
-                end = start + this.size;
-            return this.items.slice(start, end);
+            const start = this.pageNumber * this.quantityItemOnPage,
+                end = start + this.quantityItemOnPage;
+
+            if (this.query) {
+                let arr = [this.filteredItems.length, this.arrSortBySize.length, this.arrSortByPrice.length];
+                arr = arr.filter((length) => length > 0);
+                let a = Math.min(...arr);
+
+                let array = [this.filteredItems, this.arrSortBySize, this.arrSortByPrice];
+                arr = array.filter((arr) => arr.length === a);
+                return arr[0].slice(start, end);
+            }
+
+            if (this.arrSortBySize.length && this.arrSortByPrice.length) {
+                if (this.arrSortBySize.length >= this.arrSortByPrice.length) {
+                    return this.arrSortByPrice.slice(start, end);
+                }
+                return this.arrSortBySize.slice(start, end);
+            } else if (this.arrSortBySize.length) {
+                return this.arrSortBySize.slice(start, end);
+            } else if (this.arrSortByPrice.length) {
+                return this.arrSortByPrice.slice(start, end);
+            } else if (this.query) {
+                return this.filteredItems.slice(start, end);
+            } else {
+                return this.items.slice(start, end);
+            }
         }
     },
     mounted() {//когда компонент монтируется в дом
         const params = window.location.pathname.replace("/", "");
-        if (params === "index.html") {
-            this.category = "featured";
-        } else if (params === "product.html") {
+        if (params === "product.html") {
             this.category = "all";
         }
 
@@ -130,18 +261,76 @@ Vue.component("all-products", {
             .then((response) => response.json())
             .then((items) => {
                 this.items = items;
-                this.filteredItems = items;
+
+                let prise = [];
+                this.items.forEach((item) => prise.push(+item.price));
+                this.maxPrice = Math.max(...prise);
             });
+
+
     },
     template: `
-        <div>
+        <div class="mini-container">
+           <div class="forms-right">
+               <div class="trending-now">
+                   <p class="text">Trending now</p>
+                   <div class="trending-now-text">
+                       <a href="#" class="trending-now-link">Bohemian <span class="trending-span">|</span></a>
+                       <a href="#" class="trending-now-link">Floral <span class="trending-span">|</span></a>
+                       <a href="#" class="trending-now-link">Lace</a>
+                       <a href="#" class="trending-now-link">Floral <span class="trending-span">|</span></a>
+                       <a href="#" class="trending-now-link">Lace <span class="trending-span">|</span></a>
+                       <a href="#" class="trending-now-link">Bohemian</a>
+                   </div>
+               </div>
+               <div class="checkbox-size">
+                   <p class="text">Size</p>
+                   <div class="checkbox-box">
+                       <input id="XS" type="checkbox" v-model="checkedSize" value="XS">
+                       <label class="text-checkbox" for="XS">XS</label>
+                       <input id="S" type="checkbox" v-model="checkedSize" value="S">
+                       <label class="text-checkbox" for="S">S</label>
+                       <input id="M" type="checkbox" v-model="checkedSize" value="M">
+                       <label class="text-checkbox" for="M">M</label>
+                       <input id="L" type="checkbox" v-model="checkedSize" value="L">
+                       <label class="text-checkbox" for="L">L</label>
+                       <input id="XL" type="checkbox" v-model="checkedSize" value="XL">
+                       <label class="text-checkbox" for="XL">XL</label>
+                   </div>
+               </div>
+               <div class="range-price">
+                   <label class="text">pRICE</label>
+                   <input type="range" v-model.number="price" step="10" min="0" :max="maxPrice">
+                   <p class="text-drop-list-filter">\$0 -\${{price}}</p>
+               </div>
+           </div>
+           
+           <div class="buttons">
+               <div class="sort-by">
+                   <p class="buttons-text">Sort By</p>
+                   <p class="buttons-text">
+                   <a href="#" class="text-drop-list-filter" @click.prevent="sortItems('name')">Name</a></p>
+                   <p class="buttons-text">
+                   <a href="#" class="text-drop-list-filter" @click.prevent="sortItems('lowPrice')">Low price</a></p>
+               </div>
+               <div class="show">
+                   <p class="buttons-text">Show</p>
+                   <p class="buttons-text">
+                       <a href="#" class="text-drop-list-filter" @click.prevent="handleQuantityItemOnPageClick(9)">9</a>
+                   </p>
+                   <p class="buttons-text">
+                       <a href="#" class="text-drop-list-filter" @click.prevent="handleQuantityItemOnPageClick(12)">12</a>
+                   </p>
+               </div>
+           </div>
+        
             <div class="fetured-items-box">
                 <product-item class = "itemAll" @onbuy="handleBuyClick" v-for="entry in paginatedData" :item="entry" :key="entry.id"></product-item>
             </div>
             <div class="more-product">
                 <div class="pagination">
                     <a href="#" class="button-all button-all_pagination" :disabled="pageNumber === 0" @click.prevent="prevPage">Previous</a>
-                    <a href="#" class="button-all button-all_pagination" :disabled="pageNumber >= pageCount -1" @click.prevent="nextPage">Next</a>
+                    <a href="#" class="button-all button-all_pagination" :disabled="pageNumber >= pageCount - 1" @click.prevent="nextPage">Next</a>
                 </div>
                 <div class="button-more-product"><a href="product.html" class="button-all">View All</a></div>
             </div>
@@ -506,7 +695,7 @@ Vue.component("item", {
     },
     methods: {
         handleBuyClick(item) {
-            this.$emit("onbuy", item, +this.quantityItem, this.color, this.size);
+            this.$emit("onbuy", item, this.quantityItem, this.color, this.size);
         }
     },
     template: `
@@ -548,7 +737,7 @@ Vue.component("item", {
                             </div>
                             <div class="choose-box">
                                 <h4 class="choose-title">QUANTITY</h4>
-                                <input v-model="quantityItem" class="input-field" type="number" min="1" value="1">
+                                <input v-model.number="quantityItem" class="input-field" type="number" min="1" value="1">
                             </div>
                         </div>
                         <div class="box-button-add">
@@ -633,6 +822,11 @@ const app = new Vue({
             this.filterValue = query;
         },
         handleBuyClick(item, quantityItem = 1, color = "Black", size = "S") {
+            if(this.userId === 0){
+                this.modal = "modal";
+                return;
+            }
+
             const cartItem = this.cart.find((entry) => entry.id === item.id);
             if (cartItem) {
                 fetch(`${API_URL}/cart/${item.id}`, {

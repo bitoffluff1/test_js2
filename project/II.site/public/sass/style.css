@@ -1195,9 +1195,7 @@ details[open] > .category {
   color: #6f6e6e;
   font-size: 14px;
   font-weight: 400;
-  text-transform: uppercase;
-  margin-right: 23px;
-  margin-bottom: 13px; }
+  text-transform: uppercase; }
 
 .size {
   width: 236px;
@@ -1363,10 +1361,12 @@ details[open] > .category {
 .checkbox-box {
   width: 236px;
   display: flex;
-  flex-wrap: wrap; }
+  justify-content: space-between;
+  align-items: center; }
 
 .mini-container {
-  margin-left: 50px; }
+  margin-left: 50px;
+  width: 831px; }
 
 .trending-now {
   width: 177px;
