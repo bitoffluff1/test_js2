@@ -44,7 +44,7 @@
                     </div>
 
                     <a href="#" class="button" @click.prevent="handleShowModalClick"
-                       v-if=" userId === 0">My&nbsp;Account</a>
+                       v-if="userId === 0">My&nbsp;Account</a>
                     <div v-else-if="userId > 0" class="buttons_account">
                         <a href="#" class="button">{{check}}</a>
                         <div class="account_drop-box">
@@ -114,13 +114,12 @@
                                     <div class="modal-button">
                                         <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
                                            @click="sendUser">SIGN UP</a>
-                                        <p v-if="errors.length"
-                                           class="trending-now-link modal_text__margin modal_text__color">
+                                        <div v-if="errors.length" class="trending-now-link modal_text__margin modal_text__color">
                                             <b>Please correct the following error(s):</b>
-                                        <ul>
-                                            <li v-for="error in errors">{{ error }}</li>
-                                        </ul>
-                                        </p>
+                                            <ul class="drop-menu ">
+                                                <li class="drop-link" v-for="error in errors">{{ error }}</li>
+                                            </ul>
+                                        </div>
                                         <p v-if="sent.length"
                                            class="trending-now-link modal_text__margin modal_text__color">{{sent}}</p>
                                     </div>

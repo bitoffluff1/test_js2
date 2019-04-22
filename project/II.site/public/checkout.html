@@ -43,7 +43,7 @@
                     </div>
 
                     <a href="#" class="button" @click.prevent="handleShowModalClick"
-                       v-if=" userId === 0">My&nbsp;Account</a>
+                       v-if="userId === 0">My&nbsp;Account</a>
                     <div v-else-if="userId > 0" class="buttons_account">
                         <a href="#" class="button">{{check}}</a>
                         <div class="account_drop-box">
@@ -113,13 +113,13 @@
                                     <div class="modal-button">
                                         <a href="#" class="button-black shopping-cart-forms-button_size modal_size"
                                            @click="sendUser">SIGN UP</a>
-                                        <p v-if="errors.length"
-                                           class="trending-now-link modal_text__margin modal_text__color">
+                                        <div v-if="errors.length"
+                                             class="trending-now-link modal_text__margin modal_text__color">
                                             <b>Please correct the following error(s):</b>
-                                        <ul>
-                                            <li v-for="error in errors">{{ error }}</li>
-                                        </ul>
-                                        </p>
+                                            <ul class="drop-menu ">
+                                                <li class="drop-link" v-for="error in errors">{{ error }}</li>
+                                            </ul>
+                                        </div>
                                         <p v-if="sent.length"
                                            class="trending-now-link modal_text__margin modal_text__color">{{sent}}</p>
                                     </div>
@@ -174,25 +174,23 @@
                     <summary class="header-checkout">01. Shipping Address</summary>
                     <div class="shipping-address-box">
                         <div class="shipping-address-left">
-                            <form class="" action="">
+                            <form>
                                 <p class="shipping-address-text-top">Check as&nbsp;a&nbsp;guest or&nbsp;register</p>
                                 <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                                 <div class="radio-text">
-                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest</p>
+                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest
+                                    </p>
                                     <p><input type="radio" name="check" class="radio-text-bottom">register</p>
                                 </div>
                             </form>
                             <p class="shipping-address-text-top">register and save time!</p>
                             <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                             <div class="shipping-address-fast-box">
-                                <a href="#" class="shipping-address-fast shipping-address-fast__top"><i
+                                <p class="shipping-address-fast shipping-address-fast__top"><i
                                         class="fas fa-angle-double-right"></i>Fast and easy
-                                    checkout</a>
-                                <a href="#" class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy
-                                    access to
-                                    your
-                                    order
-                                    history and status</a>
+                                    checkout</p>
+                                <p class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy access to
+                                    your order history and status</p>
                             </div>
                             <a href="#" class="button-black shopping-address-button_size">Continue</a>
                         </div>
@@ -201,19 +199,23 @@
                             <p class="shipping-address-text-bottom shipping-address-text-bottom_margin">Please log in
                                 below</p>
                             <div class="shipping-address-right-forms">
-                                <p class="shipping-address-right-form-text">EMAIL&nbsp;ADDRESS <span
+                                <p class="shipping-address-right-form-text">Login<span
                                         class="span-red">*</span>
                                 </p>
-                                <input class="shipping-address-right-form" type="email" required>
+                                <input class="shipping-address-right-form" type="text" required v-model="checkLogin">
                             </div>
                             <div class="shipping-address-right-forms">
                                 <p class="shipping-address-right-form-text">PASSWORD<span class="span-red">*</span></p>
-                                <input class="shipping-address-right-form" type="password" required>
+                                <input class="shipping-address-right-form" type="password" v-model="checkPassword"
+                                       required>
                             </div>
                             <p class="span-red span-red_text">* Required Fields</p>
                             <div class="log-in">
-                                <a href="#" class="button-black shopping-address-button_line-height">Log in</a>
-                                <a href="#" class="shipping-address-right-forgot">Forgot Password ?</a>
+                                <a href="#" class="button-black shopping-address-button_line-height"
+                                   @click.prevent="checkUser">Log in</a>
+                                <p v-if="check.length"
+                                   class="trending-now-link modal_text__margin modal_text__color">{{check}}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -222,47 +224,48 @@
                     <summary class="header-checkout">02. BILLING INFORMATION</summary>
                     <div class="shipping-address-box">
                         <div class="shipping-address-left">
-                            <form class="" action="">
+                            <form>
                                 <p class="shipping-address-text-top">Check as&nbsp;a&nbsp;guest or&nbsp;register</p>
                                 <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                                 <div class="radio-text">
-                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest</p>
+                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest
+                                    </p>
                                     <p><input type="radio" name="check" class="radio-text-bottom">register</p>
                                 </div>
                             </form>
                             <p class="shipping-address-text-top">register and save time!</p>
                             <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                             <div class="shipping-address-fast-box">
-                                <a href="#" class="shipping-address-fast shipping-address-fast__top"><i
+                                <p class="shipping-address-fast shipping-address-fast__top"><i
                                         class="fas fa-angle-double-right"></i>Fast and easy
-                                    checkout</a>
-                                <a href="#" class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy
-                                    access to
-                                    your
-                                    order
-                                    history and status</a>
+                                    checkout</p>
+                                <p class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy access to
+                                    your order history and status</p>
                             </div>
                             <a href="#" class="button-black shopping-address-button_size">Continue</a>
                         </div>
-
                         <div class="shipping-address-right">
                             <p class="shipping-address-text-top">Already registed?</p>
                             <p class="shipping-address-text-bottom shipping-address-text-bottom_margin">Please log in
                                 below</p>
                             <div class="shipping-address-right-forms">
-                                <p class="shipping-address-right-form-text">EMAIL&nbsp;ADDRESS <span
+                                <p class="shipping-address-right-form-text">Login<span
                                         class="span-red">*</span>
                                 </p>
-                                <input class="shipping-address-right-form" type="email" required>
+                                <input class="shipping-address-right-form" type="text" required v-model="checkLogin">
                             </div>
                             <div class="shipping-address-right-forms">
                                 <p class="shipping-address-right-form-text">PASSWORD<span class="span-red">*</span></p>
-                                <input class="shipping-address-right-form" type="password" required>
+                                <input class="shipping-address-right-form" type="password" v-model="checkPassword"
+                                       required>
                             </div>
                             <p class="span-red span-red_text">* Required Fields</p>
                             <div class="log-in">
-                                <a href="#" class="button-black shopping-address-button_line-height">Log in</a>
-                                <a href="#" class="shipping-address-right-forgot">Forgot Password ?</a>
+                                <a href="#" class="button-black shopping-address-button_line-height"
+                                   @click.prevent="checkUser">Log in</a>
+                                <p v-if="check.length"
+                                   class="trending-now-link modal_text__margin modal_text__color">{{check}}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -271,47 +274,48 @@
                     <summary class="header-checkout">03. SHIPPING INFORMATION</summary>
                     <div class="shipping-address-box">
                         <div class="shipping-address-left">
-                            <form class="" action="">
+                            <form>
                                 <p class="shipping-address-text-top">Check as&nbsp;a&nbsp;guest or&nbsp;register</p>
                                 <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                                 <div class="radio-text">
-                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest</p>
+                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest
+                                    </p>
                                     <p><input type="radio" name="check" class="radio-text-bottom">register</p>
                                 </div>
                             </form>
                             <p class="shipping-address-text-top">register and save time!</p>
                             <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                             <div class="shipping-address-fast-box">
-                                <a href="#" class="shipping-address-fast shipping-address-fast__top"><i
+                                <p class="shipping-address-fast shipping-address-fast__top"><i
                                         class="fas fa-angle-double-right"></i>Fast and easy
-                                    checkout</a>
-                                <a href="#" class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy
-                                    access to
-                                    your
-                                    order
-                                    history and status</a>
+                                    checkout</p>
+                                <p class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy access to
+                                    your order history and status</p>
                             </div>
                             <a href="#" class="button-black shopping-address-button_size">Continue</a>
                         </div>
-
                         <div class="shipping-address-right">
                             <p class="shipping-address-text-top">Already registed?</p>
                             <p class="shipping-address-text-bottom shipping-address-text-bottom_margin">Please log in
                                 below</p>
                             <div class="shipping-address-right-forms">
-                                <p class="shipping-address-right-form-text">EMAIL&nbsp;ADDRESS <span
+                                <p class="shipping-address-right-form-text">Login<span
                                         class="span-red">*</span>
                                 </p>
-                                <input class="shipping-address-right-form" type="email" required>
+                                <input class="shipping-address-right-form" type="text" required v-model="checkLogin">
                             </div>
                             <div class="shipping-address-right-forms">
                                 <p class="shipping-address-right-form-text">PASSWORD<span class="span-red">*</span></p>
-                                <input class="shipping-address-right-form" type="password" required>
+                                <input class="shipping-address-right-form" type="password" v-model="checkPassword"
+                                       required>
                             </div>
                             <p class="span-red span-red_text">* Required Fields</p>
                             <div class="log-in">
-                                <a href="#" class="button-black shopping-address-button_line-height">Log in</a>
-                                <a href="#" class="shipping-address-right-forgot">Forgot Password ?</a>
+                                <a href="#" class="button-black shopping-address-button_line-height"
+                                   @click.prevent="checkUser">Log in</a>
+                                <p v-if="check.length"
+                                   class="trending-now-link modal_text__margin modal_text__color">{{check}}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -320,47 +324,48 @@
                     <summary class="header-checkout">04. SHIPPING METHOD</summary>
                     <div class="shipping-address-box">
                         <div class="shipping-address-left">
-                            <form class="" action="">
+                            <form>
                                 <p class="shipping-address-text-top">Check as&nbsp;a&nbsp;guest or&nbsp;register</p>
                                 <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                                 <div class="radio-text">
-                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest</p>
+                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest
+                                    </p>
                                     <p><input type="radio" name="check" class="radio-text-bottom">register</p>
                                 </div>
                             </form>
                             <p class="shipping-address-text-top">register and save time!</p>
                             <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                             <div class="shipping-address-fast-box">
-                                <a href="#" class="shipping-address-fast shipping-address-fast__top"><i
+                                <p class="shipping-address-fast shipping-address-fast__top"><i
                                         class="fas fa-angle-double-right"></i>Fast and easy
-                                    checkout</a>
-                                <a href="#" class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy
-                                    access to
-                                    your
-                                    order
-                                    history and status</a>
+                                    checkout</p>
+                                <p class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy access to
+                                    your order history and status</p>
                             </div>
                             <a href="#" class="button-black shopping-address-button_size">Continue</a>
                         </div>
-
                         <div class="shipping-address-right">
                             <p class="shipping-address-text-top">Already registed?</p>
                             <p class="shipping-address-text-bottom shipping-address-text-bottom_margin">Please log in
                                 below</p>
                             <div class="shipping-address-right-forms">
-                                <p class="shipping-address-right-form-text">EMAIL&nbsp;ADDRESS <span
+                                <p class="shipping-address-right-form-text">Login<span
                                         class="span-red">*</span>
                                 </p>
-                                <input class="shipping-address-right-form" type="email" required>
+                                <input class="shipping-address-right-form" type="text" required v-model="checkLogin">
                             </div>
                             <div class="shipping-address-right-forms">
                                 <p class="shipping-address-right-form-text">PASSWORD<span class="span-red">*</span></p>
-                                <input class="shipping-address-right-form" type="password" required>
+                                <input class="shipping-address-right-form" type="password" v-model="checkPassword"
+                                       required>
                             </div>
                             <p class="span-red span-red_text">* Required Fields</p>
                             <div class="log-in">
-                                <a href="#" class="button-black shopping-address-button_line-height">Log in</a>
-                                <a href="#" class="shipping-address-right-forgot">Forgot Password ?</a>
+                                <a href="#" class="button-black shopping-address-button_line-height"
+                                   @click.prevent="checkUser">Log in</a>
+                                <p v-if="check.length"
+                                   class="trending-now-link modal_text__margin modal_text__color">{{check}}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -369,47 +374,48 @@
                     <summary class="header-checkout">05. PAYMENT METHODs</summary>
                     <div class="shipping-address-box">
                         <div class="shipping-address-left">
-                            <form class="" action="">
+                            <form>
                                 <p class="shipping-address-text-top">Check as&nbsp;a&nbsp;guest or&nbsp;register</p>
                                 <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                                 <div class="radio-text">
-                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest</p>
+                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest
+                                    </p>
                                     <p><input type="radio" name="check" class="radio-text-bottom">register</p>
                                 </div>
                             </form>
                             <p class="shipping-address-text-top">register and save time!</p>
                             <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                             <div class="shipping-address-fast-box">
-                                <a href="#" class="shipping-address-fast shipping-address-fast__top"><i
+                                <p class="shipping-address-fast shipping-address-fast__top"><i
                                         class="fas fa-angle-double-right"></i>Fast and easy
-                                    checkout</a>
-                                <a href="#" class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy
-                                    access to
-                                    your
-                                    order
-                                    history and status</a>
+                                    checkout</p>
+                                <p class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy access to
+                                    your order history and status</p>
                             </div>
                             <a href="#" class="button-black shopping-address-button_size">Continue</a>
                         </div>
-
                         <div class="shipping-address-right">
                             <p class="shipping-address-text-top">Already registed?</p>
                             <p class="shipping-address-text-bottom shipping-address-text-bottom_margin">Please log in
                                 below</p>
                             <div class="shipping-address-right-forms">
-                                <p class="shipping-address-right-form-text">EMAIL&nbsp;ADDRESS <span
+                                <p class="shipping-address-right-form-text">Login<span
                                         class="span-red">*</span>
                                 </p>
-                                <input class="shipping-address-right-form" type="email" required>
+                                <input class="shipping-address-right-form" type="text" required v-model="checkLogin">
                             </div>
                             <div class="shipping-address-right-forms">
                                 <p class="shipping-address-right-form-text">PASSWORD<span class="span-red">*</span></p>
-                                <input class="shipping-address-right-form" type="password" required>
+                                <input class="shipping-address-right-form" type="password" v-model="checkPassword"
+                                       required>
                             </div>
                             <p class="span-red span-red_text">* Required Fields</p>
                             <div class="log-in">
-                                <a href="#" class="button-black shopping-address-button_line-height">Log in</a>
-                                <a href="#" class="shipping-address-right-forgot">Forgot Password ?</a>
+                                <a href="#" class="button-black shopping-address-button_line-height"
+                                   @click.prevent="checkUser">Log in</a>
+                                <p v-if="check.length"
+                                   class="trending-now-link modal_text__margin modal_text__color">{{check}}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -418,47 +424,48 @@
                     <summary class="header-checkout">06. ORDER REVIEW</summary>
                     <div class="shipping-address-box">
                         <div class="shipping-address-left">
-                            <form class="" action="">
+                            <form>
                                 <p class="shipping-address-text-top">Check as&nbsp;a&nbsp;guest or&nbsp;register</p>
                                 <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                                 <div class="radio-text">
-                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest</p>
+                                    <p><input type="radio" name="check" class="radio-text-top">checkout as&nbsp;guest
+                                    </p>
                                     <p><input type="radio" name="check" class="radio-text-bottom">register</p>
                                 </div>
                             </form>
                             <p class="shipping-address-text-top">register and save time!</p>
                             <p class="shipping-address-text-bottom">Register with&nbsp;us for future convenience</p>
                             <div class="shipping-address-fast-box">
-                                <a href="#" class="shipping-address-fast shipping-address-fast__top"><i
+                                <p class="shipping-address-fast shipping-address-fast__top"><i
                                         class="fas fa-angle-double-right"></i>Fast and easy
-                                    checkout</a>
-                                <a href="#" class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy
-                                    access to
-                                    your
-                                    order
-                                    history and status</a>
+                                    checkout</p>
+                                <p class="shipping-address-fast"><i class="fas fa-angle-double-right"></i>Easy access to
+                                    your order history and status</p>
                             </div>
                             <a href="#" class="button-black shopping-address-button_size">Continue</a>
                         </div>
-
                         <div class="shipping-address-right">
                             <p class="shipping-address-text-top">Already registed?</p>
                             <p class="shipping-address-text-bottom shipping-address-text-bottom_margin">Please log in
                                 below</p>
                             <div class="shipping-address-right-forms">
-                                <p class="shipping-address-right-form-text">EMAIL&nbsp;ADDRESS <span
+                                <p class="shipping-address-right-form-text">Login<span
                                         class="span-red">*</span>
                                 </p>
-                                <input class="shipping-address-right-form" type="email" required>
+                                <input class="shipping-address-right-form" type="text" required v-model="checkLogin">
                             </div>
                             <div class="shipping-address-right-forms">
                                 <p class="shipping-address-right-form-text">PASSWORD<span class="span-red">*</span></p>
-                                <input class="shipping-address-right-form" type="password" required>
+                                <input class="shipping-address-right-form" type="password" v-model="checkPassword"
+                                       required>
                             </div>
                             <p class="span-red span-red_text">* Required Fields</p>
                             <div class="log-in">
-                                <a href="#" class="button-black shopping-address-button_line-height">Log in</a>
-                                <a href="#" class="shipping-address-right-forgot">Forgot Password ?</a>
+                                <a href="#" class="button-black shopping-address-button_line-height"
+                                   @click.prevent="checkUser">Log in</a>
+                                <p v-if="check.length"
+                                   class="trending-now-link modal_text__margin modal_text__color">{{check}}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -471,7 +478,8 @@
                 <figure class="comment-left">
                     <img src="img/comment1.png" alt="comment1">
                     <figcaption class="box-comment">
-                        <p class="comment-1-text"> &laquo;Vestibulum quis porttitor dui! Quisque viverra nunc mi,a pulvinar
+                        <p class="comment-1-text"> &laquo;Vestibulum quis porttitor dui! Quisque viverra nunc mi,a
+                            pulvinar
                             purus
                             condimentum&nbsp;a. Aliquam condimentum mattis neque sed pretium&raquo; </p>
                         <p class="pink-comment">Bin Burhan</p>

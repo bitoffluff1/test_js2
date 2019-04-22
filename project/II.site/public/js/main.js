@@ -7,6 +7,11 @@ Vue.component("product-item", {
             url: "single-page.html?id=" + this.item.id
         }
     },
+    methods: {
+        handleBuyClick(item) {
+            this.$emit("onbuy", item);
+        }
+    },
     template: `
             <div class="item">
                 <div class="fetured-item1">
@@ -23,28 +28,18 @@ Vue.component("product-item", {
                         <img class="cart-white" src="img/cart-white.svg" alt="cart">Add to Cart</a>
                 </div>
             </div>`,
-    methods: {
-        handleBuyClick(item) {
-            this.$emit("onbuy", item);
-        }
-    }
 });
 
 
 Vue.component("products", {
     props: ["query"],
-    methods: {
-        handleBuyClick(item) {
-            this.$emit("onbuy", item)
-        }
-    },
     data() {
         return {
             items: [],
             category: "featured",
         };
     },
-    computed: { //вычисляемое свойство
+    computed: {
         filteredItems() {
             if (this.query) {
                 const regexp = new RegExp(this.query, "i");
@@ -54,7 +49,7 @@ Vue.component("products", {
             }
         }
     },
-    mounted() {//когда компонент монтируется в дом
+    mounted() {
         const params = window.location.pathname.replace("/", "");
         if (params === "index.html") {
             this.category = "featured";
@@ -66,6 +61,11 @@ Vue.component("products", {
                 this.filteredItems = items;
             });
     },
+    methods: {
+        handleBuyClick(item) {
+            this.$emit("onbuy", item)
+        }
+    },
     template: `
         <div class="fetured-items-box">
             <product-item @onbuy="handleBuyClick" v-for="entry in filteredItems" :item="entry" :key="entry.id"></product-item>
@@ -74,101 +74,6 @@ Vue.component("products", {
 
 Vue.component("all-products", {
     props: ["query"],
-    methods: {
-        handleBuyClick(item) {
-            this.$emit("onbuy", item)
-        },
-        nextPage() {
-            this.pageNumber++;
-        },
-        prevPage() {
-            this.pageNumber--;
-        },
-        handleQuantityItemOnPageClick(size) {
-            this.quantityItemOnPage = +size;
-        },
-        sortItems(sortBy) {
-            if (sortBy === "lowPrice") {
-                if (this.arrSortByPrice.length) {
-                    this.arrSortByPrice.sort((itemA, itemB) => {
-                        return itemA.price - itemB.price
-                    });
-                } else {
-                    this.items.sort((itemA, itemB) => {
-                        return itemA.price - itemB.price
-                    })
-                }
-            }
-
-            if (sortBy === "name") {
-                if (this.arrSortByPrice.length) {
-                    this.arrSortByPrice.sort((a, b) => {
-                        const nameA = a.name.toLowerCase();
-                        const nameB = b.name.toLowerCase();
-                        if (nameA < nameB)
-                            return -1;
-                        if (nameA > nameB)
-                            return 1;
-                        return 0
-                    });
-                } else {
-                    this.items.sort((a, b) => {
-                        const nameA = a.name.toLowerCase();
-                        const nameB = b.name.toLowerCase();
-                        if (nameA < nameB)
-                            return -1;
-                        if (nameA > nameB)
-                            return 1;
-                        return 0
-                    });
-                }
-            }
-        },
-        sortByPrice(newPrice) {
-            this.arrSortByPrice = [];
-
-            if (this.query && this.arrSortBySize.length) {
-                if (this.filteredItems.length < this.arrSortBySize.length) {
-                    this.arrSortByPrice = this.filteredItems.filter((item) => item.price < newPrice);
-                } else {
-                    this.arrSortByPrice = this.arrSortBySize.filter((item) => item.price < newPrice);
-                }
-            } else if (this.query) {
-                this.arrSortByPrice = this.filteredItems.filter((item) => item.price < newPrice);
-            } else if (this.arrSortBySize.length) {
-                this.arrSortByPrice = this.arrSortBySize.filter((item) => item.price < newPrice);
-            } else {
-                this.arrSortByPrice = this.items.filter((item) => item.price < newPrice);
-            }
-        },
-        sortBySize(newSize) {
-            this.arrSortBySize = [];
-
-            if (this.query && this.arrSortByPrice.length) {
-                if (this.filteredItems.length < this.arrSortByPrice.length) {
-                    newSize.forEach((size) => {
-                        this.arrSortBySize = this.arrSortBySize.concat(this.filteredItems.filter((item) => item.size === size));
-                    });
-                } else {
-                    newSize.forEach((size) => {
-                        this.arrSortBySize = this.arrSortBySize.concat(this.arrSortByPrice.filter((item) => item.size === size));
-                    });
-                }
-            } else if (this.query) {
-                newSize.forEach((size) => {
-                    this.arrSortBySize = this.arrSortBySize.concat(this.filteredItems.filter((item) => item.size === size));
-                });
-            } else if (this.arrSortByPrice.length) {
-                newSize.forEach((size) => {
-                    this.arrSortBySize = this.arrSortBySize.concat(this.arrSortByPrice.filter((item) => item.size === size));
-                });
-            } else {
-                newSize.forEach((size) => {
-                    this.arrSortBySize = this.arrSortBySize.concat(this.arrSortBySize.filter((item) => item.size === size));
-                });
-            }
-        },
-    },
     data() {
         return {
             items: [],
@@ -239,8 +144,6 @@ Vue.component("all-products", {
                 return this.arrSortBySize.slice(start, end);
             } else if (this.arrSortByPrice.length) {
                 return this.arrSortByPrice.slice(start, end);
-            } else if (this.query) {
-                return this.filteredItems.slice(start, end);
             } else {
                 return this.items.slice(start, end);
             }
@@ -268,6 +171,112 @@ Vue.component("all-products", {
             });
 
 
+    },
+    methods: {
+        handleBuyClick(item) {
+            this.$emit("onbuy", item)
+        },
+        nextPage() {
+            this.pageNumber++;
+        },
+        prevPage() {
+            this.pageNumber--;
+        },
+        handleQuantityItemOnPageClick(size) {
+            this.quantityItemOnPage = +size;
+        },
+        sortItems(sortBy) {
+            function sortLowPrice(arr) {
+                arr.sort((itemA, itemB) => {
+                    return itemA.price - itemB.price
+                });
+            }
+
+            function sortLowName(arr) {
+                arr.sort((a, b) => {
+                    const nameA = a.name.toLowerCase();
+                    const nameB = b.name.toLowerCase();
+                    if (nameA < nameB)
+                        return -1;
+                    if (nameA > nameB)
+                        return 1;
+                    return 0
+                });
+            }
+
+
+            if (this.query) {
+                let arr = [this.filteredItems.length, this.arrSortBySize.length, this.arrSortByPrice.length];
+                arr = arr.filter((length) => length > 0);
+                let a = Math.min(...arr);
+
+                let array = [this.filteredItems, this.arrSortBySize, this.arrSortByPrice];
+                arr = array.filter((arr) => arr.length === a);
+
+                sortBy === "lowPrice" ? sortLowPrice(arr[0]) : sortLowName(arr[0])
+
+            } else if (this.arrSortBySize.length && this.arrSortByPrice.length) {
+                if (this.arrSortBySize.length >= this.arrSortByPrice.length) {
+                    sortBy === "lowPrice" ? sortLowPrice(this.arrSortByPrice) : sortLowName(this.arrSortByPrice);
+                } else {
+                    sortBy === "lowPrice" ? sortLowPrice(this.arrSortBySize) : sortLowName(this.arrSortBySize);
+                }
+
+            } else if (this.arrSortBySize.length) {
+                sortBy === "lowPrice" ? sortLowPrice(this.arrSortBySize) : sortLowName(this.arrSortBySize);
+            } else if (this.arrSortByPrice.length) {
+                sortBy === "lowPrice" ? sortLowPrice(this.arrSortByPrice) : sortLowName(this.arrSortByPrice);
+            } else if (this.query) {
+                sortBy === "lowPrice" ? sortLowPrice(this.filteredItems) : sortLowName(this.filteredItems)
+            } else {
+                sortBy === "lowPrice" ? sortLowPrice(this.items) : sortLowName(this.items);
+            }
+
+        },
+        sortByPrice(newPrice) {
+            this.arrSortByPrice = [];
+
+            if (this.query && this.arrSortBySize.length) {
+                if (this.filteredItems.length < this.arrSortBySize.length) {
+                    this.arrSortByPrice = this.filteredItems.filter((item) => item.price < newPrice);
+                } else {
+                    this.arrSortByPrice = this.arrSortBySize.filter((item) => item.price < newPrice);
+                }
+            } else if (this.query) {
+                this.arrSortByPrice = this.filteredItems.filter((item) => item.price < newPrice);
+            } else if (this.arrSortBySize.length) {
+                this.arrSortByPrice = this.arrSortBySize.filter((item) => item.price < newPrice);
+            } else {
+                this.arrSortByPrice = this.items.filter((item) => item.price < newPrice);
+            }
+        },
+        sortBySize(newSize) {
+            this.arrSortBySize = [];
+
+            if (this.query && this.arrSortByPrice.length) {
+                if (this.filteredItems.length < this.arrSortByPrice.length) {
+                    newSize.forEach((size) => {
+                        this.arrSortBySize = this.arrSortBySize.concat(this.filteredItems.filter((item) => item.size === size));
+                    });
+                } else {
+                    newSize.forEach((size) => {
+                        this.arrSortBySize = this.arrSortBySize.concat(this.arrSortByPrice.filter((item) => item.size === size));
+                    });
+                }
+            } else if (this.query) {
+                newSize.forEach((size) => {
+                    this.arrSortBySize = this.arrSortBySize.concat(this.filteredItems.filter((item) => item.size === size));
+                });
+            } else if (this.arrSortByPrice.length) {
+                newSize.forEach((size) => {
+                    this.arrSortBySize = this.arrSortBySize.concat(this.arrSortByPrice.filter((item) => item.size === size));
+                });
+            } else {
+                newSize.forEach((size) => {
+                    this.arrSortBySize = this.arrSortBySize.concat(this.items.filter((item) => item.size === size));
+                });
+            }
+        },
     },
     template: `
         <div class="mini-container">
@@ -362,6 +371,14 @@ Vue.component("cart-item", {
             url: "single-page.html?id=" + this.item.id
         }
     },
+    methods: {
+        handleDeleteClick(item) {
+            this.$emit("ondelete", item);
+        },
+        handleChangeInputClick(item, quantity) {
+            this.$emit("changeinput", item, quantity);
+        }
+    },
     template: `
             <div class="row row-product">
                 <div class="col col-1 row_first">
@@ -386,14 +403,6 @@ Vue.component("cart-item", {
                     <a href="#" class="delete-cart-item" @click.prevent="handleDeleteClick(item)">
                         <i class="fas fa-times-circle"></i></a></div>
             </div>`,
-    methods: {
-        handleDeleteClick(item) {
-            this.$emit("ondelete", item);
-        },
-        handleChangeInputClick(item, quantity) {
-            this.$emit("changeinput", item, quantity);
-        }
-    }
 });
 
 Vue.component("cart-products", {
@@ -420,6 +429,11 @@ Vue.component("mini-cart-item", {
             url: "single-page.html?id=" + this.item.id
         }
     },
+    methods: {
+        handleDeleteClick(item) {
+            this.$emit("ondelete", item);
+        },
+    },
     template: `
         <figure class="cart-product">
             <a :href="url" class="img-cart-product"><img :src="item.image" alt="product" class="image-mini-cart"></a>
@@ -436,12 +450,6 @@ Vue.component("mini-cart-item", {
             </figcaption>
             <i class="fas fa-times-circle fa-times-circle__cart" @click="handleDeleteClick(item)"></i>
         </figure>`,
-
-    methods: {
-        handleDeleteClick(item) {
-            this.$emit("ondelete", item);
-        },
-    }
 });
 
 Vue.component("mini-cart-products", {
@@ -460,8 +468,7 @@ Vue.component("mini-cart-products", {
 
 Vue.component("menu-link", {
     props: ["link"],
-    template: `
-            <li><a class="drop-link" href="#">{{link}}</a></li>`,
+    template: `<li><a class="drop-link" href="#">{{link}}</a></li>`
 });
 
 Vue.component("browse-menu", {
@@ -470,7 +477,7 @@ Vue.component("browse-menu", {
             lists: [],
         };
     },
-    mounted() {//когда компонент монтируется в дом
+    mounted() {
         fetch(`${API_URL}/browse`)
             .then((response) => response.json())
             .then((items) => {
@@ -492,7 +499,7 @@ Vue.component("nav-menu", {
             lists: [],
         };
     },
-    mounted() {//когда компонент монтируется в дом
+    mounted() {
         fetch(`${API_URL}/nav`)
             .then((response) => response.json())
             .then((items) => {
@@ -522,6 +529,14 @@ Vue.component("nav-menu", {
 
 Vue.component("feedback-item-app", {
     props: ["item"],
+    methods: {
+        deleteApproval(item) {
+            this.$emit("ondelete", item);
+        },
+        revocationApproval(item) {
+            this.$emit("approval", item);
+        }
+    },
     template: `
         <div class="feedback-item">
             <h3 class="text-material-designer">Name: <span class="bold-text">{{item.name}}</span></h3>
@@ -534,14 +549,6 @@ Vue.component("feedback-item-app", {
             </div>
          </div>`
     ,
-    methods: {
-        deleteApproval(item) {
-            this.$emit("ondelete", item);
-        },
-        revocationApproval(item) {
-            this.$emit("approval", item);
-        }
-    }
 });
 
 
@@ -555,7 +562,6 @@ Vue.component("feedback-item", {
                 <p class="text-details text-details__feedback">{{item.message}}</p>
             </div>
          </div>`
-    ,
 });
 
 
@@ -679,7 +685,8 @@ Vue.component("item", {
             quantityItem: 1,
             color: "",
             size: "",
-            id: null
+            id: null,
+            errors: []
         };
     },
     mounted() {//когда компонент монтируется в дом
@@ -695,7 +702,17 @@ Vue.component("item", {
     },
     methods: {
         handleBuyClick(item) {
-            this.$emit("onbuy", item, this.quantityItem, this.color, this.size);
+            this.errors = [];
+
+            if (!this.color) {
+                this.errors.push("Сhoose color");
+            }
+            if (!this.size) {
+                this.errors.push("Сhoose size");
+            }
+            if (!this.errors.length) {
+                this.$emit("onbuy", item, this.quantityItem, this.color, this.size);
+            }
         }
     },
     template: `
@@ -743,6 +760,10 @@ Vue.component("item", {
                         <div class="box-button-add">
                             <a href="#" class="button-add" @click.prevent="handleBuyClick(item)"><img class="img-cart-pink" src="img/cart-pink.svg"
                                                                 alt="cart">Add to&nbsp;Cart</a>
+                        </div>
+                        <div v-if="errors.length" class="flex">
+                            <p class="bold-text">Please correct the following error(s): </p>
+                            <p class="text-bottom-fetured-items" v-for="error in errors">{{ error }}</p>
                         </div>
                     </div>
                 </div>
@@ -822,7 +843,7 @@ const app = new Vue({
             this.filterValue = query;
         },
         handleBuyClick(item, quantityItem = 1, color = "Black", size = "S") {
-            if(this.userId === 0){
+            if (this.userId === 0) {
                 this.modal = "modal";
                 return;
             }
