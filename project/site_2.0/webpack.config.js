@@ -17,14 +17,17 @@ module.exports = {
                 loader: "babel-loader",
             },
             {
-                test: /\.scss$/,
+                test: /\.sass$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    'vue-style-loader',
                     {
                         loader: "css-loader",
                     },
                     {
                         loader: "sass-loader",
+                        options: {
+                            indentedSyntax: true
+                        }
                     }
                 ]
             }

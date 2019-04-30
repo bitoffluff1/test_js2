@@ -236,7 +236,7 @@ function buildList() {
 }
 
 $searchText.addEventListener("focus", () => {
-    $namesList.style.display = "block";
+    $namesList._main.display = "block";
 });
 
 $searchText.addEventListener("input", () => {
@@ -245,7 +245,7 @@ $searchText.addEventListener("input", () => {
 
 $searchText.addEventListener("focusout", () => {
     setTimeout(() => {
-        $namesList.style.display = "none"
+        $namesList._main.display = "none"
     }, 500);
 });
 

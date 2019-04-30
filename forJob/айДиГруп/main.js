@@ -47,7 +47,7 @@ renderList(images);
 $examples.addEventListener("click", (event) => {
     event.preventDefault();
 
-    $modal.style.display = "block";
+    $modal._main.display = "block";
 
     const src = event.target.firstChild.href;
     $original.innerHTML = "";
@@ -56,7 +56,7 @@ $examples.addEventListener("click", (event) => {
 
 window.addEventListener("click", (event) => {
     if (event.target.parentNode === $original) {
-        $modal.style.display = "none";
+        $modal._main.display = "none";
     }
 });
 

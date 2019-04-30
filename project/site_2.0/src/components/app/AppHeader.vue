@@ -1,15 +1,20 @@
 <template>
-    <div class="header">Hi! I'm header!</div>
+    <div>
+        <app-header-logo></app-header-logo>
+    </div>
 </template>
 
 <script>
+    import AppHeaderLogo from "./header/AppHeaderLogo.vue";
+
     export default {
-        name: "AppHeader"
+        name: "AppHeader",
+        components: {
+            AppHeaderLogo,
+        }
     }
 </script>
 
-<style lang="scss" scoped>
-    .header{
-        background-color: #0a1d6e;
-    }
+<style lang="sass" scoped>
+
 </style>

@@ -15,7 +15,7 @@ export default new VueRouter({
         },
         {
             name: "user-single",
-            path: "/user/:id",
+            path: "/single-page.html/:id",
             component: PageUserSingle,
             props: true,
         }
