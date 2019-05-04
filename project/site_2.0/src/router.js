@@ -10,7 +10,7 @@ export default new VueRouter({
     routes: [
         {
             name: "home",
-            path: "/",
+            path: "/index.html",
             component: PageHome,
         },
         {

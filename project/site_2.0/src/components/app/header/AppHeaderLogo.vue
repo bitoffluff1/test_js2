@@ -33,11 +33,11 @@
 </template>
 
 <script>
-    import BrowseMenu from "./BrowseMenu.vue";
-    import Search from "./Search.vue";
-    import CartDropBox from "./CartDropBox.vue";
-    import RegisteredDropBox from "./RegisteredDropBox.vue";
-    import ModalForRegistration from "./ModalForRegistration.vue";
+    import BrowseMenu from "./headerLogo/BrowseMenu.vue";
+    import Search from "./headerLogo/Search.vue";
+    import CartDropBox from "./headerLogo/CartDropBox.vue";
+    import RegisteredDropBox from "./headerLogo/RegisteredDropBox.vue";
+    import ModalForRegistration from "./headerLogo/ModalForRegistration.vue";
 
     export default {
         name: "AppHeaderLogo",
@@ -109,6 +109,16 @@
 
     details[open] > .category
         color: $pink
+
+    .browse:after
+        content: '\25B6'
+        padding-left: 1em
+        font-size: 12px
+
+    .category:after
+        content: '\25BC'
+        padding-left: 137px
+        font-size: 12px
 
     .browse-details[open] > .browse:after
         content: '\25BC'
