@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import MenuLink from "./MenuLink.vue";
+    import MenuLink from "../MenuLink.vue";
 
     export default {
         name: "BrowseMenu",

@@ -35,8 +35,13 @@
 </template>
 
 <script>
+    import NavMenu from "./headerNav/NavMenu.vue";
+
     export default {
-        name: "AppHeaderNav"
+        name: "AppHeaderNav",
+        components:{
+            NavMenu
+        }
     }
 </script>
 
