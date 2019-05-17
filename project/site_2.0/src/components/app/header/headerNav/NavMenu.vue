@@ -30,74 +30,80 @@
         data() {
             return {
                 lists: [],
-            };
+            }
         },
         mounted() {
             fetch("http://localhost:3000/nav")
                 .then((response) => response.json())
                 .then((items) => {
-                    this.lists = items;
-                });
+                    this.lists = items
+                })
         },
     }
 </script>
 
-<style scoped>
-    .drop-box {
-        border-radius: 5px;
-        background-color: #ffffff;
-        border: 1px solid #ececec;
-        position: absolute;
-        padding: 20px;
-        display: none;
-        top: 50px;
-        left: -10px;
-        z-index: 10;
-    }
+<style lang="sass" scoped>
+    .drop-box 
+        border-radius: 5px
+        background-color: #ffffff
+        border: 1px solid #ececec
+        position: absolute
+        padding: 20px
+        display: none
+        top: 50px
+        left: -10px
+        z-index: 10
 
-    .drop-box:before {
-        content: "";
-        display: block;
-        width: 12px;
-        height: 12px;
-        position: absolute;
-        top: -8px;
-        left: 31px;
-        transform: rotate(45deg);
-        background-color: #ffffff;
-        border-top: 1px solid #ececec;
-        border-left: 1px solid #ececec;
-    }
+    .drop-box:before 
+        content: ""
+        display: block
+        width: 12px
+        height: 12px
+        position: absolute
+        top: -8px
+        left: 31px
+        transform: rotate(45deg)
+        background-color: #ffffff
+        border-top: 1px solid #ececec
+        border-left: 1px solid #ececec
 
-    .drop-flex {
-        margin-right: 46px;
-    }
+    .drop-flex 
+        margin-right: 46px
 
-    .drop-flex:last-of-type {
-        margin-right: 0;
-    }
+    .drop-flex:last-of-type 
+        margin-right: 0
 
+    .drop-heading 
+        color: #232323
+        font-size: 14px
+        font-weight: 500
+        text-transform: uppercase
+        letter-spacing: 0.35px
+        border-bottom: 1px solid #e8e8e8
+        width: 235px
+        padding-bottom: 8px
+        margin-bottom: 8px
 
-    .drop-heading {
-        color: #232323;
-        font-size: 14px;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.35px;
-        border-bottom: 1px solid #e8e8e8;
-        width: 235px;
-        padding-bottom: 8px;
-        margin-bottom: 8px;
-    }
+    .drop-menu 
+        list-style-type: none
 
-    .drop-menu {
-        list-style-type: none;
-    }
+    .img-drop-flex 
+        margin-top: 22px
+        background-image: url("img/drop-menu.jpg")
+        width: 255px
+        height: 118px
 
-    .img-drop-flex {
-        margin-top: 22px;
-        background-image: url("img/drop-menu.jpg");
-        width: 255px;
-        height: 118px;
-    }
+    .text-img-drop-flex
+        color: #ffffff
+        font-size: 22px
+        font-weight: 600
+        line-height: 28px
+        text-transform: uppercase
+        letter-spacing: 0.55px
+        text-decoration: none
+        width: 45px
+        float: right
+        margin-right: 35px
+        margin-top: 58px
+
 </style>

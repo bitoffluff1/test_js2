@@ -23,6 +23,9 @@ module.exports = {
                     "vue-style-loader",
                     {
                         loader: "css-loader",
+                        options: {
+                            url: false
+                        }
                     },
                     {
                         loader: "resolve-url-loader",
@@ -34,19 +37,7 @@ module.exports = {
                         }
                     }
                 ]
-            },
-            {
-                test: /\.(png|gif|jp&g)$/,
-                loaders: [
-                    {
-                        loader: "file-loader",
-                        options: {
-                            name: "[path][name].[ext]",
-                        }
-                    },
-                    "img-loader",
-                ]
-            },
+            }
         ]
     },
     devServer: {

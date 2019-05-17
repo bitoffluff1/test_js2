@@ -39,7 +39,7 @@
 
     export default {
         name: "AppHeaderNav",
-        components:{
+        components: {
             NavMenu
         }
     }
@@ -47,6 +47,7 @@
 
 <style lang="sass" scoped>
     @import "../../../assets/main"
+
     .navigation
         background-color: #ffffff
 
@@ -54,11 +55,14 @@
         list-style-type: none
         justify-content: center
 
+
     .menu-list
         position: relative
 
+
     .menu-list:hover .drop-box
         display: flex
+
 
     .menu-link
         color: #222222
@@ -69,11 +73,14 @@
         padding: 13px 23px 20px
         display: block
 
+
     .menu-link:hover
         color: $pink
 
+
     .drop-box-last
         left: -300px
+
 
     .drop-box-last:before
         left: 331px
