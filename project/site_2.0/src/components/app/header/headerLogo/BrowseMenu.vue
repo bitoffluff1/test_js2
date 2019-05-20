@@ -33,13 +33,11 @@
 <style lang="sass" scoped>
     .browse-drop-flex
         margin-bottom: 30px
-
-    .browse-drop-flex:last-of-type
-        margin-bottom: 0
+        &:last-of-type
+            margin-bottom: 0
 
     .drop-heading
         color: #232323
-        font-size: 14px
         font-weight: 500
         text-transform: uppercase
         letter-spacing: 0.35px

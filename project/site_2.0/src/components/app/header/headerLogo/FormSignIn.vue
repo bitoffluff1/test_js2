@@ -8,7 +8,7 @@
             <a href="#" class="button-black forms-button_size modal_size"
                @click.prevent="checkUser">SIGN IN</a>
             <p v-if="check.length"
-               class="trending-now-link modal_text__margin modal_text__color">{{check}}</p>
+               class="trending-now-link modal_text__margin pink">{{check}}</p>
         </div>
     </form>
 </template>
@@ -55,16 +55,13 @@
         border: 1px solid #eaeaea
         background-color: #ffffff
         color: #4a4a4a
-        font-size: 13px
+        +size-button(45px, 18px, 13px)
         font-weight: 300
-        height: 45px
         width: 355px
         display: block
-        line-height: 45px
         outline: none
         margin-bottom: 20px
         position: relative
-        padding-left: 18px
 
         &_width
             width: 337px
@@ -100,7 +97,6 @@
 
     .trending-now-link
         color: #6f6e6e
-        font-size: 14px
         font-weight: 400
         line-height: 26px
         text-decoration: none
@@ -110,8 +106,4 @@
 
     .modal_text__margin
         padding: 0 20px
-
-    .modal_text__color
-        color: $pink
-
 </style>

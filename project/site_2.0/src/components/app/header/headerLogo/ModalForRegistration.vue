@@ -29,7 +29,7 @@
         },
         data() {
             return {
-                sign: "",
+                sign: "signIn",
             }
         },
         methods: {
@@ -37,13 +37,7 @@
                 this.$emit("close");
             },
             handleSignClick(button) {
-                //this.sign = button === "signIn" ? "signIn" : "";
-                if (button === "signIn") {
-                    this.sign = "signIn";
-                }
-                if (button === "signUp") {
-                    this.sign = "signUp";
-                }
+                this.sign = button === "signIn" ? "signIn" : "signUp";
             },
         },
     }
@@ -83,6 +77,9 @@
         position: absolute
         right: 40px
         top: 40px
+        color: #222222
+        &:hover
+            color: $pink
 
     .title
         text-decoration: none

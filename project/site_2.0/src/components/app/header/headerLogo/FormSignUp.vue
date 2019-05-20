@@ -14,7 +14,7 @@
             <a href="#" class="button-black forms-button_size modal_size"
                @click="sendUser">SIGN UP</a>
             <div v-if="errors.length"
-                 class="trending-now-link modal_text__margin modal_text__color">
+                 class="trending-now-link modal_text__margin pink">
                 <b>Please correct the following error(s):</b>
                 <ul class="drop-menu">
                     <li class="drop-link" v-for="error in errors">{{ error }}</li>
@@ -85,16 +85,13 @@
         border: 1px solid #eaeaea
         background-color: #ffffff
         color: #4a4a4a
-        font-size: 13px
+        +size-button(45px, 18px, 13px)
         font-weight: 300
-        height: 45px
         width: 355px
         display: block
-        line-height: 45px
         outline: none
         margin-bottom: 20px
         position: relative
-        padding-left: 18px
 
         &_width
             width: 337px
@@ -129,7 +126,6 @@
 
     .trending-now-link
         color: #6f6e6e
-        font-size: 14px
         font-weight: 400
         line-height: 26px
         text-decoration: none
@@ -140,19 +136,14 @@
     .modal_text__margin
         padding: 0 20px
 
-    .modal_text__color
-        color: $pink
-
     .drop-menu
         list-style-type: none
 
     .drop-link
         color: #646464
-        font-size: 14px
-        font-weight: 400
         letter-spacing: 0.35px
         text-decoration: none
         line-height: 28px
         &:hover
-            color: #f16d7f
+            color: $pink
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="buttons_account">
+    <div class="buttons_account flex">
         <a href="#" class="button">{{check}}</a>
         <div class="account_drop-box">
             <li><a class="drop-link" href="#" @click.prevent="handleSignOutClick">Sign Out</a></li>
@@ -33,7 +33,6 @@
 <style lang="sass" scoped>
     @import "../../../../assets/main"
     .buttons_account
-        display: flex
         position: relative
 
     .account_drop-box
@@ -53,33 +52,23 @@
         display: block
 
     .button
-        padding-left: 17px
-        padding-right: 17px
-        height: 38px
+        +size-button(38px, 17px, 15px)
         display: block
         text-decoration: none
         color: #ffffff
-        font-size: 15px
-        font-weight: 400
         letter-spacing: 0.28px
-        line-height: 34px
         background-color: $pink
         margin-left: 25px
-
-
-    .button:hover
-        box-shadow: 0 5px 8px #646464
+        &:hover
+            box-shadow: 0 5px 8px #646464
 
     .drop-link
         color: #646464
-        font-size: 14px
         letter-spacing: 0.35px
         text-decoration: none
         line-height: 28px
-
-
-    .drop-link:hover
-        color: $pink
+        &:hover
+            color: $pink
 
     .modal
         position: fixed

@@ -15,7 +15,7 @@
                 <a href="#" class="button-black forms-button_size modal_size"
                    @click.prevent="changePassword">SAVE PASSWORD</a>
                 <p v-if="changePass.length"
-                   class="trending-now-link modal_text__margin modal_text__color">
+                   class="trending-now-link modal_text__margin pink">
                     {{changePass}}</p>
             </div>
         </main>
@@ -85,7 +85,6 @@
         margin: 0 10px
 
     .forms-title
-        color: #222222
         font-size: 16px
         font-weight: 700
         text-transform: uppercase
@@ -95,16 +94,13 @@
         border: 1px solid #eaeaea
         background-color: #ffffff
         color: #4a4a4a
-        font-size: 13px
+        +size-button(45px, 18px, 13px)
         font-weight: 300
-        height: 45px
         width: 355px
         display: block
-        line-height: 45px
         outline: none
         margin-bottom: 20px
         position: relative
-        padding-left: 18px
 
         &:last-of-type
             margin-bottom: 23px
@@ -129,7 +125,7 @@
         text-transform: uppercase
 
         &:hover
-        box-shadow: 0 5px 8px #646464
+            box-shadow: 0 5px 8px #646464
 
     .forms-button_size
         +size-button(35px, 15px, 11px)
@@ -144,18 +140,13 @@
 
     .trending-now-link
         color: #6f6e6e
-        font-size: 14px
-        font-weight: 400
         line-height: 26px
         text-decoration: none
 
         &:hover
-        color: $pink
+            color: $pink
 
     .modal_text__margin
         padding: 0 20px
-
-    .modal_text__color
-        color: $pink
 
 </style>

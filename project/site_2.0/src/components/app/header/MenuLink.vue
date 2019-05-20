@@ -10,13 +10,12 @@
 </script>
 
 <style lang="sass" scoped>
+    @import "../../../assets/main"
     .drop-link
         color: #646464
-        font-size: 14px
         letter-spacing: 0.35px
         text-decoration: none
         line-height: 28px
-
-    .drop-link:hover
-        color: #f16d7f
+        &:hover
+            color: $pink
 </style>

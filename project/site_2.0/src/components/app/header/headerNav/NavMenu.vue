@@ -43,9 +43,9 @@
 </script>
 
 <style lang="sass" scoped>
-    .drop-box 
-        border-radius: 5px
+    .drop-box
         background-color: #ffffff
+        border-radius: 5px
         border: 1px solid #ececec
         position: absolute
         padding: 20px
@@ -53,29 +53,26 @@
         top: 50px
         left: -10px
         z-index: 10
-
-    .drop-box:before 
-        content: ""
-        display: block
-        width: 12px
-        height: 12px
-        position: absolute
-        top: -8px
-        left: 31px
-        transform: rotate(45deg)
-        background-color: #ffffff
-        border-top: 1px solid #ececec
-        border-left: 1px solid #ececec
+        &:before
+            content: ""
+            display: block
+            width: 12px
+            height: 12px
+            position: absolute
+            background-color: #ffffff
+            top: -8px
+            left: 31px
+            transform: rotate(45deg)
+            border-top: 1px solid #ececec
+            border-left: 1px solid #ececec
 
     .drop-flex 
         margin-right: 46px
-
-    .drop-flex:last-of-type 
-        margin-right: 0
+        &:last-of-type
+            margin-right: 0
 
     .drop-heading 
         color: #232323
-        font-size: 14px
         font-weight: 500
         text-transform: uppercase
         letter-spacing: 0.35px

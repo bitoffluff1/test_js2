@@ -1,5 +1,5 @@
 <template>
-    <figure class="cart-product">
+    <figure class="cart-product flex">
         <a :href="url" class="img-cart-product">
             <img :src="item.image" alt="product" class="image-mini-cart"></a>
         <figcaption class="text-cart-drop">
@@ -11,7 +11,7 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
             </div>
-            <p class="price-cart">{{item.quantity}} x ${{item.price}}</p>
+            <p class="pink">{{item.quantity}} x ${{item.price}}</p>
         </figcaption>
         <i class="fas fa-times-circle fa-times-circle__cart" @click="handleDeleteClick(item)"></i>
     </figure>
@@ -38,14 +38,12 @@
     @import "../../../../assets/main"
     .cart-product
         border-bottom: 1px solid #e8e8e8
-        display: flex
         padding-top: 16px
+        &:first-of-type
+            padding-top: 0
 
     .img-cart-product
         padding-bottom: 16px
-
-    .cart-product:first-of-type
-        padding-top: 0
 
     .image-mini-cart
         width: 78px
@@ -58,7 +56,6 @@
         text-transform: uppercase
 
     .text-cart-drop-box
-        color: #222222
         font-weight: 700
         text-decoration: none
 
@@ -66,9 +63,6 @@
         color: #e4af48
         margin-bottom: 12px
         margin-top: 10px
-
-    .price-cart
-        color: $pink
 
     .fa-times-circle__cart
         margin-top: 30px

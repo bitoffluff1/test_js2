@@ -24,32 +24,26 @@
 </script>
 
 <style lang="sass" scoped>
+    @import "../../../../assets/main"
     .input-form
+        +size-button(38px, 15px, 14px)
         width: 317px
-        height: 38px
         border-radius: 0 3px 3px 0
         border: 1px solid #e6e6e6
-        background-color: #ffffff
-        font-size: 14px
         font-weight: 300
         letter-spacing: 0.35px
-        padding-right: 15px
-        padding-left: 15px
         opacity: 0.67
         outline: none
 
     .button-form
         color: #a4a4a4
-        font-size: 14px
-        font-weight: 400
         letter-spacing: 0.35px
         padding: 0 11px
-        line-height: 38px
         border-radius: 0 3px 3px 0
         border: 1px solid #e6e6e6
         outline: none
         cursor: pointer
-        background-color: white
+        background-color: #ffffff
 
 
 </style>
