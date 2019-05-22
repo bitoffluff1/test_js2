@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "blockName": "Women",
+    "title": [
+      "Dresses",
+      "Tops",
+      "Sweaters/Knits",
+      "Jackets/Coats",
+      "Blazers",
+      "Denim",
+      "Leggings/Pants",
+      "Skirts/Shorts",
+      "Accessories"
+    ]
+  },
+  {
+    "id": 2,
+    "blockName": "Men",
+    "title": [
+      "Tees/Tank tops",
+      "Shirts/Polos",
+      "Sweaters",
+      "Sweatshirts/Hoodies",
+      "Blazers",
+      "Jackets/Vests"
+    ]
+  }
+]

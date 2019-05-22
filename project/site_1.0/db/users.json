@@ -1,0 +1,26 @@
+[
+  {
+    "email": "a@mail.ru",
+    "login": "Alex",
+    "password": "123",
+    "id": 1
+  },
+  {
+    "email": "i@mail.ru",
+    "login": "Ivan",
+    "password": "12345",
+    "id": 2
+  },
+  {
+    "email": "ann@mail.ru",
+    "login": "Ann",
+    "password": "123",
+    "id": 3
+  },
+  {
+    "email": "awada@mail.ru",
+    "login": "awasada",
+    "password": "awasada",
+    "id": 4
+  }
+]

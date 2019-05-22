@@ -1,0 +1,45 @@
+[
+  {
+    "id": 1,
+    "blockName": "Women1",
+    "title": [
+      "Dresses",
+      "Tops",
+      "Sweaters/Knits",
+      "Jackets/Coats",
+      "Blazers",
+      "Denim",
+      "Leggings/Pants",
+      "Skirts/Shorts",
+      "Accessories"
+    ]
+  },
+  {
+    "id": 2,
+    "blockName": "Women2",
+    "title": [
+      "Dresses",
+      "Tops",
+      "Sweaters/Knits"
+    ]
+  },
+  {
+    "id": 3,
+    "blockName": "Women3",
+    "title": [
+      "Dresses",
+      "Tops",
+      "Sweaters/Knits"
+    ]
+  },
+  {
+    "id": 4,
+    "blockName": "Women4",
+    "title": [
+      "Dresses",
+      "Tops",
+      "Sweaters/Knits",
+      "Jackets/Coats"
+    ]
+  }
+]

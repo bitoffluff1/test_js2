@@ -5,7 +5,7 @@ Vue.component("product-item", {
     template: `
             <div class="item">
                 <div class="fetured-item1">
-                    <a href="single-page.html" class="fetured-item">
+                    <a href="#" class="fetured-item">
                         <img :src="item.image" alt="fetured-items">
                         <div class="item-text">
                             <p class="name-item">{{item.name}}</p>
@@ -37,7 +37,7 @@ Vue.component("products", {
             items: [],
         };
     },
-    computed: { //вычисляемое свойство
+    computed: {
         filteredItems() {
             if (this.query) {
                 const regexp = new RegExp(this.query, "i");
@@ -47,7 +47,7 @@ Vue.component("products", {
             }
         }
     },
-    mounted() {//когда компонент монтируется в дом
+    mounted() {
         fetch(`${API_URL}/items`)
             .then((response) => response.json())
             .then((items) => {
@@ -167,7 +167,7 @@ Vue.component("browse-menu", {
             lists: [],
         };
     },
-    mounted() {//когда компонент монтируется в дом
+    mounted() {
         fetch(`${API_URL}/browse`)
             .then((response) => response.json())
             .then((items) => {
