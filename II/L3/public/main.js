@@ -236,7 +236,7 @@ function buildList() {
 }
 
 $searchText.addEventListener("focus", () => {
-    $namesList._main.display = "block";
+    $namesList.style.display = "block";
 });
 
 $searchText.addEventListener("input", () => {
@@ -245,7 +245,7 @@ $searchText.addEventListener("input", () => {
 
 $searchText.addEventListener("focusout", () => {
     setTimeout(() => {
-        $namesList._main.display = "none"
+        $namesList.style.display = "none"
     }, 500);
 });
 
@@ -254,122 +254,10 @@ $namesList.addEventListener("click", (event) => {
     $searchText.value = event.target.textContent;
 });
 
-$searchButton.addEventListener("click", () => {
+$searchButton.addEventListener("click", (event) => {
+    event.preventDefault();
     items.filterItems($searchText.value);
     document.querySelector(".fetured-items-box").innerHTML = items.render();
-});
-
-
-//выпадающее меню Browse
-class Link {
-    constructor(title) {
-        this.title = title;
-    }
-
-    render() {
-        return `<li><a class="drop-link" href="#">${this.title}</a></li>`;
-    }
-}
-
-class MenuList {
-    constructor() {
-        this.items = [];
-    }
-
-    fetchMenuList(url) {
-        return fetch(url)
-            .then((response) => response.json())
-            .then((items) => {
-                this.items = items.map(item => new Link(item.title));
-            });
-    }
-
-    render() {
-        const itemsHtmls = this.items.map(item => item.render());
-        return itemsHtmls.join("");
-    }
-}
-
-let browseListTitle = [];
-fetch(`${API_URL}/browse`)
-    .then((response) => response.json())
-    .then((items) => {
-        next:
-            for (let i = 0; i < items.length; i++) {
-                let blockName = items[i].blockName;
-                for (let j = 0; j < browseListTitle.length; j++) {
-                    if (browseListTitle[j] === blockName) continue next;
-                }
-                browseListTitle.push(blockName);
-            }
-    })
-    .then(() => browseListTitle.forEach((item) => createList(item)));
-
-function createList(browseTitle) {
-    const browseList = new MenuList();
-    browseList.fetchMenuList(`${API_URL}/browse?blockName=${browseTitle}`)
-        .then(() => {
-            document.querySelector(".browse-drop-box").innerHTML +=
-                `<div class="browse-drop-flex">
-                    <h3 class="drop-heading">${browseTitle}</h3>
-                    <ul class="browse-drop-menu">${browseList.render()}</ul></div>`
-        });
-}
-
-
-
-
-//выпадающее главное меню
-document.querySelectorAll(".drop-box").forEach((item) => {
-    let navListTitle = [];
-    fetch(`${API_URL}/nav`)
-        .then((response) => response.json())
-        .then((items) => {
-            next:
-                for (let i = 0; i < items.length; i++) {
-                    let blockName = items[i].blockName;
-                    for (let j = 0; j < navListTitle.length; j++) {
-                        if (navListTitle[j] === blockName) continue next;
-                    }
-                    navListTitle.push(blockName);
-                    console.log(navListTitle);
-                }
-        })
-        .then(() => navListTitle.forEach((item, i) => createListNav(item, i)));
-
-
-
-    function createListNav(title, i) {
-        if (i === 2) {
-            const browseList = new MenuList();
-            browseList.fetchMenuList(`${API_URL}/nav?blockName=${title}`)
-                .then(() => {
-                    item.querySelectorAll(".drop-flex")[1].innerHTML +=
-                        `<br>
-                        <h3 class="drop-heading">${title}</h3>
-                        <ul class="drop-menu">${browseList.render()}</ul>`
-                });
-        }
-        if (i === 3) {
-            const browseList = new MenuList();
-            browseList.fetchMenuList(`${API_URL}/nav?blockName=${title}`)
-                .then(() => {
-                    item.querySelectorAll(".drop-flex")[2].innerHTML +=
-                        `<br>
-                        <h3 class="drop-heading">${title}</h3>
-                        <ul class="drop-menu">${browseList.render()}</ul>`
-                });
-        }
-        if (i === 0 || i === 1) {
-            const browseList = new MenuList();
-            browseList.fetchMenuList(`${API_URL}/nav?blockName=${title}`)
-                .then(() => {
-                    item.querySelectorAll(".drop-flex")[i].innerHTML +=
-                        `<h3 class="drop-heading">${title}</h3>
-                     <ul class="drop-menu">${browseList.render()}</ul>`
-                });
-        }
-    }
 });
 
 
