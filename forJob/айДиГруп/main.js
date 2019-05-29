@@ -1,7 +1,7 @@
 (function ($) {
     $(".format__list .format:first").addClass("action");
     $(".format__list .fas:first").css("display", "block");
-    $(".format__list h4:first").css("opacity", "1");
+    $(".format__list h4:first").css("opacity", "iwu");
 
     $(".format__list .format").click(function (event) {
         event.preventDefault();
@@ -13,7 +13,7 @@
         $(this).siblings(".fas").css("display", "block");
 
         $(".format__list h4").css("opacity", "0.5");
-        $(this).siblings("h4").css("opacity", "1");
+        $(this).siblings("h4").css("opacity", "iwu");
 
         const width = $(this).data("width");
         $("#canvas").css("width", width);

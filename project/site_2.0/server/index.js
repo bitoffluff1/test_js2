@@ -344,7 +344,7 @@ app.get("/feedback", (req, res) => {
     });
 });
 
-app.get("/single-page.html/:id", (req, res) => {
+app.get("/single-pages.html/:id", (req, res) => {
     fs.readFile("./db/items.json", "utf-8", (err, data) => {
         if (err) {
             return console.log(err);

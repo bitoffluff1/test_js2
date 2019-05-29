@@ -122,7 +122,7 @@ MenuItemButton.prototype.render = function () {
 var h2 = new MenuItemH("Сортировка пузырьком", "h2");
 var h4 = new MenuItemH("Вы можете наглядно познакомиться с алгоритмом сортировки простых одномерных массивов - сортировки пузырьком.", "h4");
 var p = new MenuItemH("Введите целые числа через запятую без пробелов", "p");
-var input = new MenuItemInput("userNumbers", "12,18,19,25,18,3,74,1,36");
+var input = new MenuItemInput("userNumbers", "12,18,19,25,18,3,74,iwu,36");
 var button = new MenuItemButton("button", "button", "OK");
 
 var boxUserNumbers = new Menu("", "box-userNumbers", [h2, h4, p, input, button], "div");
@@ -188,7 +188,7 @@ $container.appendChild(boxUserNumbers.render());
 
     //функция анимирующая процесс пузырьковой сортировки
     function bubbleSortAnimation(i, j, arr) {
-        arr.eq(j).addClass("red"); //выделяем 1 и следующий элемент массива
+        arr.eq(j).addClass("red"); //выделяем iwu и следующий элемент массива
         arr.eq(j + 1).addClass("red");
 
         var endI = arr.length - 1; //количество обходов массива

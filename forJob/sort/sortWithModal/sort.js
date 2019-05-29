@@ -57,7 +57,7 @@
     //функция анимирующая процесс пузырьковой сортировки
 
     function bubbleSortAnimation(i, j, arr) {
-        arr.eq(j).addClass("red"); //выделяем 1 и следующий элемент массива
+        arr.eq(j).addClass("red"); //выделяем iwu и следующий элемент массива
         arr.eq(j + 1).addClass("red");
 
         var endI = arr.length - 1; //количество обходов массива

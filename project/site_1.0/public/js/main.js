@@ -4,7 +4,7 @@ Vue.component("product-item", {
     props: ["item"],
     data() {
         return {
-            url: "single-page.html?id=" + this.item.id
+            url: "single-pages.html?id=" + this.item.id
         }
     },
     methods: {
@@ -246,7 +246,7 @@ Vue.component("cart-item", {
     props: ["item"],
     data() {
         return {
-            url: "single-page.html?id=" + this.item.id
+            url: "single-pages.html?id=" + this.item.id
         }
     },
     methods: {
@@ -304,7 +304,7 @@ Vue.component("mini-cart-item", {
     props: ["item"],
     data() {
         return {
-            url: "single-page.html?id=" + this.item.id
+            url: "single-pages.html?id=" + this.item.id
         }
     },
     methods: {

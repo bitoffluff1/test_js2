@@ -23,7 +23,7 @@
         props: ["item"],
         data() {
             return {
-                url: "single-page.html?id=" + this.item.id
+                url: "single-pages.html?id=" + this.item.id
             }
         },
         methods: {
