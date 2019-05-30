@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function stringformat(n) {
+        n += "";
+        const str = "Score is";
+
+        switch (n.length) {
+            case 1:
+                return `${str} 0000${n}`;
+            case 2:
+                return `${str} 000${n}`;
+            case 3:
+                return `${str} 00${n}`;
+            case 4:
+                return `${str} 0${n}`;
+            case 5:
+                return `${str} ${n}`;
+            default:
+                return `${str} ${n}`;
+        }
+    }
+
+    console.log(stringformat(0));
+</script>
+</body>
+</html>

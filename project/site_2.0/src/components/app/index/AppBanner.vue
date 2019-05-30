@@ -55,6 +55,7 @@
             margin: 48px 0
             flex-direction: column
             justify-content: space-around
+            width: 310px
 
     .banner-text
         text-decoration: none

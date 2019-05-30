@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function drawRating(arr, k) {
+        arr = [...new Set(arr)];
+        arr.sort();
+
+        let first = 0;
+        let last = arr.length - 1;
+        let a = [];
+        console.log(arr);
+
+        while (first < last) {
+            let s = arr[last] - arr[first];
+            if (s === k) {
+                a.push([arr[first], arr[last]]);
+                first++;
+                last--;
+            } else {
+                if (s < k) first++;
+                else last--;
+            }
+        }
+        return a.length;
+    }
+
+    arr = [1, 5, 2, 4, 2, 2];
+    console.log(drawRating(arr, 3));
+
+</script>
+</body>
+</html>

@@ -5,6 +5,8 @@
             <main>
                 <slot></slot>
             </main>
+            <app-comments></app-comments>
+            <app-footer-top></app-footer-top>
         </div>
 
         <app-footer></app-footer>
@@ -13,13 +15,17 @@
 
 <script>
     import AppHeader from "../app/AppHeader.vue";
+    import AppComments from "../app/AppComments.vue";
+    import AppFooterTop from "../app/AppFooterTop.vue";
     import AppFooter from "../app/AppFooter.vue";
 
     export default {
         name: "LayoutDefault",
         components: {
             AppHeader,
-            AppFooter,
+            AppComments,
+            AppFooterTop,
+            AppFooter
         }
     }
 </script>

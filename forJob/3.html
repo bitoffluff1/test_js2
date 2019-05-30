@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Дана функция, она принимает в качестве аргументов строки '*', '1', 'b', '1c',
+реализуйте ее так, что бы она вернула строку '1*b*1c'.
+
+<script>
+
+    function getStr() {
+        const arg = ["*", 1, "b", "1c"];
+        return [].slice.call(arg, 1).join(arg[0]);
+    }
+
+    console.log(getStr());
+
+
+</script>
+
+</body>
+</html>

@@ -27,6 +27,7 @@
     import AppProducts from "../app/AppProducts.vue";
     import AppBanner from "../app/index/AppBanner.vue";
 
+
     export default {
         name: "PageHome",
         components: {
@@ -34,7 +35,6 @@
             AppCategories,
             AppProducts,
             AppBanner,
-
         },
         data() {
             return {

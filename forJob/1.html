@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Разворачивание многомерного массива
+
+<script>
+
+
+    function concatenation(arr) {
+        let array = [];
+        for (let i = 0; i < arr.length; i++){
+            if (typeof arr[i] === "object"){
+                array = array.concat(concatenation(arr[i]));
+            }else{
+                array.push(arr[i]);
+            }
+        }
+        return array;
+    }
+
+    const arr = [1, 2, [3, 4, [5, 6], 7, 8], 9, [10, 11, [12]]];
+    console.log(concatenation(arr));
+    
+</script>
+
+</body>
+</html>
