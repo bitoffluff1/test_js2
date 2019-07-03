@@ -16,11 +16,5 @@
     "login": "Ann",
     "password": "123",
     "id": 3
-  },
-  {
-    "email": "awada@mail.ru",
-    "login": "awasada",
-    "password": "awasada",
-    "id": 4
   }
 ]

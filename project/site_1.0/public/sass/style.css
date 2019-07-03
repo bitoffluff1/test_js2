@@ -189,7 +189,9 @@
   .button-pink:hover {
     border: 1px solid #ef5b70;
     background-color: #ffffff;
-    color: #ef5b70; }
+    color: #ef5b70;
+    padding-left: 41px;
+    padding-right: 41px; }
 
 .proceed-to-checkout-button_size {
   font-weight: 700;
@@ -1493,14 +1495,14 @@ details[open] > .category {
 .img-product {
   margin-top: 11px;
   margin-bottom: 42px;
-  height: 724px;
-  width: 597px; }
+  height: 580px;
+  width: 550px; }
 
 .details-single-product {
   border: 1px solid #eaeaea;
   background-color: #ffffff;
   text-align: center;
-  margin-top: -85px;
+  margin-top: -230px;
   z-index: 1;
   position: relative; }
 
@@ -1691,7 +1693,7 @@ body {
 
 .modal {
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   left: 0;
   right: 0;
   top: 0;

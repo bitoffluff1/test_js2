@@ -342,7 +342,7 @@ app.get("/feedback", (req, res) => {
     });
 });
 
-app.get("/single-pages.html/:id", (req, res) => {
+app.get("/single-page.html/:id", (req, res) => {
     fs.readFile("./db/items.json", "utf-8", (err, data) => {
         if (err) {
             return console.log(err);
@@ -359,7 +359,7 @@ app.get("/single-pages.html/:id", (req, res) => {
             if (randomItems.length === 0) {
                 randomItems.push(items[rand]);
             }
-            if (randomItems.length > 0 & !randomItems.includes(items[rand])) {
+            if (randomItems.length > 0 && !randomItems.includes(items[rand])) {
                 randomItems.push(items[rand]);
                 i++;
             }

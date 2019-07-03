@@ -77,6 +77,4 @@
         background-color: $pink
         &:hover
             box-shadow: 0 5px 8px #646464
-
-
 </style>

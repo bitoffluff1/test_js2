@@ -34,8 +34,6 @@
         background-image: url(../img/comment.jpg)
         background-repeat: no-repeat
         background-position: center
-        margin-top: 97px
-
         &-back
             height: 438px
             align-items: center

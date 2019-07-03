@@ -8,7 +8,6 @@
             <app-comments></app-comments>
             <app-footer-top></app-footer-top>
         </div>
-
         <app-footer></app-footer>
     </div>
 </template>
