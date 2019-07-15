@@ -45,8 +45,9 @@
     @import "../../../assets/main"
     .banner
         height: 529px
-        margin-top: 118px
+        margin-top: 118px!important
         background-color: #222224
+        margin-bottom: 97px!important
 
         &_left
             background-image: url(../img/Banner.jpg)

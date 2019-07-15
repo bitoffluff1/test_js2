@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+напишите функцию, которая проверяет, что в отсортированном массиве встречается такая пара чисел, которая даёт нужную
+сумму.
+
+check([1, 2, 3, 6], 9) // true: 6+3=9
+check([1, 1, 3, 4], 2) // true: 1+1=2
+check([-1, 1, 4, 8], 3) // true: -1+4=3
+check([1, 4, 8, 9], 6) // false
+
+<script>
+
+    /**
+     * Функция проверяет, меньше ли проверяемое сейчас число size - m + i,
+     * если меньше, то записываем с этим числом новую комбинацию и увеличиваем его на 1
+     *
+     * Arr - массив с комбинацией чисел
+     * i - номер числа начиная с 1, который мы проверяем
+     * size - длинна все первоначального массива чисел, у которого мы находим все комбинации
+     * m - число, размер комдинации (Например из 2 чисел)
+     *
+     */
+    function f(arr, i, size, m) {
+        if (arr[i - 1] < (size - m + i)) {
+            return true;
+        }
+    }
+
+    /**
+     * Функцию вызываем для проверки всех чисел в комбинации
+     * Если все числа равны size - m + i, то больше комбинаций нет
+     */
+    function fn(arr, i, size, m) {
+        if (arr[i - 1] === (size - m + i)) {
+            return true;
+        }
+    }
+
+
+    /**
+     * Функция проверяет все комбинации в массииве arr,
+     * с помощью полученных возможных комбинации comb (все комбинации начинаются с 1)
+     */
+    function check(arr, num) {
+        const comb = getComb(arr);
+
+        for (let el of comb) {
+            let first = el[0] - 1;
+            let second = el[1] - 1;
+
+            let sum = arr[first] + arr[second];
+            if (sum === num) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Функция создает все возможные комбинации для массива arr
+     * Указывает позицию в массиве начиная с 1
+     */
+    function getComb(arr) {
+        let comb = [[1, 2]];
+
+        let j = 2;
+        let k = j;
+
+        while (true) {
+            if (f(comb[comb.length - 1], 2, arr.length, 2)) {
+                comb.push([comb[comb.length - 1][0], k + 1]);
+                k++;
+            } else {
+                if (f(comb[comb.length - 1], 1, arr.length, 2)) {
+                    comb.push([j, j + 1]);
+                }
+                j++;
+                k = j;
+            }
+
+            if (fn(comb[comb.length - 1], 2, arr.length, 2) && fn(comb[comb.length - 1], 1, arr.length, 2)) {
+                break;
+            }
+        }
+
+        return comb;
+    }
+
+
+    /*function check(arr, target) {
+        return arr.some(k => {
+            return arr.some(n => n + k === target);
+        })
+    }*/
+
+    console.log(check([1, 2, 3, 6], 9));
+    console.log(check([1, 1, 3, 4], 2));
+    console.log(check([-1, 1, 4, 8], 3));
+    console.log(check([1, 4, 8, 9], 6));
+
+</script>
+
+</body>
+</html>

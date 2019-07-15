@@ -4,7 +4,7 @@ Vue.component("product-item", {
     props: ["item"],
     data() {
         return {
-            url: "single-pages.html?id=" + this.item.id
+            url: "single-page.html?id=" + this.item.id
         }
     },
     methods: {
@@ -82,18 +82,8 @@ Vue.component("all-products", {
             pageNumber: 0,
             checkedSize: [],
             price: 0,
-            maxPrice: 0,
-            arrSortByPrice: [],
-            arrSortBySize: [],
+            maxPrice: null,
         };
-    },
-    watch: {
-        price(newPrice) {
-            this.sortByPrice(newPrice);
-        },
-        checkedSize(newSize) {
-            this.sortBySize(newSize);
-        }
     },
     computed: {
         filteredItems() {
@@ -137,9 +127,9 @@ Vue.component("all-products", {
             .then((items) => {
                 this.items = items;
 
-                let prise = [];
-                this.items.forEach((item) => prise.push(+item.price));
-                this.maxPrice = Math.max(...prise);
+                let price = [];
+                this.items.forEach((item) => price.push(+item.price));
+                this.maxPrice = Math.max(...price);
             });
     },
     methods: {
@@ -246,7 +236,7 @@ Vue.component("cart-item", {
     props: ["item"],
     data() {
         return {
-            url: "single-pages.html?id=" + this.item.id
+            url: "single-page.html?id=" + this.item.id
         }
     },
     methods: {

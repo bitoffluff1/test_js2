@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+напишите функцию, которая выводит в консоль числа от 1 до 100.
+Вместо чисел, кратным 3 — выводит fizz.
+Вместо кратным 5 — выводит buzz.
+Если число кратно и 3 и 5 — выводит fizzbuzz.
+
+1, 2, 'fizz', 4, 'buzz', 6, ...
+
+<script>
+
+
+    function getArray() {
+        for (let i = 1; i <= 100; i++){
+            if( i % 3 === 0 && i % 5 === 0)console.log('fizzbuzz');
+            else if (i % 3 === 0) console.log('fizz');
+            else if (i % 5 === 0)console.log('buzz');
+            else console.log(i);
+        }
+    }
+
+    getArray();
+
+</script>
+
+</body>
+</html>
