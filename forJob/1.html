@@ -9,13 +9,13 @@
 
 <script>
 
-
+//с рекурсией
     function concatenation(arr) {
         let array = [];
-        for (let i = 0; i < arr.length; i++){
-            if (typeof arr[i] === "object"){
+        for (let i = 0; i < arr.length; i++) {
+            if (typeof arr[i] === "object") {
                 array = array.concat(concatenation(arr[i]));
-            }else{
+            } else {
                 array.push(arr[i]);
             }
         }
@@ -24,7 +24,49 @@
 
     const arr = [1, 2, [3, 4, [5, 6], 7, 8], 9, [10, 11, [12]]];
     console.log(concatenation(arr));
-    
+
+//варианты без рекурсии
+    function flat(arr) {
+        const result = [];
+
+        for (let i = 0; i < arr.length; i++) {
+            if (Array.isArray(arr[i])) {
+                const queue = [...arr[i]];
+
+                while (queue.length) {
+                    const [current] = queue.splice(0, 1);
+
+                    if (Array.isArray(current)) {
+                        queue.push(...current)
+                    } else {
+                        result.push(current);
+                    }
+                }
+
+                continue;
+            }
+
+            result.push(arr[i])
+        }
+
+        return result;
+    }
+
+
+    /*const flat = (arr) => {
+        const output = [...arr];
+        let index = 0;
+        while (index < output.length) {
+            const item = output[index];
+            if (Array.isArray(item)) {
+                output.splice(index, 1, ...item);
+            } else {
+                index += 1
+            }
+        }
+        return output
+    };*/
+
 </script>
 
 </body>
